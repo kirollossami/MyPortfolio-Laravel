@@ -1,0 +1,189 @@
+/* ========== Root Variables (Light Mode Default) ========== */
+:root {
+  --primary: #6f42c1;
+  --secondary: #ffd43b;
+  --dark: #212529;
+  --light: #f8f9fa;
+  --text: #212529;
+  --bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --gradient: linear-gradient(135deg, #6f42c1, #0d6efd, #d63384);
+}
+
+/* ========== Dark Mode ========== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --text: #e9ecef;
+    --card-bg: #1e1e1e;
+    --secondary: #ffcd39;
+  }
+}
+
+/* ========== Global Styles ========== */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  color: var(--primary);
+}
+
+a:hover {
+  color: var(--secondary);
+}
+
+/* ========== Navbar ========== */
+.navbar {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background-color: var(--card-bg);
+  transition: background 0.3s ease;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+  font-weight: 500;
+  padding: 8px 15px;
+  position: relative;
+  color: var(--text) !important;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: var(--gradient);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ========== Hero Section ========== */
+header {
+  background: var(--gradient);
+  color: #fff;
+  padding: 120px 0;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+header h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  animation: fadeInDown 1s ease;
+}
+
+header p {
+  font-size: 1.25rem;
+  margin-bottom: 25px;
+  animation: fadeInUp 1.2s ease;
+}
+
+header .btn-primary {
+  background-color: var(--secondary);
+  border: none;
+  color: #000;
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 12px 30px;
+  transition: all 0.3s ease;
+}
+
+header .btn-primary:hover {
+  background-color: #ffc107;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+header .btn-outline {
+  border: 2px solid #fff;
+  color: #fff;
+  border-radius: 30px;
+  padding: 12px 30px;
+  transition: all 0.3s ease;
+}
+
+header .btn-outline:hover {
+  background: #fff;
+  color: var(--dark);
+}
+
+/* ========== Sections ========== */
+section {
+  padding: 90px 0;
+}
+
+section h2 {
+  font-weight: 700;
+  margin-bottom: 35px;
+  text-align: center;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ========== Cards ========== */
+.card {
+  background: var(--card-bg);
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ========== Footer ========== */
+footer {
+  background: var(--dark);
+  color: #adb5bd;
+  text-align: center;
+  padding: 20px 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+footer a {
+  color: #adb5bd;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+
+footer a:hover {
+  color: var(--secondary);
+}
+
+/* ========== Animations ========== */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
