@@ -111,6 +111,10 @@
                     <i class="bi bi-telephone"></i>
                     +20 10 340 37540
                   </a>
+                  <a href="tel:+201289198945" class="contact-item">
+                    <i class="bi bi-telephone"></i>
+                    +20 12 891 98945
+                  </a>
                   <a href="https://maps.app.goo.gl/8xnjcmWM6qEAhXrC6" class="contact-item">
                     <i class="bi bi-geo-alt"></i>
                     October, Gardens in Egypt
@@ -559,174 +563,66 @@
             <div class="resume-section" data-aos="fade-up" data-aos-delay="200">
               <h3><i class="bi bi-award me-2"></i>Certifications</h3>
 
-              <div class="resume-item d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <img src="assets/img/Kirollos Samy Ishaq Tawfik.png" alt="NTI Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
-                      <div>
-                          <h4>NTI Summer Training</h4>
-                          <h5>2025</h5>
-                      </div>
-                  </div>
-                  <a href="{{ route('download.certificate')}}" download id="downloadCertificateBtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
-                  <script>
-                    document.getElementById('downloadCertificateBtn').addEventListener('click', async () => {
-                    const response = await fetch("{{ route('download.certificate') }}");
+              <div class="resume-section" data-aos="fade-up" data-aos-delay="200">
+                  <h3><i class="bi bi-award me-2"></i>Certifications</h3>
 
-                    const blob = await response.blob();
+                    <div class="resume-item d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img src="assets/img/Kirollos Samy Ishaq Tawfik.png" alt="NTI Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                            <div>
+                                <h4>NTI Summer Training</h4>
+                                <h5>2025</h5>
+                            </div>
+                        </div>
+                        <a href="{{ route('download.certificate')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                    </div>
 
-                    const url = window.URL.createObjectURL(blob);
-            
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = "kirollos_samy_certificate.pdf"; 
-                    document.body.appendChild(a);
-                    a.click(); 
-                    a.remove();
-                });
-                </script>
-              </div>
+                    <div class="resume-item d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img src="assets/img/BasicSQL.png" alt="Basic SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                            <div>
+                                <h4>SQL Basic Training</h4>
+                                <h5>2025</h5>
+                            </div>
+                        </div>
+                        <a href="{{ route('download.BasicSQLcertificate')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                    </div>
 
-              <!-- Waiting for DEPI Certificate
-              <div class="resume-item d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <img src="assets/img/Kirollos Samy Ishaq Tawfik.png" alt="NTI Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
-                      <div>
-                          <h4>DEPI Training</h4>
-                          <h5>2026</h5>
-                      </div>
-                  </div>
-                  <a href="{{ route('download.certificate')}}" download id="downloadCertificateBtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
-                  <script>
-                    document.getElementById('downloadCertificateBtn').addEventListener('click', async () => {
-                    const response = await fetch("{{ route('download.certificate') }}");
+                    <div class="resume-item d-flex align-items-box align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img src="assets/img/IntermediateSQL.png" alt="Intermediate SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                            <div>
+                                <h4>SQL Intermediate Certificate</h4>
+                                <h5>2025</h5>
+                            </div>
+                        </div>
+                        <a href="{{ route('download.IntermediateSQLcertificate')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                    </div>
 
-                    const blob = await response.blob();
+                    <div class="resume-item d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img src="assets/img/AdvancedSQL.png" alt="Advanced SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                            <div>
+                                <h4>SQL Advanced Certificate</h4>
+                                <h5>2025</h5>
+                            </div>
+                        </div>
+                        <a href="{{ route('download.AdvancedSQLcertificate')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                    </div>
 
-                    const url = window.URL.createObjectURL(blob);
-            
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = "kirollos_samy_certificate.pdf"; 
-                    document.body.appendChild(a);
-                    a.click(); 
-                    a.remove();
-                });
-                </script>
-              </div> -->
+                    <div class="resume-item d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img src="assets/img/GitHubCertificate.png" alt="GitHub Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                            <div>
+                                <h4>Git&GitHub Certificate</h4>
+                                <h5>2026</h5>
+                            </div>
+                        </div>
+                        <a href="{{ route('download.GitHubcertificate')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                    </div>
 
-              <!-- Basic SQL Certificate -->
-              <div class="resume-item d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <img src="assets/img/BasicSQL.png" alt="Basic SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
-                      <div>
-                          <h4>SQL Basic Training</h4>
-                          <h5>2025</h5>
-                      </div>
-                  </div>
-                  <a href="{{ route('download.BasicSQLcertificate')}}" download id="downloadBasicSQLbtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
-                  <script>
-                    document.getElementById('downloadBasicSQLbtn').addEventListener('click', async () => {
-                    const response = await fetch("{{ route('download.BasicSQLcertificate') }}");
-
-                    const blob = await response.blob();
-
-                    const url = window.URL.createObjectURL(blob);
-            
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = "BasicSQLCertificate-KirollosSamy.pdf"; 
-                    document.body.appendChild(a);
-                    a.click(); 
-                    a.remove();
-                });
-                </script>
-              </div>
-
-           <!-- Intermediate SQL Certificate -->
-              <div class="resume-item d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <img src="assets/img/IntermediateSQL.png" alt="Intermediate SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
-                      <div>
-                          <h4>SQL Intermediate Certificate</h4>
-                          <h5>2025</h5>
-                      </div>
-                  </div>
-                  <a href="{{ route('download.IntermediateSQLcertificate')}}" download id="downloadIntermediateSQLbtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
-                  <script>
-                    document.getElementById('downloadIntermediateSQLbtn').addEventListener('click', async () => {
-                    const response = await fetch("{{ route('download.IntermediateSQLcertificate') }}");
-
-                    const blob = await response.blob();
-
-                    const url = window.URL.createObjectURL(blob);
-            
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = "IntermediateSQLCertificate-KirollosSamy.pdf"; 
-                    document.body.appendChild(a);
-                    a.click(); 
-                    a.remove();
-                });
-                </script>
-              </div>
-
-              <!-- Advanced SQL Certificate -->
-              <div class="resume-item d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <img src="assets/img/AdvancedSQL.png" alt="Advanced SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
-                      <div>
-                          <h4>SQL Advanced Certificate</h4>
-                          <h5>2025</h5>
-                      </div>
-                  </div>
-                  <a href="{{ route('download.AdvancedSQLcertificate')}}" download id="downloadAdvancedSQLbtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
-                  <script>
-                    document.getElementById('downloadAdvancedSQLbtn').addEventListener('click', async () => {
-                    const response = await fetch("{{ route('download.AdvancedSQLcertificate') }}");
-
-                    const blob = await response.blob();
-
-                    const url = window.URL.createObjectURL(blob);
-            
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = "AdvancedSQLCertificate-KirollosSamy.pdf"; 
-                    document.body.appendChild(a);
-                    a.click(); 
-                    a.remove();
-                });
-                </script>
-              </div>
-
-              <!-- GitHub Certificate --> 
-              <div class="resume-item d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                      <img src="assets/img/GitHubCertificate.png" alt="GitHub Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
-                      <div>
-                          <h4>Git&GitHub Certificate</h4>
-                          <h5>2026</h5>
-                      </div>
-                  </div>
-                  <a href="{{ route('download.GitHubcertificate')}}" download id="downloadGitHubbtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
-                  <script>
-                    document.getElementById('downloadGitHubbtn').addEventListener('click', async () => {
-                    const response = await fetch("{{ route('download.GitHubcertificate') }}");
-
-                    const blob = await response.blob();
-
-                    const url = window.URL.createObjectURL(blob);
-            
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = "GitHubCertificate-KirollosSamy.pdf"; 
-                    document.body.appendChild(a);
-                    a.click(); 
-                    a.remove();
-                });
-                </script>
-              </div>
-
-              
+                </div>
+                              
             </div>
           </div>
         </div>
