@@ -11,10 +11,15 @@ class ResumesController extends Controller
     public function resumedownload(){
 
         $file = public_path("assets/pdf/resume.pdf");
+
+        if(!file_exists($file)){
+            Log::error("Resume file not found: " . $file);
+            abort(404, "Resume file not found.");
+        }
         
         return response()->download($file, 'resume.pdf', [
-        'Content-Type' => 'application/octet-stream',
-        'Cache-Control' => 'no-cache, must-revalidate'
+        'Content-Type' => 'application/pdf',
+        'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0'
 ]);
 
 }

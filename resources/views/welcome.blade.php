@@ -179,32 +179,16 @@
               </div>
 
               <div class="cta-section">
-                <a href="{{ route('download.resume') }}" id="downloadResumeBtn" class="btn btn-primary">
+                <a href="{{ route('download.resume') }}" class="btn btn-primary" download="resume.pdf">
                     <i class="bi bi-download"></i>
                     Download Resume
                 </a>
 
-                <script>
-                document.getElementById('downloadResumeBtn').addEventListener('click', async () => {
-                    const response = await fetch("{{ route('download.resume') }}");
-
-                    const blob = await response.blob();
-
-                    const url = window.URL.createObjectURL(blob);
-            
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = "resume.pdf"; 
-                    document.body.appendChild(a);
-                    a.click(); 
-                    a.remove();
-                });
-                </script>
                 <a href="https://wa.me/message/HEKWNGDE4LGHK1?src=qr" class="btn btn-outline">
                     <i class="bi bi-chat-dots"></i>
-                    Let's Talk What'app
+                    Let's Talk WhatsApp
                 </a>
-              </div>
+            </div>
             </div>
           </div>
         </div>
