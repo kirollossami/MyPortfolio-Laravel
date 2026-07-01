@@ -135,6 +135,7 @@
                 <i class="bi bi-code-slash"></i>
                 <h5>Technologies</h5>
                 <p>PHP, Laravel, MySQL, REST APIs</p>
+                <p>C#, ASP.NET Core, SQL Server, REST APIs</p>
               </div>
               <div class="info-item">
                 <i class="bi bi-telephone"></i>

@@ -285,6 +285,17 @@
                   </div>
                   <div class="skill-tooltip">Experience with Framework Bootstrap, state management, and component architecture</div>
                 </div>
+
+                <div class="skill-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4>Angular</h4>
+                    <span class="skill-percentage">80%</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="skill-tooltip">Experience with Framework Angular, state management, and components-based architecture</div>
+                </div>
               </div>
             </div><!-- End Frontend Skills -->
           </div>
@@ -302,6 +313,17 @@
                     <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <div class="skill-tooltip">OOP and Native with Express and REST APIs, MVP and MVC</div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4>Java</h4>
+                    <span class="skill-percentage">90%</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="skill-tooltip">OOP, using JavaFX framework to build desktop applications</div>
                 </div>
 
                 <div class="skill-item">
@@ -325,6 +347,40 @@
                   </div>
                   <div class="skill-tooltip">Database design, optimization, and complex queries</div>
                 </div>
+
+                <div class="skill-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4>C#</h4>
+                    <span class="skill-percentage">85%</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="skill-tooltip">Native C#, OOP, Entity Framework, LINQ, REST APIs, MVP and MVC</div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4>ASP.NET Core</h4>
+                    <span class="skill-percentage">85%</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="skill-tooltip">Use ASP.NET Core to build modern, scalable web applications using MVC pattern and Web API</div>
+                </div>
+
+                <div class="skill-item">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4>SQL Server</h4>
+                    <span class="skill-percentage">95%</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="skill-tooltip">Database design, optimization, and complex queries</div>
+                </div>
+
               </div>
             </div>
             <!-- End Backend Skills -->
@@ -357,14 +413,16 @@
               </div>
 
               <h3>Professional Summary</h3>
-              <p>Full Stack Developer (PHP) with strong expertise in designing and developing scalable web applications. I am skilled in both web design (UI/UX Principles, responsive layouts) and web development Front-end (HTML, CSS, JavaScript, Bootstrap) and Backend (PHP, Laravel, RESTful APIs, MySQL) development, with hands-on experience applying MVC architecture. I am proficient in object-oriented programming (OOP) and problem-solving, with the ability to identify root causes and deliver efficient, reliable solutions. Passionate about building robust systems that improve performance and user experience.
-              Experienced in working with Database Management Systems (DBMS), particularly MySQL and SQL Server, including database design, queries, and optimization. Adept at analyzing problems, identifying root causes, and implementing efficient solutions to ensure long-term reliability.</p>
+              <p>
+                  Full Stack Developer with strong expertise in designing, developing, and maintaining scalable web applications using <strong>PHP (Laravel)</strong> and <strong>ASP.NET</strong> technologies. Experienced in building secure, high-performance applications using <strong>MVC architecture</strong>, developing <strong>RESTful APIs</strong>, and implementing robust backend solutions. Proficient in <strong>ASP.NET MVC</strong>, <strong>ASP.NET Web API</strong>, <strong>Entity Framework</strong>, <strong>LINQ</strong>, <strong>ADO.NET</strong>, <strong>PHP</strong>, and <strong>Laravel</strong>. Skilled in front-end development with <strong>HTML</strong>, <strong>CSS</strong>, <strong>JavaScript</strong>, and <strong>Bootstrap</strong>, with a solid understanding of <strong>UI/UX principles</strong> and responsive web design. Strong foundation in <strong>Object-Oriented Programming (OOP)</strong>, software design patterns, and scalable application development. Experienced in working with <strong>MySQL</strong> and <strong>Microsoft SQL Server</strong>, including database design, query optimization, stored procedures, and performance tuning. Adept at problem-solving, identifying root causes, and delivering efficient, reliable solutions that improve application performance, security, and user experience.
+              </p>
 
               <h3 class="mt-4">Contact Information</h3>
               <ul class="contact-info list-unstyled">
                 <li><i class="bi bi-geo-alt"></i> 6th of October, October Gardens, Giza </li>
                 <li><i class="bi bi-envelope"></i> kerollossami@gmail.com</li>
                 <li><i class="bi bi-phone"></i> +201034037540</li>
+                <li><i class="bi bi-phone"></i> +201289198945</li>
                 <li><i class="bi bi-linkedin"></i> www.linkedin.com/in/kirollossamy</li>
               </ul>
 
@@ -430,6 +488,31 @@
               <h3><i class="bi bi-briefcase me-2"></i>Professional Experience</h3>
 
               <div class="resume-item">
+                <h4>Full Stack .NET Web Development Intern (20 Hours Technical + 180 Hours Soft Skills)</h4>
+                <h5>Nov 2025 – Jul 2026</h5>
+                <p class="company"><i class="bi bi-building"></i> DEPI (Digital Egypt Pioneers Initiative)</p>
+                <ul>
+                  <li>•	Gained hands-on experience with <b>C#, SQL Server, and ASP.NET, Entity Framework, MVC Architecture, N-Tier Architecture</b>.</li>
+                  <li>Gained hands-on experience with <b>HTML, CSS, JavaScript, Bootstrap, C#, SQL Server, and ASP.NET Core</b>.</li>
+                    <li>Developed two projects:</li>
+                    <ul>
+                      <li><b>SQL Project</b>: Examination System using SQL Server.</li>
+                      <li><b>C# Project</b>: The same project of SQL Project but with command Line using C#..</li>
+                    </ul>
+                  <li><b>Student Housing Booking System</b>: Currently under development using .NET, N-Tier Architecture, Entity Framework.</li>
+                  <li>Strengthened skills in <b>database design, authentication, authorization, and CRUD operations</b>.</li>
+                  <li>Collaborated in a team training environment, improving <b>problem-solving and project workflow</b>.</li>
+                </ul>
+                <h6>Soft Skills & Freelancing Training (30 Hours – NTI Program Extension):</h6>
+                <ul>
+                  <li>Learned how to <b>start and manage a freelancing career</b>.</li>
+                  <li>Created and optimized professional accounts on <b>Upwork, Freelancer, Mostaql, and Freelancer Yard</b>.</li>
+                  <li>Gained skills in <b>proposal writing, client communication, and online professionalism</b>.</li>
+                  <li>Improved <b>time management, self-discipline, and independent working skills</b> for freelancing success.</li>
+                </ul>
+              </div>
+
+              <div class="resume-item">
                 <h4>Full Stack Development Intern (90 Hours Technical + 30 Hours Soft Skills)</h4>
                 <h5>Aug 2025 – Sep 2025</h5>
                 <p class="company"><i class="bi bi-building"></i> NTI (National Telecommunication Institute)</p>
@@ -457,13 +540,6 @@
             <!-- Education Section -->
             <div class="resume-section" data-aos="fade-up" data-aos-delay="100">
               <h3><i class="bi bi-mortarboard me-2"></i>Education</h3>
-              <div class="resume-item">
-                <h4>Graduate Certificate in Full Stack Development using PHP</h4>
-                <h5>Sep, 2025</h5>
-                <p class="company"><i class="bi bi-building"></i> NTI (National Telecommunication Institute),</p>
-                <p>Building web applications using PHP and entering the freelance market</p>
-              </div>
-
               <div class="resume-item">
                 <h4>Bachelor of Information Systems (BIS)</h4>
                 <h5>2022 - present</h5>
@@ -509,6 +585,148 @@
                 });
                 </script>
               </div>
+
+              // Waiting DEPI Certificate
+              <div class="resume-item d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                      <img src="assets/img/Kirollos Samy Ishaq Tawfik.png" alt="NTI Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                      <div>
+                          <h4>NTI Summer Training</h4>
+                          <h5>2025</h5>
+                      </div>
+                  </div>
+                  <a href="{{ route('download.certificate')}}" download id="downloadCertificateBtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                  <script>
+                    document.getElementById('downloadCertificateBtn').addEventListener('click', async () => {
+                    const response = await fetch("{{ route('download.certificate') }}");
+
+                    const blob = await response.blob();
+
+                    const url = window.URL.createObjectURL(blob);
+            
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = "kirollos_samy_certificate.pdf"; 
+                    document.body.appendChild(a);
+                    a.click(); 
+                    a.remove();
+                });
+                </script>
+              </div>
+
+              // Basic SQL Certificate
+              <div class="resume-item d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                      <img src="assets/img/BasicSQL.png" alt="Basic SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                      <div>
+                          <h4>DEPI Training</h4>
+                          <h5>2025</h5>
+                      </div>
+                  </div>
+                  <a href="{{ route('download.BasicSQLcertificate')}}" download id="downloadBasicSQLbtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                  <script>
+                    document.getElementById('downloadBasicSQLbtn').addEventListener('click', async () => {
+                    const response = await fetch("{{ route('download.BasicSQLcertificate') }}");
+
+                    const blob = await response.blob();
+
+                    const url = window.URL.createObjectURL(blob);
+            
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = "BasicSQLCertificate-KirollosSamy.pdf"; 
+                    document.body.appendChild(a);
+                    a.click(); 
+                    a.remove();
+                });
+                </script>
+              </div>
+
+              //Intermediate SQL Certificate
+              <div class="resume-item d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                      <img src="assets/img/IntermediateSQL.png" alt="Intermediate SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                      <div>
+                          <h4>NTI Summer Training</h4>
+                          <h5>2025</h5>
+                      </div>
+                  </div>
+                  <a href="{{ route('download.IntermediateSQLcertificate')}}" download id="downloadIntermediateSQLbtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                  <script>
+                    document.getElementById('downloadIntermediateSQLbtn').addEventListener('click', async () => {
+                    const response = await fetch("{{ route('download.IntermediateSQLcertificate') }}");
+
+                    const blob = await response.blob();
+
+                    const url = window.URL.createObjectURL(blob);
+            
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = "IntermediateSQLCertificate-KirollosSamy.pdf"; 
+                    document.body.appendChild(a);
+                    a.click(); 
+                    a.remove();
+                });
+                </script>
+              </div>
+
+              // Advanced SQL Certificate
+              <div class="resume-item d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                      <img src="assets/img/AdvancedSQL.png" alt="Advanced SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                      <div>
+                          <h4>NTI Summer Training</h4>
+                          <h5>2025</h5>
+                      </div>
+                  </div>
+                  <a href="{{ route('download.AdvancedSQLcertificate')}}" download id="downloadAdvancedSQLbtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                  <script>
+                    document.getElementById('downloadAdvancedSQLbtn').addEventListener('click', async () => {
+                    const response = await fetch("{{ route('download.AdvancedSQLcertificate') }}");
+
+                    const blob = await response.blob();
+
+                    const url = window.URL.createObjectURL(blob);
+            
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = "AdvancedSQLCertificate-KirollosSamy.pdf"; 
+                    document.body.appendChild(a);
+                    a.click(); 
+                    a.remove();
+                });
+                </script>
+              </div>
+
+              // GitHub Certificate
+              <div class="resume-item d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                      <img src="assets/img/GitHub.png" alt="GitHub Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                      <div>
+                          <h4>NTI Summer Training</h4>
+                          <h5>2025</h5>
+                      </div>
+                  </div>
+                  <a href="{{ route('download.GitHubcertificate')}}" download id="downloadGitHubbtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                  <script>
+                    document.getElementById('downloadGitHubbtn').addEventListener('click', async () => {
+                    const response = await fetch("{{ route('download.GitHubcertificate') }}");
+
+                    const blob = await response.blob();
+
+                    const url = window.URL.createObjectURL(blob);
+            
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = "GitHubCertificate-KirollosSamy.pdf"; 
+                    document.body.appendChild(a);
+                    a.click(); 
+                    a.remove();
+                });
+                </script>
+              </div>
+
+              
             </div>
           </div>
         </div>
@@ -728,6 +946,76 @@
                   <small>My Instructor at NTI</small>
                 </div>
                   <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7369440555149262848?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7369440555149262848%2C7370007198694813697%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287370007198694813697%2Curn%3Ali%3AugcPost%3A7369440555149262848%29" class="card-action d-flex align-items-center justify-content-center rounded-circle">
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+                </div>
+            </div>
+          </div>
+
+          <div class="testimonial-item" data-aos="fade-up">
+            <div class="testimonial-content">
+              <div class="quote-pattern">
+                <i class="bi bi-quote"></i>
+              </div>
+              <p>عاااش يا هندسه فخور جدا بيك ربنا يوفقك في اللي جي ❤️</p>
+              <div class="client-info">
+                <div class="client-image">
+                  <img src="assets/img/testimonials/Eng_HossamAshraf.jpg" alt="My Instractor">
+                </div>
+                
+                <div class="client-details">
+                  <h3>Eng. Hossam Ashraf</h3>
+                  <span class="position">Soft Skills Instractor <br></span>
+                  <small>My Instructor at DEPI</small>
+                </div>
+                  <a href="https://www.linkedin.com/feed/update/urn:li:activity:7437545935284482048?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7437545935284482048%2C7437826334766051328%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287437826334766051328%2Curn%3Ali%3Aactivity%3A7437545935284482048%29">
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+                </div>
+            </div>
+          </div>
+
+          <div class="testimonial-item" data-aos="fade-up">
+            <div class="testimonial-content">
+              <div class="quote-pattern">
+                <i class="bi bi-quote"></i>
+              </div>
+              <p>الف مبروك يا هندسة مبروووك التخرج وربنا يوفقك ف اللي جي ❤️❤️</p>
+              <div class="client-info">
+                <div class="client-image">
+                  <img src="assets/img/testimonials/Eng_HossamAshraf.jpg" alt="My Instractor">
+                </div>
+                
+                <div class="client-details">
+                  <h3>Eng. Hossam Ashraf</h3>
+                  <span class="position">Soft Skills Instractor <br></span>
+                  <small>My Instructor at DEPI</small>
+                </div>
+                  <a href="https://www.linkedin.com/feed/update/urn:li:activity:7449447854357565440?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7449447854357565440%2C7449458538038431744%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287449458538038431744%2Curn%3Ali%3Aactivity%3A7449447854357565440%29">
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+                </div>
+            </div>
+          </div>
+
+          <div class="testimonial-item" data-aos="fade-up">
+            <div class="testimonial-content">
+              <div class="quote-pattern">
+                <i class="bi bi-quote"></i>
+              </div>
+              <p>Proud of your progress wishing you all the best</p>
+
+              <div class="client-info">
+                <div class="client-image">
+                  <img src="assets/img/testimonials/Eng_Abdelrahman.jpg" alt="My Instractor">
+                </div>
+                
+                <div class="client-details">
+                  <h3>Eng. Abdelrahman Shaaban</h3>
+                  <span class="position">Technical Instractor at DEPI<br></span>
+                  <small>My Instructor at DEPI</small>
+                </div>
+                  <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7409554845323587584?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7409554845323587584%2C7409806894380535808%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287409806894380535808%2Curn%3Ali%3AugcPost%3A7409554845323587584%29">
                   <i class="bi bi-arrow-right"></i>
                 </a>
                 </div>

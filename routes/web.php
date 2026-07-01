@@ -24,6 +24,10 @@ Route::get('/', function () {
 Route::get('/resume/download', [ResumesController::class, 'resumedownload'])->name('download.resume');
 
 Route::get('/certificate/download', [CertificateController::class, 'certificatedownload'])->name('download.certificate');
+Route::get('/certificate/BasicSQLcertificatedownload', [CertificateController::class, 'BasicSQLcertificatedownload'])->name('download.BasicSQLcertificate');
+Route::get('/certificate/IntermediateSQLcertificatedownload', [CertificateController::class, 'IntermediateSQLcertificatedownload'])->name('download.IntermediateSQLcertificate');
+Route::get('/certificate/AdvancedSQLcertificatedownload', [CertificateController::class, 'AdvancedSQLcertificatedownload'])->name('download.AdvancedSQLcertificate');
+Route::get('/certificate/GitHubCertificateDownload', [CertificateController::class, 'GitHubCertificateDownload'])->name('download.GitHubcertificate');
 
 Route::view('/custom-web-application', 'services.custom')->name('custom');
 Route::view('/design-systems', 'services.design')->name('design');

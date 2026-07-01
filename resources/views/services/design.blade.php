@@ -134,7 +134,7 @@
               <div class="info-item">
                 <i class="bi bi-brush"></i>
                 <h5>Tools</h5>
-                <p>Figma, Bootstrap, Tailwind, Laravel Blade</p>
+                <p>Figma, Bootstrap, Tailwind, Laravel Blade, Angular Framework</p>
               </div>
               <div class="info-item">
                 <i class="bi bi-telephone"></i>
