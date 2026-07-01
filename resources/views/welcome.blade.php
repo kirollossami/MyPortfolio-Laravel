@@ -200,7 +200,7 @@
                     a.remove();
                 });
                 </script>
-                <a href="https://wa.me/message/VQCUVT3EV37QD1" class="btn btn-outline">
+                <a href="https://wa.me/message/HEKWNGDE4LGHK1?src=qr" class="btn btn-outline">
                     <i class="bi bi-chat-dots"></i>
                     Let's Talk What'app
                 </a>
