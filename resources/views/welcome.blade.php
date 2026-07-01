@@ -586,13 +586,13 @@
                 </script>
               </div>
 
-              // Waiting DEPI Certificate
+              <!-- Waiting for DEPI Certificate
               <div class="resume-item d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center">
                       <img src="assets/img/Kirollos Samy Ishaq Tawfik.png" alt="NTI Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
                       <div>
-                          <h4>NTI Summer Training</h4>
-                          <h5>2025</h5>
+                          <h4>DEPI Training</h4>
+                          <h5>2026</h5>
                       </div>
                   </div>
                   <a href="{{ route('download.certificate')}}" download id="downloadCertificateBtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
@@ -612,14 +612,14 @@
                     a.remove();
                 });
                 </script>
-              </div>
+              </div> -->
 
-              // Basic SQL Certificate
+              <!-- Basic SQL Certificate -->
               <div class="resume-item d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center">
                       <img src="assets/img/BasicSQL.png" alt="Basic SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
                       <div>
-                          <h4>DEPI Training</h4>
+                          <h4>SQL Basic Training</h4>
                           <h5>2025</h5>
                       </div>
                   </div>
@@ -642,12 +642,12 @@
                 </script>
               </div>
 
-              //Intermediate SQL Certificate
+           <!-- Intermediate SQL Certificate -->
               <div class="resume-item d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center">
                       <img src="assets/img/IntermediateSQL.png" alt="Intermediate SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
                       <div>
-                          <h4>NTI Summer Training</h4>
+                          <h4>SQL Intermediate Certificate</h4>
                           <h5>2025</h5>
                       </div>
                   </div>
@@ -670,12 +670,12 @@
                 </script>
               </div>
 
-              // Advanced SQL Certificate
+              <!-- Advanced SQL Certificate -->
               <div class="resume-item d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center">
                       <img src="assets/img/AdvancedSQL.png" alt="Advanced SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
                       <div>
-                          <h4>NTI Summer Training</h4>
+                          <h4>SQL Advanced Certificate</h4>
                           <h5>2025</h5>
                       </div>
                   </div>
@@ -698,13 +698,13 @@
                 </script>
               </div>
 
-              // GitHub Certificate
+              <!-- GitHub Certificate --> 
               <div class="resume-item d-flex align-items-center justify-content-between">
                   <div class="d-flex align-items-center">
-                      <img src="assets/img/GitHub.png" alt="GitHub Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                      <img src="assets/img/GitHubCertificate.png" alt="GitHub Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
                       <div>
-                          <h4>NTI Summer Training</h4>
-                          <h5>2025</h5>
+                          <h4>Git&GitHub Certificate</h4>
+                          <h5>2026</h5>
                       </div>
                   </div>
                   <a href="{{ route('download.GitHubcertificate')}}" download id="downloadGitHubbtn" class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
@@ -911,7 +911,7 @@
               <div class="quote-pattern">
                 <i class="bi bi-quote"></i>
               </div>
-              <p>Excellent work—truly commendable. Keep up the great effort!.</p>
+              <p>جهد محترم يحترم , عاش جدا يا هندسة , Keep going 💪💪</p>
               <div class="client-info">
                 <div class="client-image">
                   <img src="assets/img/testimonials/eng_islam_ramadan.jpeg" alt="My Instractor">
@@ -919,8 +919,8 @@
                 
                 <div class="client-details">
                   <h3>Eng. Islam Ramadan</h3>
-                  <span class="position">Full Stack Instractor <br></span>
-                  <small>My Instructor at NTI</small>
+                  <span class="position">Full Stack using PHP Instractor<br></span>
+                  <small>Technical Instructor at NTI</small>
                 </div>
                   <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7367531327102844928?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7367531327102844928%2C7367886165582012416%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287367886165582012416%2Curn%3Ali%3AugcPost%3A7367531327102844928%29" class="card-action d-flex align-items-center justify-content-center rounded-circle">
                   <i class="bi bi-arrow-right"></i>
@@ -934,7 +934,7 @@
               <div class="quote-pattern">
                 <i class="bi bi-quote"></i>
               </div>
-              <p>Great work, Engineer Kirollos! One of the best students—keep up the excellent effort.</p>
+              <p>Greeeeeet work eng kirolos One of best students Keep going 💪</p>
               <div class="client-info">
                 <div class="client-image">
                   <img src="assets/img/testimonials/eng_islam_ramadan.jpeg" alt="My Instractor">
@@ -942,8 +942,8 @@
                 
                 <div class="client-details">
                   <h3>Eng. Islam Ramadan</h3>
-                  <span class="position">Full Stack Instractor <br></span>
-                  <small>My Instructor at NTI</small>
+                  <span class="position">Full Stack using PHP Instractor<br></span>
+                  <small>Technical Instructor at NTI</small>
                 </div>
                   <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7369440555149262848?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7369440555149262848%2C7370007198694813697%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287370007198694813697%2Curn%3Ali%3AugcPost%3A7369440555149262848%29" class="card-action d-flex align-items-center justify-content-center rounded-circle">
                   <i class="bi bi-arrow-right"></i>
@@ -966,7 +966,7 @@
                 <div class="client-details">
                   <h3>Eng. Hossam Ashraf</h3>
                   <span class="position">Soft Skills Instractor <br></span>
-                  <small>My Instructor at DEPI</small>
+                  <small>Soft Skills Instructor at DEPI</small>
                 </div>
                   <a href="https://www.linkedin.com/feed/update/urn:li:activity:7437545935284482048?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7437545935284482048%2C7437826334766051328%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287437826334766051328%2Curn%3Ali%3Aactivity%3A7437545935284482048%29">
                   <i class="bi bi-arrow-right"></i>
@@ -989,7 +989,7 @@
                 <div class="client-details">
                   <h3>Eng. Hossam Ashraf</h3>
                   <span class="position">Soft Skills Instractor <br></span>
-                  <small>My Instructor at DEPI</small>
+                  <small>Soft Skills Instructor at DEPI</small>
                 </div>
                   <a href="https://www.linkedin.com/feed/update/urn:li:activity:7449447854357565440?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7449447854357565440%2C7449458538038431744%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287449458538038431744%2Curn%3Ali%3Aactivity%3A7449447854357565440%29">
                   <i class="bi bi-arrow-right"></i>
@@ -1012,8 +1012,8 @@
                 
                 <div class="client-details">
                   <h3>Eng. Abdelrahman Shaaban</h3>
-                  <span class="position">Technical Instractor at DEPI<br></span>
-                  <small>My Instructor at DEPI</small>
+                  <span class="position">Full Stack .NET Instractor<br></span>
+                  <small>Technical Instructor at DEPI</small>
                 </div>
                   <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7409554845323587584?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7409554845323587584%2C7409806894380535808%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287409806894380535808%2Curn%3Ali%3AugcPost%3A7409554845323587584%29">
                   <i class="bi bi-arrow-right"></i>
