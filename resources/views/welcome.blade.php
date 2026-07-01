@@ -142,11 +142,11 @@
 
               <div class="stats-grid">
                 <div class="stat-item">
-                  <div class="stat-number">3</div>
+                  <div class="stat-number">4</div>
                   <div class="stat-label">Projects Completed</div>
                 </div>
                 <div class="stat-item">
-                  <div class="stat-number">1</div>
+                  <div class="stat-number">1.5</div>
                   <div class="stat-label">Years Experience</div>
                 </div>
                 <div class="stat-item">
@@ -169,7 +169,6 @@
                 <div class="detail-row">
                   <div class="detail-item">
                     <span class="detail-label">Education</span>
-                    <span class="detail-value">Full Stack Developer using PHP, NTI</span>
                     <span class="detail-value">BIS, Thebes Academy</span>
                   </div>
                   <div class="detail-item">
