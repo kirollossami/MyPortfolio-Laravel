@@ -325,7 +325,7 @@
                     <span class="skill-percentage">90%</span>
                   </div>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <div class="skill-tooltip">OOP, using JavaFX framework to build desktop applications</div>
                 </div>
@@ -358,7 +358,7 @@
                     <span class="skill-percentage">85%</span>
                   </div>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <div class="skill-tooltip">Native C#, OOP, Entity Framework, LINQ, REST APIs, MVP and MVC</div>
                 </div>
@@ -369,7 +369,7 @@
                     <span class="skill-percentage">85%</span>
                   </div>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <div class="skill-tooltip">Use ASP.NET Core to build modern, scalable web applications using MVC pattern and Web API</div>
                 </div>
