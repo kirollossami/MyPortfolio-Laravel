@@ -413,7 +413,7 @@
           <div class="col-lg-4">
             <div class="resume-side" data-aos="fade-right" data-aos-delay="100">
               <div class="profile-img mb-4">
-                <img src="assets/img/profile/KirollosSamy1.png" alt="Profile" class="img-fluid rounded">
+                <img src="assets/img/profile/Kirollos Samy3.png" alt="Profile" class="img-fluid rounded">
               </div>
 
               <h3>Professional Summary</h3>
