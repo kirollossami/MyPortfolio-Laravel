@@ -70,7 +70,7 @@
               <div class="hero-visual">
                 <div class="profile-container">
                   <div class="profile-background"></div>
-                  <img src="assets/img/profile/Kirollos_Samy.png" alt="Kirollos Samy" class="profile-image">
+                  <img src="assets/img/profile/KirollosSamy1.png" alt="Kirollos Samy" class="profile-image">
                 </div>
               </div>
             </div>
@@ -91,7 +91,7 @@
             <div class="profile-card">
               <div class="profile-header">
                 <div class="profile-image">
-                  <img src="assets/img/profile/Kirollos_Samy1.png" alt="Profile Image" class="img-fluid">
+                  <img src="assets/img/profile/Kirollos Samy2.jpg" alt="Profile Image" class="img-fluid">
                 </div>
                 <div class="profile-badge">
                   <i class="bi bi-check-circle-fill"></i>
@@ -413,7 +413,7 @@
           <div class="col-lg-4">
             <div class="resume-side" data-aos="fade-right" data-aos-delay="100">
               <div class="profile-img mb-4">
-                <img src="assets/img/profile/Kirollos_Samy.png" alt="Profile" class="img-fluid rounded">
+                <img src="assets/img/profile/KirollosSamy1.png" alt="Profile" class="img-fluid rounded">
               </div>
 
               <h3>Professional Summary</h3>
