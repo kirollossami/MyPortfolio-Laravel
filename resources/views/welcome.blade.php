@@ -560,9 +560,6 @@
             </div>
 
             <!-- Certifications Section -->
-            <div class="resume-section" data-aos="fade-up" data-aos-delay="200">
-              <h3><i class="bi bi-award me-2"></i>Certifications</h3>
-
               <div class="resume-section" data-aos="fade-up" data-aos-delay="200">
                   <h3><i class="bi bi-award me-2"></i>Certifications</h3>
 
@@ -623,7 +620,7 @@
 
                 </div>
                               
-            </div>
+            
           </div>
         </div>
 
