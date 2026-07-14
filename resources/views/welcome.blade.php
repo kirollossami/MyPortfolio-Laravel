@@ -546,7 +546,7 @@
               <h3><i class="bi bi-mortarboard me-2"></i>Education</h3>
               <div class="resume-item">
                 <h4>Bachelor of Information Systems (BIS)</h4>
-                <h5>2022 - present</h5>
+                <h5>2022 - 2026</h5>
                 <p class="company"><i class="bi bi-building"></i> Thebes Higher Institute for Computer and Administrative Sciences (Ongoing, 4th Year)</p>
                 <p>Computer Science fundamentals, C++ Language Level 2, Java Language Level 3, Digital Marketing</p>
               </div>
