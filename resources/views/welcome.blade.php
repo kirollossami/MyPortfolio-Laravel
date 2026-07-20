@@ -418,7 +418,8 @@
 
               <h3>Professional Summary</h3>
               <p>
-                  Full Stack Developer with strong expertise in designing, developing, and maintaining scalable web applications using <strong>PHP (Laravel)</strong> and <strong>ASP.NET</strong> technologies. Experienced in building secure, high-performance applications using <strong>MVC architecture</strong>, developing <strong>RESTful APIs</strong>, and implementing robust backend solutions. Proficient in <strong>ASP.NET MVC</strong>, <strong>ASP.NET Web API</strong>, <strong>Entity Framework</strong>, <strong>LINQ</strong>, <strong>ADO.NET</strong>, <strong>PHP</strong>, and <strong>Laravel</strong>. Skilled in front-end development with <strong>HTML</strong>, <strong>CSS</strong>, <strong>JavaScript</strong>, and <strong>Bootstrap</strong>, with a solid understanding of <strong>UI/UX principles</strong> and responsive web design. Strong foundation in <strong>Object-Oriented Programming (OOP)</strong>, software design patterns, and scalable application development. Experienced in working with <strong>MySQL</strong> and <strong>Microsoft SQL Server</strong>, including database design, query optimization, stored procedures, and performance tuning. Adept at problem-solving, identifying root causes, and delivering efficient, reliable solutions that improve application performance, security, and user experience.
+                Full Stack Developer with experience in building scalable web applications using <strong>ASP.NET Core</strong> and <strong>PHP</strong> technologies. Skilled in developing <strong>ASP.NET Core Web API</strong>, <strong>ASP.NET Core MVC</strong>, and <strong>RESTful APIs</strong>, with strong knowledge of <strong>C#</strong>, <strong>PHP</strong>, <strong>Object-Oriented Programming (OOP)</strong>, and modern software architecture principles.
+                Experienced in backend development using <strong>Entity Framework Core</strong>, <strong>LINQ</strong>, <strong>ADO.NET</strong>, and <strong>Laravel</strong>, with hands-on experience in <strong>SQL Server</strong> and <strong>MySQL</strong>, including database design, query optimization, and performance tuning. Proficient in implementing <strong>authentication and authorization</strong>, <strong>dependency injection</strong>, <strong>logging</strong>, and <strong>exception handling</strong>, while following best practices to build secure, maintainable, and scalable applications. Strong problem-solving skills with a passion for delivering efficient, reliable, and user-focused solutions.
               </p>
 
               <h3 class="mt-4">Contact Information</h3>
@@ -492,27 +493,46 @@
               <h3><i class="bi bi-briefcase me-2"></i>Professional Experience</h3>
 
               <div class="resume-item">
-                <h4>Full Stack .NET Web Development Intern (20 Hours Technical + 180 Hours Soft Skills)</h4>
+                <h4>Full Stack .NET Web Development Intern (170 Hours Technical + 30 Hours Soft Skills)</h4>
                 <h5>Nov 2025 – Jul 2026</h5>
                 <p class="company"><i class="bi bi-building"></i> DEPI (Digital Egypt Pioneers Initiative)</p>
                 <ul>
-                  <li>•	Gained hands-on experience with <b>C#, SQL Server, and ASP.NET, Entity Framework, MVC Architecture, N-Tier Architecture</b>.</li>
-                  <li>Gained hands-on experience with <b>HTML, CSS, JavaScript, Bootstrap, C#, SQL Server, and ASP.NET Core</b>.</li>
-                    <li>Developed two projects:</li>
-                    <ul>
-                      <li><b>SQL Project</b>: Examination System using SQL Server.</li>
-                      <li><b>C# Project</b>: The same project of SQL Project but with command Line using C#..</li>
-                    </ul>
-                  <li><b>Student Housing Booking System</b>: Currently under development using .NET, N-Tier Architecture, Entity Framework.</li>
-                  <li>Strengthened skills in <b>database design, authentication, authorization, and CRUD operations</b>.</li>
-                  <li>Collaborated in a team training environment, improving <b>problem-solving and project workflow</b>.</li>
-                </ul>
-                <h6>Soft Skills & Freelancing Training (30 Hours – NTI Program Extension):</h6>
-                <ul>
-                  <li>Learned how to <b>start and manage a freelancing career</b>.</li>
-                  <li>Created and optimized professional accounts on <b>Upwork, Freelancer, Mostaql, and Freelancer Yard</b>.</li>
-                  <li>Gained skills in <b>proposal writing, client communication, and online professionalism</b>.</li>
-                  <li>Improved <b>time management, self-discipline, and independent working skills</b> for freelancing success.</li>
+                  <li>
+                    Gained hands-on experience with
+                    <b>C#, ASP.NET Core, Entity Framework Core, SQL Server, MVC Architecture, and N-Tier Architecture</b>.
+                  </li>
+
+                  <li>Developed three projects:</li>
+                  <ul>
+                    <li>
+                      <b>SQL Project</b>: Examination System using SQL Server.
+                    </li>
+
+                    <li>
+                      <b>C# Project</b>: Reimplemented the Examination System as a C# Console Application.
+                    </li>
+
+                    <li>
+                      <b>Student Housing Booking System</b>: Developed a full-stack Student Housing Booking System using
+                      <b>ASP.NET Core Web API</b> for the backend,
+                      <b>Angular</b> for the frontend,
+                      <b>Entity Framework Core</b>,
+                      <b>SQL Server</b>, and
+                      <b>N-Tier Architecture</b>.
+                      Implemented <b>RESTful APIs</b> for student registration, room management, accommodation booking, and
+                      <b>JWT-based authentication</b>. Built a responsive user interface in <b>Angular</b> and documented APIs using <b>Swagger</b>.
+                    </li>
+                  </ul>
+
+                  <li>
+                    Strengthened skills in
+                    <b>database design, authentication, authorization, and CRUD operations</b>.
+                  </li>
+
+                  <li>
+                    Collaborated in a team training environment, improving
+                    <b>problem-solving and project workflow</b>.
+                  </li>
                 </ul>
               </div>
 
@@ -576,13 +596,13 @@
 
                     <div class="resume-item d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
-                            <img src="assets/img/BasicSQL.png" alt="Basic SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                            <img src="assets/img/AdvancedSQL.png" alt="Advanced SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
                             <div>
-                                <h4>SQL Basic Training</h4>
+                                <h4>SQL Advanced Certificate</h4>
                                 <h5>2025</h5>
                             </div>
                         </div>
-                        <a href="{{ route('download.BasicSQLcertificate')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                        <a href="{{ route('download.AdvancedSQLcertificate')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
                     </div>
 
                     <div class="resume-item d-flex align-items-box align-items-center justify-content-between">
@@ -598,13 +618,13 @@
 
                     <div class="resume-item d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
-                            <img src="assets/img/AdvancedSQL.png" alt="Advanced SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                            <img src="assets/img/BasicSQL.png" alt="Basic SQL Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
                             <div>
-                                <h4>SQL Advanced Certificate</h4>
+                                <h4>SQL Basic Training</h4>
                                 <h5>2025</h5>
                             </div>
                         </div>
-                        <a href="{{ route('download.AdvancedSQLcertificate')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                        <a href="{{ route('download.BasicSQLcertificate')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
                     </div>
 
                     <div class="resume-item d-flex align-items-center justify-content-between">
