@@ -654,7 +654,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Portfolio</h2>
-        <p>👉 Here, you’ll find my projects, the tools and technologies I use, and the experiences that shaped my journey as a developer.</p>
+        <p>Here, you’ll find my projects, the tools and technologies I use, and the experiences that shaped my journey as a developer.</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -668,9 +668,10 @@
                   <li data-filter="*" class="filter-active">All Projects</li>
                   <li data-filter=".filter-laravel">Laravel</li>
                   <li data-filter=".filter-native-php">Native PHP</li>
-                  <li data-filter=".filter-asp.net">ASP.NET</li>
+                  <li data-filter=".filter-asp-net">ASP.NET</li>
                   <li data-filter=".filter-apis">APIs</li>
                   <li data-filter=".filter-mvc">MVC</li>
+                  <li data-filter=".filter-nodejs">Node Js</li>
                 </ul>
               </div>
             </div>
@@ -687,7 +688,7 @@
                         <h4>Native PHP</h4>
                         <div class="portfolio-links">
                           <a href="assets/img/projects/Dashboard Design Using Native PHP.png" class="glightbox" title="Dashboard Design Using PHP"><i class="bi bi-plus-lg"></i></a>
-                          <a href="https://github.com/kirollossami/First-Final-Project-NTI" title="More Details"><i class="bi bi-arrow-right"></i></a>
+                          <a href="https://www.linkedin.com/posts/kirollossamy_nti-summertraining-webdevelopment-activity-7367533742602539008-rJTX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFeMbnkBo3Qlhw5z8VmxjWD0wV_ZAib3PF0" title="More Details"><i class="bi bi-arrow-right"></i></a>
                         </div>
                       </div>
                     </div>
@@ -704,7 +705,39 @@
                         <h4>Laravel Framework</h4>
                         <div class="portfolio-links">
                           <a href="assets/img/projects/Education_System.png" class="glightbox" title="Designing a website for a training company using Framework Laravel"><i class="bi bi-plus-lg"></i></a>
-                          <a href="https://github.com/kirollossami/Second-Final-Project-NTI" title="More Details"><i class="bi bi-arrow-right"></i></a>
+                          <a href="https://lnkd.in/p/eN9pdeHj" title="More Details"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- End Portfolio Item -->
+
+                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-nodejs filter-apis">
+                  <div class="portfolio-wrap">
+                    <img src="assets/img/projects/Hotel Booking Managment.png" class="img-fluid" alt="Portfolio Image" loading="lazy">
+                    <div class="portfolio-info">
+                      <div class="content">
+                        <span class="category">Hotel Booking Managment System</span>
+                        <h4>Node JS</h4>
+                        <div class="portfolio-links">
+                          <a href="assets/img/projects/Hotel Booking Managment.png" class="glightbox" title="Designing a website for a training company using Framework NodeJS"><i class="bi bi-plus-lg"></i></a>
+                          <a href="https://www.linkedin.com/posts/kirollossamy_codvedajourney-codvedaexperience-futurewithcodveda-activity-7389320280520683522-FStA?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFeMbnkBo3Qlhw5z8VmxjWD0wV_ZAib3PF0" title="More Details"><i class="bi bi-arrow-right"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- End Portfolio Item -->
+
+                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-asp-net filter-apis">
+                  <div class="portfolio-wrap">
+                    <img src="assets/img/projects/unistay.png" class="img-fluid" alt="Portfolio Image" loading="lazy">
+                    <div class="portfolio-info">
+                      <div class="content">
+                        <span class="category">UniStay - Student Housing Managment System</span>
+                        <h4>ASP.NET Core APIs</h4>
+                        <div class="portfolio-links">
+                          <a href="assets/img/projects/unistay.png" class="glightbox" title="Designing a website for a training company using Framework NodeJS"><i class="bi bi-plus-lg"></i></a>
+                          <a href="https://lnkd.in/p/ennnGR6c" title="More Details"><i class="bi bi-arrow-right"></i></a>
                         </div>
                       </div>
                     </div>
@@ -727,7 +760,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Offer Services</h2>
-        <p>👉 Here, you’ll find my projects, the tools and technologies I use, and the experiences that shaped my journey as a developer.</p>
+        <p>Here, you’ll find my projects, the tools and technologies I use, and the experiences that shaped my journey as a developer.</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
