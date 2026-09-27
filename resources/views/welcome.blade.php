@@ -585,9 +585,20 @@
 
                     <div class="resume-item d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
+                            <img src="assets/img/Kirollos Samy Ishaq - Depi.png" alt="NTI Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
+                            <div>
+                                <h4>DEPI - Diploma Full Stack .NET Development</h4>
+                                <h5>2026</h5>
+                            </div>
+                        </div>
+                        <a href="{{ route('download.DEPICertificateDownload')}}" download class="btn btn-primary" style="padding:8px 15px;">Download Certificate</a>
+                    </div>
+
+                    <div class="resume-item d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
                             <img src="assets/img/Kirollos Samy Ishaq Tawfik.png" alt="NTI Logo" style="width:50px; height:50px; margin-right:15px; border-radius:8px;">
                             <div>
-                                <h4>NTI Summer Training</h4>
+                                <h4>NTI - Full Stack Development using PHP</h4>
                                 <h5>2025</h5>
                             </div>
                         </div>
@@ -865,7 +876,7 @@
                 
                 <div class="client-details">
                   <h3>Eng. Islam Ramadan</h3>
-                  <span class="position">Full Stack using PHP Instractor<br></span>
+                  <span class="position">Fuldl Stack using PHP Instractor<br></span>
                   <small>Technical Instructor at NTI</small>
                 </div>
                   <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7367531327102844928?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7367531327102844928%2C7367886165582012416%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287367886165582012416%2Curn%3Ali%3AugcPost%3A7367531327102844928%29" class="card-action d-flex align-items-center justify-content-center rounded-circle">

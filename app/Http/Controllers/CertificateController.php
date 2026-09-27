@@ -70,4 +70,17 @@ class CertificateController extends Controller
             'Cache-Control' => 'no-cache, must-revalidate'
         ]);
     }
+
+    public function DEPICertificateDownload(){
+        $certificate_file = public_path('assets/pdf/Kirollos Samy Ishaq Tawfik - DEPI.pdf');
+
+        if(!file_exists($certificate_file)){
+            abort(404, 'file not found!');
+        }
+
+        return response()->download($certificate_file, 'Kirollos Samy Ishaq Tawfik - DEPI.pdf', [
+            'Content-Type' => 'application/octet-stream',
+            'Cache-Control' => 'no-cache, must-revalidate'
+        ]);
+    }
 }

@@ -28,6 +28,7 @@ Route::get('/certificate/BasicSQLcertificatedownload', [CertificateController::c
 Route::get('/certificate/IntermediateSQLcertificatedownload', [CertificateController::class, 'IntermediateSQLcertificatedownload'])->name('download.IntermediateSQLcertificate');
 Route::get('/certificate/AdvancedSQLcertificatedownload', [CertificateController::class, 'AdvancedSQLcertificatedownload'])->name('download.AdvancedSQLcertificate');
 Route::get('/certificate/GitHubCertificateDownload', [CertificateController::class, 'GitHubCertificateDownload'])->name('download.GitHubcertificate');
+Route::get('/certificate/DEPICertificateDownload', [CertificateController::class, 'DEPICertificateDownload'])->name('download.DEPICertificateDownload');
 
 Route::view('/custom-web-application', 'services.custom')->name('custom');
 Route::view('/design-systems', 'services.design')->name('design');
