@@ -295,18 +295,8 @@
     html.light textarea::placeholder {
       color: #94a3b8 !important;
     }
-    html.light .otp-digit-input {
-      background-color: #f8fafc !important;
-      color: #1d4ed8 !important;
-      border-color: #cbd5e1 !important;
-    }
-    html.light .otp-digit-input:focus {
-      border-color: #2563eb !important;
-      box-shadow: 0 0 15px rgba(37, 99, 235, 0.25) !important;
-    }
     html.light #projectDetailModal > div,
-    html.light #certificateLightboxModal > div,
-    html.light #otpVerificationModal > div {
+    html.light #certificateLightboxModal > div {
       background: #ffffff !important;
       border-color: rgba(15, 23, 42, 0.12) !important;
       box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.2) !important;
@@ -1551,7 +1541,7 @@
                 <input type="text" id="contactName" name="name" required class="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-white/10 text-white focus:border-cyan-400 focus:outline-none transition-colors" placeholder="e.g. Michael Thorne">
               </div>
               <div class="space-y-1.5">
-                <label class="text-xs font-mono text-slate-300 uppercase">Email Address (Receives OTP) *</label>
+                <label class="text-xs font-mono text-slate-300 uppercase">Email Address *</label>
                 <input type="email" id="contactEmail" name="email" required class="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-white/10 text-white focus:border-cyan-400 focus:outline-none transition-colors" placeholder="e.g. michael@enterprise.com">
               </div>
             </div>
@@ -1566,86 +1556,24 @@
               <textarea id="contactMessage" name="message" rows="5" required class="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-white/10 text-white focus:border-cyan-400 focus:outline-none transition-colors" placeholder="Describe your technical requirements or system architecture goals..."></textarea>
             </div>
 
-            <!-- OTP Security Notice -->
-            <div class="p-3.5 rounded-xl bg-cyan-500/10 border border-cyan-500/25 flex items-center gap-2.5 text-xs font-mono text-cyan-300">
-              <i class="bi bi-shield-check text-cyan-400 text-lg flex-shrink-0"></i>
-              <span>Anti-Spam Security: A 6-digit OTP code will be sent to your email to verify authenticity before message delivery.</span>
+            <!-- Direct Delivery Notice -->
+            <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center gap-2.5 text-xs font-mono text-emerald-300">
+              <i class="bi bi-envelope-check-fill text-emerald-400 text-lg flex-shrink-0"></i>
+              <span>Direct Transmission: Messages deliver instantly to Kirollos Samy's inbox with zero verification codes required.</span>
             </div>
 
             <!-- Inline Form Status -->
             <div id="contactFormStatus" class="hidden p-4 rounded-xl text-sm font-medium"></div>
 
             <button type="submit" id="btnSubmitContact" class="btn-cyber-primary w-full justify-center !py-3.5 group">
-              <span id="btnSubmitContactText">Verify Email &amp; Transmit Message</span>
-              <i class="bi bi-shield-lock-fill text-cyan-300 group-hover:scale-110 transition-transform"></i>
+              <span id="btnSubmitContactText">Send Message Directly</span>
+              <i class="bi bi-send-fill text-cyan-300 group-hover:translate-x-1 transition-transform"></i>
             </button>
           </form>
         </div>
 
       </div>
     </section>
-
-    <!-- =========================================================================
-         OTP SECURITY VERIFICATION MODAL
-         ========================================================================= -->
-    <div id="otpVerificationModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-      <div class="relative w-full max-w-md rounded-2xl border border-white/15 bg-gradient-to-b from-[#121824] to-[#0a0d14] p-6 sm:p-8 shadow-2xl shadow-cyan-500/20 transform scale-95 transition-all duration-300">
-        
-        <!-- Modal Close Button -->
-        <button id="btnCloseOtpModal" type="button" class="absolute top-4 right-4 w-9 h-9 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 flex items-center justify-center transition-colors">
-          <i class="bi bi-x-lg"></i>
-        </button>
-
-        <!-- Header Icon & Title -->
-        <div class="flex items-center gap-3.5 mb-4">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-indigo-500/20 border border-cyan-400/40 text-cyan-400 flex items-center justify-center text-2xl shadow-lg shadow-cyan-500/20">
-            <i class="bi bi-shield-lock-fill"></i>
-          </div>
-          <div>
-            <h3 class="text-xl font-bold text-white tracking-tight">Email Security OTP</h3>
-            <p class="text-xs font-mono text-cyan-400">IDENTITY VERIFICATION</p>
-          </div>
-        </div>
-
-        <p class="text-slate-300 text-sm leading-relaxed mb-6">
-          We sent a 6-digit verification code to <strong id="modalTargetEmail" class="text-cyan-300 font-mono"></strong>. Enter it below to confirm identity and dispatch your message.
-        </p>
-
-        <!-- Dynamic Alert inside modal -->
-        <div id="otpModalAlert" class="hidden p-3.5 mb-5 rounded-xl text-xs font-mono"></div>
-
-        <!-- 6 Individual Digit Inputs -->
-        <div class="flex justify-between items-center gap-2 mb-6" id="otpInputsContainer">
-          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-input w-11 h-14 sm:w-12 sm:h-16 text-center text-2xl font-bold font-mono text-cyan-300 bg-slate-900/90 border border-white/20 rounded-xl focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.4)] focus:outline-none transition-all">
-          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-input w-11 h-14 sm:w-12 sm:h-16 text-center text-2xl font-bold font-mono text-cyan-300 bg-slate-900/90 border border-white/20 rounded-xl focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.4)] focus:outline-none transition-all">
-          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-input w-11 h-14 sm:w-12 sm:h-16 text-center text-2xl font-bold font-mono text-cyan-300 bg-slate-900/90 border border-white/20 rounded-xl focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.4)] focus:outline-none transition-all">
-          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-input w-11 h-14 sm:w-12 sm:h-16 text-center text-2xl font-bold font-mono text-cyan-300 bg-slate-900/90 border border-white/20 rounded-xl focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.4)] focus:outline-none transition-all">
-          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-input w-11 h-14 sm:w-12 sm:h-16 text-center text-2xl font-bold font-mono text-cyan-300 bg-slate-900/90 border border-white/20 rounded-xl focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.4)] focus:outline-none transition-all">
-          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit-input w-11 h-14 sm:w-12 sm:h-16 text-center text-2xl font-bold font-mono text-cyan-300 bg-slate-900/90 border border-white/20 rounded-xl focus:border-cyan-400 focus:shadow-[0_0_15px_rgba(6,182,212,0.4)] focus:outline-none transition-all">
-        </div>
-
-        <!-- Timer & Resend Controls -->
-        <div class="flex items-center justify-between text-xs font-mono text-slate-400 mb-6">
-          <span id="otpTimer"><i class="bi bi-clock-history text-cyan-400 mr-1"></i> Expires in: <span id="otpCountdown" class="text-white font-bold">10:00</span></span>
-          <button id="btnResendOtp" type="button" class="text-cyan-400 hover:text-cyan-300 hover:underline disabled:opacity-40 disabled:no-underline transition-colors flex items-center gap-1">
-            <i class="bi bi-arrow-repeat"></i>
-            <span id="btnResendOtpText">Resend Code</span>
-          </button>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="flex flex-col sm:flex-row items-center gap-3">
-          <button id="btnVerifyOtp" type="button" class="btn-cyber-primary w-full justify-center !py-3">
-            <span id="btnVerifyOtpText">Verify &amp; Deliver</span>
-            <i class="bi bi-send-check-fill"></i>
-          </button>
-          <button id="btnEditContact" type="button" class="btn-cyber-outline w-full sm:w-auto justify-center !py-3">
-            <span>Edit Info</span>
-          </button>
-        </div>
-
-      </div>
-    </div>
 
     <!-- =========================================================================
          CERTIFICATE IMAGE LIGHTBOX MODAL
@@ -2297,7 +2225,7 @@
         'ci/cd': "CI/CD Automation: Continuous Integration and Continuous Deployment pipelines running automated linter checks, unit tests, and production deployments on Git commits.",
         'testing': "Automated Testing: Comprehensive unit, integration, and API contract test suites using xUnit (.NET) and PHPUnit (Laravel) to eliminate regressions.",
         'deployment': "Zero-Downtime Deployment: Automated production code deployment pipelines, atomic database migrations, and environment secret encryption.",
-        'otp': "OTP (One-Time Password): Cryptographic 6-digit verification code system shielding Kirollos's inbox from spam, brute-force attacks, and automated bots.",
+        'contact': "Direct Contact: Reach Kirollos Samy directly via email (kerollossami@gmail.com) or WhatsApp (+201201977114).",
         'stored procedures': "Stored Procedures: Compiled SQL Server database logic ensuring zero network overhead, sub-millisecond execution, and cheat-proof exam grading calculations.",
         'hackerrank': "HackerRank Verified Gold Medal: Achieved top accreditation confirming advanced proficiency in recursive CTEs, window functions, and execution plan optimization.",
         'depi': "DEPI (Digital Egypt Pioneers Initiative): 200-hour Ministry of Communications track specializing in enterprise C#, ASP.NET Core, and modern web engineering.",
@@ -2317,7 +2245,7 @@
         'blade': "Laravel Blade: High-performance templating engine rendering dynamic views with component slots, directive caches, and minimal runtime overhead.",
         'github': "Git & GitHub Workflow: Professional distributed version control, GitFlow branching models, interactive rebase, and code review lifecycles.",
         'resume': "Kirollos Samy's Resume: Detailed official engineering resume highlighting production projects, verified certifications, and backend system architecture metrics.",
-        'email': "Direct Inquiries: Delivered with cryptographic OTP verification directly to Kirollos Samy's personal inbox (kerollossami@gmail.com).",
+        'email': "Direct Inquiries: Delivered instantly and directly to Kirollos Samy's personal inbox (kerollossami@gmail.com).",
         'whatsapp': "WhatsApp Direct: Instant direct communications channel with Kirollos Samy (+20 10 340 37540) for engineering opportunities.",
         'linkedin': "LinkedIn Profile: Connect with Kirollos Samy on LinkedIn to view verified endorsements, professional connections, and engineering updates.",
         'unistay': "UniStay Platform: Enterprise student housing platform built on N-Tier architecture, integrating Paymob escrow payments and Redis availability caching.",
@@ -2500,96 +2428,18 @@
       });
 
       // =========================================================================
-      // 3. SECURE OTP VERIFICATION & CONTACT FORM ENGINE
+      // 3. DIRECT CONTACT FORM ENGINE (ZERO OTP - INSTANT DELIVERY)
       // =========================================================================
       const contactForm = document.getElementById('contactForm');
       const contactFormStatus = document.getElementById('contactFormStatus');
       const btnSubmitContact = document.getElementById('btnSubmitContact');
       const btnSubmitContactText = document.getElementById('btnSubmitContactText');
 
-      const otpModal = document.getElementById('otpVerificationModal');
-      const modalTargetEmail = document.getElementById('modalTargetEmail');
-      const otpModalAlert = document.getElementById('otpModalAlert');
-      const btnCloseOtpModal = document.getElementById('btnCloseOtpModal');
-      const btnEditContact = document.getElementById('btnEditContact');
-      const btnVerifyOtp = document.getElementById('btnVerifyOtp');
-      const btnVerifyOtpText = document.getElementById('btnVerifyOtpText');
-      const btnResendOtp = document.getElementById('btnResendOtp');
-      const btnResendOtpText = document.getElementById('btnResendOtpText');
-      const otpCountdown = document.getElementById('otpCountdown');
-      const digitInputs = document.querySelectorAll('.otp-digit-input');
-
-      let countdownInterval = null;
-      let remainingSeconds = 600;
-      let resendCooldown = 0;
-      let resendInterval = null;
-
       function getCsrfToken() {
         const meta = document.querySelector('meta[name="csrf-token"]');
         return meta ? meta.getAttribute('content') : '';
       }
 
-      function openOtpModal(email, initialMsg = null) {
-        modalTargetEmail.textContent = email;
-        otpModalAlert.className = 'hidden p-3.5 mb-5 rounded-xl text-xs font-mono';
-        otpModalAlert.innerHTML = '';
-        digitInputs.forEach(i => i.value = '');
-        
-        otpModal.classList.remove('opacity-0', 'pointer-events-none');
-        otpModal.firstElementChild.classList.remove('scale-95');
-        otpModal.firstElementChild.classList.add('scale-100');
-
-        setTimeout(() => {
-          if (digitInputs[0]) digitInputs[0].focus();
-        }, 150);
-
-        startCountdown(600);
-        if (typeof window.typewriteText === 'function') {
-          typewriteText(`Security protocol initiated: A 6-digit OTP code has been dispatched to ${email}. Enter it to verify identity!`, "OTP VERIFICATION");
-        }
-      }
-
-      function closeOtpModal() {
-        otpModal.classList.add('opacity-0', 'pointer-events-none');
-        otpModal.firstElementChild.classList.remove('scale-100');
-        otpModal.firstElementChild.classList.add('scale-95');
-        clearInterval(countdownInterval);
-      }
-
-      function startCountdown(seconds) {
-        clearInterval(countdownInterval);
-        remainingSeconds = seconds;
-
-        const updateDisplay = () => {
-          const m = Math.floor(remainingSeconds / 60);
-          const s = remainingSeconds % 60;
-          otpCountdown.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-          if (remainingSeconds <= 0) {
-            clearInterval(countdownInterval);
-            showModalAlert('Verification code expired. Please click Resend Code.', 'error');
-          }
-          remainingSeconds--;
-        };
-
-        updateDisplay();
-        countdownInterval = setInterval(updateDisplay, 1000);
-      }
-
-      function showModalAlert(msg, type = 'error') {
-        if (type === 'success') {
-          otpModalAlert.className = 'p-3.5 mb-5 rounded-xl text-xs font-mono bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-2';
-          otpModalAlert.innerHTML = `<i class="bi bi-check-circle-fill text-base"></i> <span>${msg}</span>`;
-        } else if (type === 'info') {
-          otpModalAlert.className = 'p-3.5 mb-5 rounded-xl text-xs font-mono bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 flex items-center gap-2';
-          otpModalAlert.innerHTML = `<i class="bi bi-info-circle-fill text-base"></i> <span>${msg}</span>`;
-        } else {
-          otpModalAlert.className = 'p-3.5 mb-5 rounded-xl text-xs font-mono bg-rose-500/15 border border-rose-500/30 text-rose-300 flex items-center gap-2';
-          otpModalAlert.innerHTML = `<i class="bi bi-exclamation-triangle-fill text-base"></i> <span>${msg}</span>`;
-        }
-        otpModalAlert.classList.remove('hidden');
-      }
-
-      // Handle Contact Form Submit (Send OTP)
       if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
           e.preventDefault();
@@ -2599,12 +2449,19 @@
           const subject = document.getElementById('contactSubject').value.trim();
           const message = document.getElementById('contactMessage').value.trim();
 
+          if (!name || !email || !subject || !message) {
+            contactFormStatus.className = 'p-4 rounded-xl text-sm font-medium bg-rose-500/15 border border-rose-500/30 text-rose-300 flex items-center gap-2';
+            contactFormStatus.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> <span>Please fill in all required fields.</span>`;
+            contactFormStatus.classList.remove('hidden');
+            return;
+          }
+
           btnSubmitContact.disabled = true;
-          btnSubmitContactText.innerHTML = '<span class="inline-block animate-spin mr-2"><i class="bi bi-arrow-repeat"></i></span> Sending Security Code...';
+          btnSubmitContactText.innerHTML = '<span class="inline-block animate-spin mr-2"><i class="bi bi-arrow-repeat"></i></span> Transmitting Message...';
           contactFormStatus.className = 'hidden';
 
           try {
-            const res = await fetch("{{ route('contact.send_otp') }}", {
+            const res = await fetch("{{ route('contact.submit') }}", {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -2617,174 +2474,43 @@
             const data = await res.json();
 
             if (res.ok && data.success) {
-              openOtpModal(email, data.message);
+              contactForm.reset();
+              contactFormStatus.className = 'p-5 rounded-2xl text-sm font-medium bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 space-y-3.5';
+              contactFormStatus.innerHTML = `
+                <div class="flex items-center gap-2.5 font-semibold text-emerald-200">
+                  <i class="bi bi-check-circle-fill text-xl text-emerald-400 flex-shrink-0"></i>
+                  <span>${data.message || 'Your message has been delivered directly to Kirollos Samy!'}</span>
+                </div>
+                ${data.whatsapp_url ? `
+                  <div class="pt-3 border-t border-emerald-500/20 flex flex-wrap items-center justify-between gap-3">
+                    <span class="text-xs font-mono text-emerald-300/80">Need an instant response?</span>
+                    <a href="${data.whatsapp_url}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold transition-all shadow-lg shadow-emerald-950/40">
+                      <i class="bi bi-whatsapp text-sm"></i>
+                      <span>Chat on WhatsApp</span>
+                    </a>
+                  </div>
+                ` : ''}
+              `;
+              contactFormStatus.classList.remove('hidden');
+
+              if (typeof window.typewriteText === 'function') {
+                typewriteText("Transmission complete! Your message has been sent directly to Kirollos Samy's inbox.", "MESSAGE DELIVERED");
+              }
             } else {
               contactFormStatus.className = 'p-4 rounded-xl text-sm font-medium bg-rose-500/15 border border-rose-500/30 text-rose-300 flex items-center gap-2';
-              contactFormStatus.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> <span>${data.message || 'Failed to dispatch security code. Please check your inputs.'}</span>`;
+              contactFormStatus.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> <span>${data.message || 'Failed to dispatch message. Please try again or reach out on WhatsApp.'}</span>`;
+              contactFormStatus.classList.remove('hidden');
             }
           } catch (err) {
             contactFormStatus.className = 'p-4 rounded-xl text-sm font-medium bg-rose-500/15 border border-rose-500/30 text-rose-300 flex items-center gap-2';
-            contactFormStatus.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> <span>Connection error. Please try again.</span>`;
+            contactFormStatus.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> <span>Connection error. Please check your network or message Kirollos directly via WhatsApp.</span>`;
+            contactFormStatus.classList.remove('hidden');
           } finally {
             btnSubmitContact.disabled = false;
-            btnSubmitContactText.textContent = 'Verify Email & Transmit Message';
+            btnSubmitContactText.textContent = 'Send Message Directly';
           }
         });
       }
-
-      // Digit Inputs Navigation & Auto-Submit
-      digitInputs.forEach((input, idx) => {
-        input.addEventListener('input', (e) => {
-          const val = e.target.value.replace(/[^0-9]/g, '');
-          e.target.value = val ? val[0] : '';
-
-          if (val && idx < digitInputs.length - 1) {
-            digitInputs[idx + 1].focus();
-          }
-
-          // Check if all 6 filled
-          const fullCode = Array.from(digitInputs).map(i => i.value).join('');
-          if (fullCode.length === 6) {
-            submitOtpVerification(fullCode);
-          }
-        });
-
-        input.addEventListener('keydown', (e) => {
-          if (e.key === 'Backspace' && !input.value && idx > 0) {
-            digitInputs[idx - 1].focus();
-          }
-        });
-
-        input.addEventListener('paste', (e) => {
-          e.preventDefault();
-          const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/[^0-9]/g, '');
-          if (pasteData.length > 0) {
-            for (let i = 0; i < digitInputs.length; i++) {
-              digitInputs[i].value = pasteData[i] || '';
-            }
-            const fullCode = Array.from(digitInputs).map(i => i.value).join('');
-            if (fullCode.length === 6) {
-              submitOtpVerification(fullCode);
-            } else {
-              const nextEmpty = Array.from(digitInputs).findIndex(i => !i.value);
-              if (nextEmpty !== -1) digitInputs[nextEmpty].focus();
-            }
-          }
-        });
-      });
-
-      // Submit OTP Verification
-      async function submitOtpVerification(code) {
-        if (!code || code.length !== 6) {
-          showModalAlert('Please enter the complete 6-digit verification code.', 'error');
-          return;
-        }
-
-        btnVerifyOtp.disabled = true;
-        btnVerifyOtpText.innerHTML = '<span class="inline-block animate-spin mr-2"><i class="bi bi-arrow-repeat"></i></span> Verifying...';
-
-        try {
-          const res = await fetch("{{ route('contact.verify_otp') }}", {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-TOKEN': getCsrfToken(),
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify({ otp: code })
-          });
-
-          const data = await res.json();
-
-          if (res.ok && data.success) {
-            showModalAlert(data.message, 'success');
-            btnVerifyOtpText.textContent = 'Delivered!';
-
-            if (typeof window.typewriteText === 'function') {
-              typewriteText("Security verified! Your message has been encrypted and delivered directly to Kirollos Samy Ishaq's personal inbox.", "DELIVERY CONFIRMED");
-            }
-
-            setTimeout(() => {
-              closeOtpModal();
-              contactForm.reset();
-              contactFormStatus.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 flex items-center gap-2';
-              contactFormStatus.innerHTML = `<i class="bi bi-check-circle-fill text-lg"></i> <span>${data.message}</span>`;
-            }, 2000);
-          } else {
-            showModalAlert(data.message || 'Invalid verification code. Please try again.', 'error');
-            digitInputs.forEach(i => i.value = '');
-            if (digitInputs[0]) digitInputs[0].focus();
-          }
-        } catch (err) {
-          showModalAlert('Verification network error. Please try again.', 'error');
-        } finally {
-          btnVerifyOtp.disabled = false;
-          btnVerifyOtpText.textContent = 'Verify & Deliver';
-        }
-      }
-
-      // Verify Button Click Event
-      if (btnVerifyOtp) {
-        btnVerifyOtp.addEventListener('click', () => {
-          const fullCode = Array.from(digitInputs).map(i => i.value).join('');
-          submitOtpVerification(fullCode);
-        });
-      }
-
-      // Resend OTP Button Click Event
-      if (btnResendOtp) {
-        btnResendOtp.addEventListener('click', async () => {
-          if (resendCooldown > 0) return;
-
-          btnResendOtp.disabled = true;
-          btnResendOtpText.textContent = 'Transmitting...';
-
-          try {
-            const res = await fetch("{{ route('contact.resend_otp') }}", {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCsrfToken(),
-                'Accept': 'application/json'
-              }
-            });
-
-            const data = await res.json();
-
-            if (res.ok && data.success) {
-              digitInputs.forEach(i => i.value = '');
-              showModalAlert(data.message, 'success');
-              startCountdown(data.expires_in || 600);
-              
-              // Start 25s cooldown on resend
-              resendCooldown = 25;
-              clearInterval(resendInterval);
-              resendInterval = setInterval(() => {
-                resendCooldown--;
-                if (resendCooldown <= 0) {
-                  clearInterval(resendInterval);
-                  btnResendOtp.disabled = false;
-                  btnResendOtpText.textContent = 'Resend Code';
-                } else {
-                  btnResendOtpText.textContent = `Resend in ${resendCooldown}s`;
-                }
-              }, 1000);
-            } else {
-              showModalAlert(data.message || 'Failed to resend code.', 'error');
-              btnResendOtp.disabled = false;
-              btnResendOtpText.textContent = 'Resend Code';
-            }
-          } catch (err) {
-            showModalAlert('Network error resending code.', 'error');
-            btnResendOtp.disabled = false;
-            btnResendOtpText.textContent = 'Resend Code';
-          }
-        });
-      }
-
-      // Close / Edit Modal
-      if (btnCloseOtpModal) btnCloseOtpModal.addEventListener('click', closeOtpModal);
-      if (btnEditContact) btnEditContact.addEventListener('click', closeOtpModal);
 
       document.addEventListener('mouseup', (e) => {
         const selection = window.getSelection().toString().trim();
@@ -3363,7 +3089,6 @@
         if (e.key === 'Escape') {
           window.closeCertificateModal();
           window.closeProjectModal();
-          if (typeof closeOtpModal === 'function') closeOtpModal();
           if (typeof window.closeMobileDrawer === 'function') window.closeMobileDrawer();
         }
       });

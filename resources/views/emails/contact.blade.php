@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>New Verified Portfolio Inquiry</title>
+  <title>New Direct Portfolio Message</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #06080d; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #e2e8f0;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #06080d; padding: 40px 15px;">
@@ -24,7 +24,7 @@
                 <tr>
                   <td>
                     <h2 style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800; color: #ffffff;">
-                      New Verified Inquiry
+                      New Portfolio Message
                     </h2>
                     <p style="margin: 0; font-size: 12px; font-family: monospace; color: #94a3b8;">
                       Transmitted via Portfolio Contact Terminal
@@ -32,7 +32,7 @@
                   </td>
                   <td align="right">
                     <span style="display: inline-block; padding: 6px 14px; border-radius: 9999px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #10b981; font-size: 11px; font-weight: 700; font-family: monospace;">
-                      &#10003; OTP VERIFIED
+                      &#10003; DIRECT INQUIRY
                     </span>
                   </td>
                 </tr>
@@ -49,10 +49,9 @@
                   <td style="font-size: 14px; font-weight: 700; color: #ffffff;">{{ $data['name'] }}</td>
                 </tr>
                 <tr>
-                  <td style="font-size: 12px; font-family: monospace; color: #64748b; text-transform: uppercase;">Verified Email:</td>
+                  <td style="font-size: 12px; font-family: monospace; color: #64748b; text-transform: uppercase;">Sender Email:</td>
                   <td style="font-size: 14px; font-weight: 600; color: #06b6d4;">
                     <a href="mailto:{{ $data['email'] }}" style="color: #06b6d4; text-decoration: none;">{{ $data['email'] }}</a>
-                    <span style="color: #10b981; font-size: 11px; margin-left: 6px;">(Identity Confirmed via OTP)</span>
                   </td>
                 </tr>
                 <tr>

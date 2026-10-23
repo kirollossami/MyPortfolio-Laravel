@@ -5,62 +5,58 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\OtpVerificationMail;
+use App\Mail\ContactMail;
 
 class MailDeliveryService
 {
     /**
-     * Send OTP Verification code using HTTPS API (Resend) or SMTP with short timeout.
+     * Send Contact Inquiry directly to Kirollos Samy's inbox.
+     * Uses HTTPS Resend API (Port 443) or SMTP.
      *
-     * @param string $toEmail
-     * @param string $recipientName
-     * @param string $otpCode
+     * @param array $data ['name', 'email', 'subject', 'message']
      * @return array [bool 'delivered', string|null 'method', string|null 'error']
      */
-    public static function sendOtpEmail(string $toEmail, string $recipientName, string $otpCode): array
+    public static function sendInquiryEmail(array $data): array
     {
         $resendApiKey = env('RESEND_API_KEY');
+        $recipient = 'kerollossami@gmail.com';
 
-        // 1. Try Resend via HTTPS (Port 443 - never blocked by cloud firewalls)
+        // 1. Try Resend via HTTPS (Port 443 - zero firewall blocks on Railway)
         if (!empty($resendApiKey)) {
             try {
                 $fromAddress = env('RESEND_FROM_ADDRESS') ?: 'onboarding@resend.dev';
-                $fromName = env('MAIL_FROM_NAME', 'Kirollos Samy Portfolio');
+                $fromName = 'Portfolio Inquiry (' . $data['name'] . ')';
 
                 $response = Http::withToken($resendApiKey)
                     ->timeout(10)
                     ->post('https://api.resend.com/emails', [
                         'from' => "{$fromName} <{$fromAddress}>",
-                        'to' => [$toEmail],
-                        'subject' => "Security Verification Code: {$otpCode} — Kirollos Samy Inquiries",
-                        'html' => view('emails.otp', ['otp' => $otpCode, 'name' => $recipientName])->render(),
-                        'text' => view('emails.otp_text', ['otp' => $otpCode, 'name' => $recipientName])->render(),
+                        'to' => [$recipient],
+                        'reply_to' => $data['email'],
+                        'subject' => "New Portfolio Message: {$data['subject']} — from {$data['name']}",
+                        'html' => view('emails.contact', ['data' => $data])->render(),
                     ]);
 
                 if ($response->successful()) {
-                    Log::info("Resend HTTPS API successfully delivered OTP to: {$toEmail}");
+                    Log::info("Resend HTTPS API successfully delivered inquiry to: {$recipient}");
                     return ['delivered' => true, 'method' => 'resend_https', 'error' => null];
                 }
 
                 $errBody = $response->body();
                 Log::warning("Resend HTTPS returned error: " . $errBody);
-                return ['delivered' => false, 'method' => null, 'error' => $errBody];
             } catch (\Throwable $resendEx) {
                 Log::warning("Resend HTTPS request exception: " . $resendEx->getMessage());
-                return ['delivered' => false, 'method' => null, 'error' => $resendEx->getMessage()];
             }
         }
 
-        // 2. Try SMTP with short socket timeout
+        // 2. Fallback to SMTP
         try {
-            // Set short connection timeout to prevent hanging on cloud firewalls
             config(['mail.mailers.smtp.timeout' => 5]);
-
-            Mail::to($toEmail)->send(new OtpVerificationMail($otpCode, $recipientName));
-            Log::info("SMTP successfully delivered OTP to: {$toEmail}");
+            Mail::to($recipient)->send(new ContactMail($data));
+            Log::info("SMTP successfully delivered inquiry to: {$recipient}");
             return ['delivered' => true, 'method' => 'smtp', 'error' => null];
         } catch (\Throwable $smtpEx) {
-            Log::warning("SMTP dispatch failed (likely cloud port block): " . $smtpEx->getMessage());
+            Log::warning("SMTP dispatch failed: " . $smtpEx->getMessage());
             return ['delivered' => false, 'method' => null, 'error' => $smtpEx->getMessage()];
         }
     }
