@@ -1,6 +1,8 @@
 [variables]
 DB_CONNECTION = "sqlite"
 DB_DATABASE = "database/database.sqlite"
+NIXPACKS_PHP_ROOT_DIR = "/app/public"
+NIXPACKS_PHP_FALLBACK_PATH = "/index.php"
 
 [phases.setup]
 nixPkgs = ["...", "php82Extensions.pdo_sqlite", "php82Extensions.sqlite3"]
@@ -9,6 +11,7 @@ nixPkgs = ["...", "php82Extensions.pdo_sqlite", "php82Extensions.sqlite3"]
 cmds = [
     "composer install --no-dev --optimize-autoloader --prefer-dist",
     "touch database/database.sqlite",
+    "chmod -R 777 storage bootstrap/cache database",
     "php artisan config:clear",
     "php artisan route:clear",
     "php artisan view:clear"
