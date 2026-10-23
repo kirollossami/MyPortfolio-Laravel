@@ -23,6 +23,9 @@ class ContactController extends Controller
      */
     public function sendOtp(Request $request)
     {
+        @ini_set('max_execution_time', '120');
+        @set_time_limit(120);
+
         $validated = $request->validate([
             'name' => 'required|string|min:2|max:100',
             'email' => 'required|email|max:150',
@@ -52,11 +55,14 @@ class ContactController extends Controller
                 Mail::to($validated['email'])->send(new OtpVerificationMail($otp, $validated['name']));
                 Log::info("OTP Email successfully accepted by SMTP for: " . $validated['email'] . " [Code: " . $otp . "]");
             } catch (\Throwable $mailEx) {
-                Log::warning('SMTP Mail dispatch failed: ' . $mailEx->getMessage() . '. Storing OTP in session and providing dev code.');
+                Log::error('SMTP Mail dispatch failed: ' . $mailEx->getMessage());
                 if (config('app.debug') || config('app.env') !== 'production') {
                     $deliveryNote = " (Dev Code: {$otp})";
                 } else {
-                    throw $mailEx;
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Could not dispatch verification email (' . $mailEx->getMessage() . '). Please check SMTP configuration or contact Kirollos directly via WhatsApp.',
+                    ], 500);
                 }
             }
 
@@ -85,6 +91,9 @@ class ContactController extends Controller
      */
     public function resendOtp(Request $request)
     {
+        @ini_set('max_execution_time', '120');
+        @set_time_limit(120);
+
         $payload = $request->session()->get('contact_otp_payload');
 
         if (!$payload) {
@@ -120,11 +129,14 @@ class ContactController extends Controller
                 Mail::to($payload['email'])->send(new OtpVerificationMail($otp, $payload['name']));
                 Log::info("Resend OTP Email successfully accepted by SMTP for: " . $payload['email'] . " [Code: " . $otp . "]");
             } catch (\Throwable $mailEx) {
-                Log::warning('SMTP Resend dispatch failed: ' . $mailEx->getMessage());
+                Log::error('SMTP Resend dispatch failed: ' . $mailEx->getMessage());
                 if (config('app.debug') || config('app.env') !== 'production') {
                     $deliveryNote = " (Dev Code: {$otp})";
                 } else {
-                    throw $mailEx;
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Failed to resend verification code (' . $mailEx->getMessage() . '). Please try again.',
+                    ], 500);
                 }
             }
 
@@ -149,6 +161,9 @@ class ContactController extends Controller
      */
     public function verifyOtp(Request $request)
     {
+        @ini_set('max_execution_time', '120');
+        @set_time_limit(120);
+
         $request->validate([
             'otp' => 'required|string|size:6',
         ]);
@@ -210,11 +225,13 @@ class ContactController extends Controller
 
             try {
                 Mail::to($recipient)->send(new ContactMail($mailData));
+                Log::info("Verified contact inquiry successfully delivered via SMTP to {$recipient}.");
             } catch (\Throwable $mailEx) {
-                Log::warning('Final delivery email failed via SMTP: ' . $mailEx->getMessage());
-                if (!config('app.debug') && config('app.env') === 'production') {
-                    throw $mailEx;
-                }
+                Log::error('Final delivery email failed via SMTP: ' . $mailEx->getMessage());
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Identity confirmed, but dispatching to Kirollos Samy encountered an issue (' . $mailEx->getMessage() . '). Please reach out directly on WhatsApp or Email.',
+                ], 500);
             }
 
             // Clean up session
@@ -241,6 +258,9 @@ class ContactController extends Controller
      */
     public function submitForm(Request $request)
     {
+        @ini_set('max_execution_time', '120');
+        @set_time_limit(120);
+
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|max:150',

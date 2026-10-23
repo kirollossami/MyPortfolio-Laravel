@@ -1790,11 +1790,6 @@
           <i class="bi bi-envelope text-sm"></i>
           <span>Email</span>
         </a>
-
-        <a href="https://kirollossamy.up.railway.app/" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 hover:text-white hover:bg-emerald-500/20 text-xs font-mono flex items-center gap-1.5 transition-colors">
-          <i class="bi bi-broadcast text-sm"></i>
-          <span>Railway App</span>
-        </a>
       </div>
 
     </div>
