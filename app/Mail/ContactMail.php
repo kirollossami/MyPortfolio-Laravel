@@ -19,11 +19,13 @@ class ContactMail extends Mailable
 
     public function build()
     {
-        return $this->from($this->data['email'], $this->data['name']) 
-            ->replyTo($this->data['email'], $this->data['name'])     
-            ->subject($this->data['subject'])
+        $senderEmail = !empty($this->data['email']) ? $this->data['email'] : config('mail.from.address', 'kerollossami@gmail.com');
+        $senderName = !empty($this->data['name']) ? $this->data['name'] : 'Portfolio Client';
+
+        return $this->from($senderEmail, $senderName)
+            ->replyTo($senderEmail, $senderName)
+            ->subject('⚡ [' . $senderEmail . '] ' . ($this->data['subject'] ?? 'New Verified Inquiry') . ' — ' . $senderName)
             ->view('emails.contact')
             ->with('data', $this->data);
-
     }
 }

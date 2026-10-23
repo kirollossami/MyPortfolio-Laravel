@@ -36,3 +36,6 @@ Route::view('/maintenance-support', 'services.support')->name('support');
 
 Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
 Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
+Route::post('/contact/send-otp', [ContactController::class, 'sendOtp'])->name('contact.send_otp');
+Route::post('/contact/verify-otp', [ContactController::class, 'verifyOtp'])->name('contact.verify_otp');
+Route::post('/contact/resend-otp', [ContactController::class, 'resendOtp'])->name('contact.resend_otp');
