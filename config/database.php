@@ -15,7 +15,18 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite'),
+    'default' => (function () {
+        $connection = env('DB_CONNECTION');
+        if ($connection === 'mysql') {
+            $host = env('DB_HOST', '127.0.0.1');
+            $pass = env('DB_PASSWORD', '');
+            if (($host === '127.0.0.1' || $host === 'localhost') && empty($pass) && !env('DB_SOCKET')) {
+                return 'sqlite';
+            }
+            return 'mysql';
+        }
+        return $connection ?: 'sqlite';
+    })(),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,7 +49,20 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DATABASE_URL'),
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'database' => (function () {
+                $db = env('DB_DATABASE');
+                if (!$db || $db === 'laravel' || $db === 'forge' || str_ends_with($db, 'database.sqlite')) {
+                    $path = database_path('database.sqlite');
+                } elseif (str_starts_with($db, '/') || (strlen($db) > 2 && $db[1] === ':')) {
+                    $path = $db;
+                } else {
+                    $path = database_path($db);
+                }
+                if (!file_exists($path)) {
+                    @touch($path);
+                }
+                return $path;
+            })(),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],

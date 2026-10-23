@@ -1,0 +1,15 @@
+[variables]
+DB_CONNECTION = "sqlite"
+DB_DATABASE = "database/database.sqlite"
+
+[phases.setup]
+nixPkgs = ["...", "php82Extensions.pdo_sqlite", "php82Extensions.sqlite3"]
+
+[phases.build]
+cmds = [
+    "composer install --no-dev --optimize-autoloader --prefer-dist",
+    "touch database/database.sqlite",
+    "php artisan config:clear",
+    "php artisan route:clear",
+    "php artisan view:clear"
+]
