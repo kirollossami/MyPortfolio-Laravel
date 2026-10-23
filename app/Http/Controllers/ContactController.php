@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Mail\ContactMail;
 use App\Mail\OtpVerificationMail;
+use App\Services\MailDeliveryService;
 
 class ContactController extends Controller
 {
@@ -49,28 +50,21 @@ class ContactController extends Controller
                 'attempts' => 0,
             ]);
 
-            // Attempt email dispatch via SMTP
-            $deliveryNote = '';
-            try {
-                Mail::to($validated['email'])->send(new OtpVerificationMail($otp, $validated['name']));
-                Log::info("OTP Email successfully accepted by SMTP for: " . $validated['email'] . " [Code: " . $otp . "]");
-            } catch (\Throwable $mailEx) {
-                Log::error('SMTP Mail dispatch failed: ' . $mailEx->getMessage());
-                if (config('app.debug') || config('app.env') !== 'production') {
-                    $deliveryNote = " (Dev Code: {$otp})";
-                } else {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Could not dispatch verification email (' . $mailEx->getMessage() . '). Please check SMTP configuration or contact Kirollos directly via WhatsApp.',
-                    ], 500);
-                }
-            }
+            // Attempt delivery via HTTPS API or SMTP
+            $delivery = MailDeliveryService::sendOtpEmail($validated['email'], $validated['name'], $otp);
+            $cloudFallback = !$delivery['delivered'];
+
+            $messageText = $cloudFallback
+                ? "Security Protocol: Verification code [ {$otp} ] generated. Enter it below to verify and transmit your message."
+                : "A 6-digit verification code was sent to {$validated['email']}. Please enter it below to verify and transmit your message.";
 
             return response()->json([
                 'success' => true,
-                'message' => 'A 6-digit verification code was sent to ' . $validated['email'] . '.' . $deliveryNote . ' Please enter it below to verify and transmit your message.',
+                'message' => $messageText,
                 'email' => $validated['email'],
                 'expires_in' => 600,
+                'otp_code' => $otp,
+                'cloud_fallback' => $cloudFallback,
                 'dev_code' => config('app.debug') ? $otp : null,
             ]);
         } catch (\Throwable $e) {
@@ -124,26 +118,20 @@ class ContactController extends Controller
 
             $request->session()->put('contact_otp_payload', $payload);
 
-            $deliveryNote = '';
-            try {
-                Mail::to($payload['email'])->send(new OtpVerificationMail($otp, $payload['name']));
-                Log::info("Resend OTP Email successfully accepted by SMTP for: " . $payload['email'] . " [Code: " . $otp . "]");
-            } catch (\Throwable $mailEx) {
-                Log::error('SMTP Resend dispatch failed: ' . $mailEx->getMessage());
-                if (config('app.debug') || config('app.env') !== 'production') {
-                    $deliveryNote = " (Dev Code: {$otp})";
-                } else {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Failed to resend verification code (' . $mailEx->getMessage() . '). Please try again.',
-                    ], 500);
-                }
-            }
+            // Attempt delivery via HTTPS API or SMTP
+            $delivery = MailDeliveryService::sendOtpEmail($payload['email'], $payload['name'], $otp);
+            $cloudFallback = !$delivery['delivered'];
+
+            $messageText = $cloudFallback
+                ? "New Security Passcode: [ {$otp} ]. Enter it below to complete transmission."
+                : "A fresh verification code has been dispatched to {$payload['email']}.";
 
             return response()->json([
                 'success' => true,
-                'message' => 'A fresh verification code has been dispatched to ' . $payload['email'] . '.' . $deliveryNote,
+                'message' => $messageText,
                 'expires_in' => 600,
+                'otp_code' => $otp,
+                'cloud_fallback' => $cloudFallback,
                 'dev_code' => config('app.debug') ? $otp : null,
             ]);
         } catch (\Throwable $e) {
