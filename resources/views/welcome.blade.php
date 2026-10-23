@@ -2529,21 +2529,11 @@
         return meta ? meta.getAttribute('content') : '';
       }
 
-      function openOtpModal(email, initialMsg = null, otpCode = null) {
+      function openOtpModal(email, initialMsg = null) {
         modalTargetEmail.textContent = email;
-        if (otpCode) {
-          showModalAlert(`Verification Passcode: <strong class="text-cyan-300 font-mono tracking-widest text-sm bg-white/10 px-2.5 py-1 rounded ml-1.5 select-all border border-cyan-400/30">${otpCode}</strong>`, 'info');
-          for (let i = 0; i < 6 && i < digitInputs.length; i++) {
-            digitInputs[i].value = otpCode[i] || '';
-          }
-        } else if (initialMsg && initialMsg.includes('Dev Code:')) {
-          showModalAlert(initialMsg, 'info');
-          digitInputs.forEach(i => i.value = '');
-        } else {
-          otpModalAlert.className = 'hidden p-3.5 mb-5 rounded-xl text-xs font-mono';
-          otpModalAlert.innerHTML = '';
-          digitInputs.forEach(i => i.value = '');
-        }
+        otpModalAlert.className = 'hidden p-3.5 mb-5 rounded-xl text-xs font-mono';
+        otpModalAlert.innerHTML = '';
+        digitInputs.forEach(i => i.value = '');
         
         otpModal.classList.remove('opacity-0', 'pointer-events-none');
         otpModal.firstElementChild.classList.remove('scale-95');
@@ -2627,7 +2617,7 @@
             const data = await res.json();
 
             if (res.ok && data.success) {
-              openOtpModal(email, data.message, data.otp_code);
+              openOtpModal(email, data.message);
             } else {
               contactFormStatus.className = 'p-4 rounded-xl text-sm font-medium bg-rose-500/15 border border-rose-500/30 text-rose-300 flex items-center gap-2';
               contactFormStatus.innerHTML = `<i class="bi bi-exclamation-circle-fill"></i> <span>${data.message || 'Failed to dispatch security code. Please check your inputs.'}</span>`;
@@ -2762,14 +2752,8 @@
             const data = await res.json();
 
             if (res.ok && data.success) {
-              if (data.otp_code) {
-                showModalAlert(`New Passcode: <strong class="text-cyan-300 font-mono tracking-widest text-sm bg-white/10 px-2.5 py-1 rounded ml-1.5 select-all border border-cyan-400/30">${data.otp_code}</strong>`, 'info');
-                for (let i = 0; i < 6 && i < digitInputs.length; i++) {
-                  digitInputs[i].value = data.otp_code[i] || '';
-                }
-              } else {
-                showModalAlert(data.message, 'success');
-              }
+              digitInputs.forEach(i => i.value = '');
+              showModalAlert(data.message, 'success');
               startCountdown(data.expires_in || 600);
               
               // Start 25s cooldown on resend

@@ -24,11 +24,11 @@ class MailDeliveryService
         // 1. Try Resend via HTTPS (Port 443 - never blocked by cloud firewalls)
         if (!empty($resendApiKey)) {
             try {
-                $fromAddress = env('MAIL_FROM_ADDRESS', 'onboarding@resend.dev');
+                $fromAddress = env('RESEND_FROM_ADDRESS') ?: 'onboarding@resend.dev';
                 $fromName = env('MAIL_FROM_NAME', 'Kirollos Samy Portfolio');
 
                 $response = Http::withToken($resendApiKey)
-                    ->timeout(8)
+                    ->timeout(10)
                     ->post('https://api.resend.com/emails', [
                         'from' => "{$fromName} <{$fromAddress}>",
                         'to' => [$toEmail],
@@ -42,9 +42,12 @@ class MailDeliveryService
                     return ['delivered' => true, 'method' => 'resend_https', 'error' => null];
                 }
 
-                Log::warning("Resend HTTPS returned error: " . $response->body());
+                $errBody = $response->body();
+                Log::warning("Resend HTTPS returned error: " . $errBody);
+                return ['delivered' => false, 'method' => null, 'error' => $errBody];
             } catch (\Throwable $resendEx) {
                 Log::warning("Resend HTTPS request exception: " . $resendEx->getMessage());
+                return ['delivered' => false, 'method' => null, 'error' => $resendEx->getMessage()];
             }
         }
 

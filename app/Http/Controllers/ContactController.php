@@ -52,20 +52,22 @@ class ContactController extends Controller
 
             // Attempt delivery via HTTPS API or SMTP
             $delivery = MailDeliveryService::sendOtpEmail($validated['email'], $validated['name'], $otp);
-            $cloudFallback = !$delivery['delivered'];
 
-            $messageText = $cloudFallback
-                ? "Security Protocol: Verification code [ {$otp} ] generated. Enter it below to verify and transmit your message."
-                : "A 6-digit verification code was sent to {$validated['email']}. Please enter it below to verify and transmit your message.";
+            if (!$delivery['delivered']) {
+                $err = $delivery['error'] ?? 'Service temporarily unavailable';
+                Log::error("Failed to deliver OTP to {$validated['email']}: {$err}");
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Could not dispatch verification code to your email. Please check your email address and try again shortly.',
+                ], 500);
+            }
 
             return response()->json([
                 'success' => true,
-                'message' => $messageText,
+                'message' => "A 6-digit verification code has been dispatched to {$validated['email']}. Please check your inbox and enter the code below.",
                 'email' => $validated['email'],
                 'expires_in' => 600,
-                'otp_code' => $otp,
-                'cloud_fallback' => $cloudFallback,
-                'dev_code' => config('app.debug') ? $otp : null,
             ]);
         } catch (\Throwable $e) {
             Log::error('Send OTP Failed: ' . $e->getMessage(), [
@@ -120,19 +122,21 @@ class ContactController extends Controller
 
             // Attempt delivery via HTTPS API or SMTP
             $delivery = MailDeliveryService::sendOtpEmail($payload['email'], $payload['name'], $otp);
-            $cloudFallback = !$delivery['delivered'];
 
-            $messageText = $cloudFallback
-                ? "New Security Passcode: [ {$otp} ]. Enter it below to complete transmission."
-                : "A fresh verification code has been dispatched to {$payload['email']}.";
+            if (!$delivery['delivered']) {
+                $err = $delivery['error'] ?? 'Service temporarily unavailable';
+                Log::error("Failed to resend OTP to {$payload['email']}: {$err}");
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to resend verification code. Please check your email and try again shortly.',
+                ], 500);
+            }
 
             return response()->json([
                 'success' => true,
-                'message' => $messageText,
+                'message' => "A fresh 6-digit verification code has been dispatched to {$payload['email']}. Please check your inbox.",
                 'expires_in' => 600,
-                'otp_code' => $otp,
-                'cloud_fallback' => $cloudFallback,
-                'dev_code' => config('app.debug') ? $otp : null,
             ]);
         } catch (\Throwable $e) {
             Log::error('Resend OTP Failed: ' . $e->getMessage());
