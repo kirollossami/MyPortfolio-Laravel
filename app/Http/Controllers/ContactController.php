@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactMessage;
+use App\Models\SiteSetting;
+use App\Services\MailDeliveryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Services\MailDeliveryService;
 
 class ContactController extends Controller
 {
     /**
-     * Display the contact form / home view.
+     * Display the portfolio home view.
      */
     public function showForm()
     {
-        return view('welcome');
+        return app(PortfolioController::class)->index();
     }
 
     /**
-     * Handle direct contact form submissions.
-     * Delivers message directly to Kirollos Samy's inbox via Resend HTTPS (Port 443) / SMTP.
+     * Handle direct contact form submissions:
+     * 1. Persist to `contact_messages` table in database
+     * 2. Backup to storage/app/inquiries.json
+     * 3. Deliver email via MailDeliveryService
      */
     public function submitForm(Request $request)
     {
@@ -42,7 +46,19 @@ class ContactController extends Controller
             'user_agent' => $request->userAgent(),
         ];
 
-        // 1. Permanently record inquiry in storage/app/inquiries.json
+        // 1. Save inquiry to database
+        $contactMessage = ContactMessage::create([
+            'name' => $inquiry['name'],
+            'email' => $inquiry['email'],
+            'subject' => $inquiry['subject'],
+            'message' => $inquiry['message'],
+            'ip_address' => $inquiry['ip'],
+            'user_agent' => $inquiry['user_agent'],
+            'mail_delivered' => false,
+            'is_read' => false,
+        ]);
+
+        // 2. Backup inquiry in storage/app/inquiries.json
         try {
             $inquiriesFile = storage_path('app/inquiries.json');
             $existing = [];
@@ -50,22 +66,26 @@ class ContactController extends Controller
                 $content = @file_get_contents($inquiriesFile);
                 $existing = json_decode($content, true) ?: [];
             }
-            array_unshift($existing, array_merge(['id' => uniqid('inq_')], $inquiry));
-            // Keep recent 100
+            array_unshift($existing, array_merge(['id' => 'inq_' . $contactMessage->id], $inquiry));
             $existing = array_slice($existing, 0, 100);
             @file_put_contents($inquiriesFile, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         } catch (\Throwable $fileEx) {
             Log::warning('Inquiry file backup failed: ' . $fileEx->getMessage());
         }
 
-        // 2. Dispatch directly to Kirollos Samy's inbox
+        // 3. Dispatch directly to portfolio owner's inbox
         $delivery = MailDeliveryService::sendInquiryEmail($inquiry);
+        if (!empty($delivery['delivered'])) {
+            $contactMessage->update(['mail_delivered' => true]);
+        }
 
-        // 3. Generate pre-filled WhatsApp direct chat link
-        $waText = "Hello Kirollos,\nMy Name: {$inquiry['name']}\nEmail: {$inquiry['email']}\nSubject: {$inquiry['subject']}\nMessage: {$inquiry['message']}";
-        $whatsappUrl = "https://wa.me/201201977114?text=" . rawurlencode($waText);
+        // 4. Generate pre-filled WhatsApp direct chat link from dynamic settings
+        $brandName = SiteSetting::getValue('brand_name', 'Kirollos Samy');
+        $whatsappNumber = preg_replace('/[^0-9]/', '', (string) SiteSetting::getValue('whatsapp_number', '201201977114'));
+        $waText = "Hello {$brandName},\nMy Name: {$inquiry['name']}\nEmail: {$inquiry['email']}\nSubject: {$inquiry['subject']}\nMessage: {$inquiry['message']}";
+        $whatsappUrl = "https://wa.me/{$whatsappNumber}?text=" . rawurlencode($waText);
 
-        $responseMsg = "Thank you, {$inquiry['name']}! Your message has been sent directly to Kirollos Samy. You can also connect directly on WhatsApp below.";
+        $responseMsg = "Thank you, {$inquiry['name']}! Your message has been saved and sent directly to {$brandName}. You can also connect directly on WhatsApp below.";
 
         if ($request->expectsJson() || $request->ajax() || $request->header('Accept') === 'application/json') {
             return response()->json([
@@ -79,9 +99,6 @@ class ContactController extends Controller
         return redirect(url('/#contact'))->with('success', $responseMsg);
     }
 
-    /**
-     * Stubs for legacy routes to ensure zero errors if cached client JS calls them
-     */
     public function sendOtp(Request $request)
     {
         return $this->submitForm($request);

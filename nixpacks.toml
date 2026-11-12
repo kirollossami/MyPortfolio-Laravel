@@ -12,6 +12,8 @@ cmds = [
     "composer install --no-dev --optimize-autoloader --prefer-dist",
     "touch database/database.sqlite",
     "chmod -R 777 storage bootstrap/cache database",
+    "php artisan migrate --force",
+    "php artisan db:seed --force",
     "php artisan config:clear",
     "php artisan route:clear",
     "php artisan view:clear"

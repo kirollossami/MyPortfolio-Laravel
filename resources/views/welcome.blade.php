@@ -1,3 +1,18 @@
+@php
+  use App\Services\MediaService;
+  $s = fn (string $key, string $default = '') => $settings[$key] ?? $default;
+  $brandName = $s('brand_name', 'Kirollos Samy');
+  $brandFullName = $s('brand_full_name', 'Kirollos Samy Ishaq');
+  $brandSubtitle = $s('brand_subtitle', '.NET & LARAVEL SPECIALIST');
+  $navLogoUrl = MediaService::url($s('nav_logo_path', 'assets/img/profile/kirollos_nav_logo.png'));
+  $faviconUrl = MediaService::url($s('favicon_path', 'assets/img/favicon.png'));
+  $heroImageUrl = MediaService::url($s('hero_image_path', 'assets/img/profile/KirollosSamy.png'));
+  $contactEmail = $s('contact_email', 'kerollossami@gmail.com');
+  $whatsappUrl = $s('whatsapp_url', 'https://wa.me/message/HEKWNGDE4LGHK1?src=qr');
+  $linkedinUrl = $s('linkedin_url', 'https://www.linkedin.com/in/kirollossamy');
+  $githubUrl = $s('github_url', 'https://github.com/kirollossami');
+  $isAvailable = ($s('is_available', '1') === '1');
+@endphp
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -5,24 +20,24 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Kirollos Samy Ishaq | Full-Stack Developer & Backend Engineer (.NET Core & Laravel)</title>
+  <title>{{ $s('site_title', 'Kirollos Samy Ishaq | Full-Stack Developer & Backend Engineer (.NET Core & Laravel)') }}</title>
   
   <!-- SEO & Social Meta Tags -->
-  <meta name="description" content="Official portfolio of Kirollos Samy Ishaq - Full-Stack Developer & Backend Engineer specializing in C#, .NET Core Web API, ASP.NET Core MVC, Laravel, Clean Architecture, SQL Server, and Redis Caching.">
-  <meta name="keywords" content="Kirollos Samy Ishaq, Backend Engineer, Full-Stack Developer, .NET Core, C#, ASP.NET Core Web API, Laravel, PHP, Clean Architecture, SOLID Principles, SQL Server, Redis, Fawaterak, Paymob, Cairo Egypt">
-  <meta name="author" content="Kirollos Samy Ishaq">
+  <meta name="description" content="{{ $s('meta_description') }}">
+  <meta name="keywords" content="{{ $s('meta_keywords') }}">
+  <meta name="author" content="{{ $s('meta_author', $brandFullName) }}">
   <meta name="robots" content="index, follow">
   
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kirollossamy.up.railway.app/">
-  <meta property="og:title" content="Kirollos Samy Ishaq | Full-Stack Developer & Backend Engineer">
-  <meta property="og:description" content="High-Performance Backend Architecture & Scalable Web Solutions with .NET Core & Laravel.">
-  <meta property="og:image" content="{{ asset('assets/img/profile/KirollosSamy.png') }}">
+  <meta property="og:url" content="{{ $s('og_url', url('/')) }}">
+  <meta property="og:title" content="{{ $s('site_title') }}">
+  <meta property="og:description" content="{{ $s('meta_description') }}">
+  <meta property="og:image" content="{{ $heroImageUrl }}">
 
-  <!-- Favicon & App Icons with Kirollos Samy Photo Logo -->
-  <link rel="icon" type="image/png" sizes="64x64" href="{{ asset('assets/img/favicon.png') }}?v=2">
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/apple-touch-icon.png') }}?v=2">
-  <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}?v=2">
+  <!-- Favicon & App Icons -->
+  <link rel="icon" type="image/png" sizes="64x64" href="{{ $faviconUrl }}?v=2">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ $faviconUrl }}?v=2">
+  <link rel="shortcut icon" href="{{ $faviconUrl }}?v=2">
 
   <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -710,15 +725,17 @@
     <a href="#hero" class="flex items-center gap-3 group">
       <div class="relative flex-shrink-0">
         <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full p-[2px] bg-gradient-to-tr from-blue-600 via-sky-500 to-emerald-400 shadow-md group-hover:scale-105 transition-transform duration-300">
-          <img src="{{ asset('assets/img/profile/kirollos_nav_logo.png') }}" alt="Kirollos Samy Ishaq Logo" class="w-full h-full object-cover rounded-full bg-slate-900">
+          <img src="{{ $navLogoUrl }}" alt="{{ $brandFullName }} Logo" class="w-full h-full object-cover rounded-full bg-slate-900">
         </div>
-        <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[var(--bg-nav)] rounded-full shadow-sm">
-          <span class="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75"></span>
-        </span>
+        @if($isAvailable)
+          <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-[var(--bg-nav)] rounded-full shadow-sm">
+            <span class="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75"></span>
+          </span>
+        @endif
       </div>
       <div class="flex flex-col">
-        <span class="font-bold text-[var(--text-primary)] tracking-tight text-sm sm:text-base leading-tight group-hover:text-blue-500 transition-colors">Kirollos Samy</span>
-        <span class="font-mono text-[10px] sm:text-xs text-[var(--accent-sky)] tracking-wider">.NET &amp; LARAVEL SPECIALIST</span>
+        <span class="font-bold text-[var(--text-primary)] tracking-tight text-sm sm:text-base leading-tight group-hover:text-blue-500 transition-colors">{{ $brandName }}</span>
+        <span class="font-mono text-[10px] sm:text-xs text-[var(--accent-sky)] tracking-wider">{{ $brandSubtitle }}</span>
       </div>
     </a>
 
@@ -739,12 +756,12 @@
         <i id="themeIcon" class="bi bi-moon-stars-fill"></i>
       </button>
 
-      <a href="{{ route('download.resume') }}" class="btn-cyber-primary !py-2 !px-3.5 sm:!px-4 !text-xs !rounded-lg group" download="Kirollos_Samy_Resume.pdf">
+      <a href="{{ route('download.resume') }}" class="btn-cyber-primary !py-2 !px-3.5 sm:!px-4 !text-xs !rounded-lg group" download>
         <i class="bi bi-cloud-arrow-down-fill text-sky-200 group-hover:translate-y-0.5 transition-transform text-sm"></i>
         <span class="hidden xs:inline">Resume</span>
       </a>
 
-      <a href="https://www.linkedin.com/in/kirollossamy" target="_blank" rel="noopener" class="hidden sm:flex p-2 rounded-lg bg-[var(--pill-bg)] hover:bg-[var(--pill-border)] text-[var(--text-secondary)] hover:text-blue-500 transition-colors" title="LinkedIn Profile">
+      <a href="{{ $linkedinUrl }}" target="_blank" rel="noopener" class="hidden sm:flex p-2 rounded-lg bg-[var(--pill-bg)] hover:bg-[var(--pill-border)] text-[var(--text-secondary)] hover:text-blue-500 transition-colors" title="LinkedIn Profile">
         <i class="bi bi-linkedin text-lg"></i>
       </a>
 
@@ -761,10 +778,10 @@
       <div>
         <div class="flex items-center justify-between pb-5 border-b border-[var(--border-subtle)]">
           <div class="flex items-center gap-3">
-            <img src="{{ asset('assets/img/profile/kirollos_nav_logo.png') }}" alt="Kirollos Samy" class="w-10 h-10 rounded-full border border-[var(--border-subtle)]">
+            <img src="{{ $navLogoUrl }}" alt="{{ $brandName }}" class="w-10 h-10 rounded-full border border-[var(--border-subtle)]">
             <div>
-              <h4 class="font-bold text-sm text-[var(--text-primary)]">Kirollos Samy</h4>
-              <p class="text-[10px] font-mono text-[var(--accent-sky)]">.NET &amp; LARAVEL SPECIALIST</p>
+              <h4 class="font-bold text-sm text-[var(--text-primary)]">{{ $brandName }}</h4>
+              <p class="text-[10px] font-mono text-[var(--accent-sky)]">{{ $brandSubtitle }}</p>
             </div>
           </div>
           <button id="mobileNavCloseBtn" type="button" class="w-8 h-8 rounded-lg flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--pill-bg)] transition-colors">
@@ -801,20 +818,20 @@
       </div>
 
       <div class="pt-6 border-t border-[var(--border-subtle)] space-y-4">
-        <a href="{{ route('download.resume') }}" class="btn-cyber-primary w-full justify-center !py-2.5 !text-xs" download="Kirollos_Samy_Resume.pdf">
+        <a href="{{ route('download.resume') }}" class="btn-cyber-primary w-full justify-center !py-2.5 !text-xs" download>
           <i class="bi bi-cloud-arrow-down-fill"></i> Download Resume
         </a>
         <div class="flex items-center justify-center gap-3">
-          <a href="https://www.linkedin.com/in/kirollossamy" target="_blank" rel="noopener" class="p-2.5 rounded-xl bg-[var(--pill-bg)] text-[var(--text-secondary)] hover:text-blue-500 transition-colors" title="LinkedIn">
+          <a href="{{ $linkedinUrl }}" target="_blank" rel="noopener" class="p-2.5 rounded-xl bg-[var(--pill-bg)] text-[var(--text-secondary)] hover:text-blue-500 transition-colors" title="LinkedIn">
             <i class="bi bi-linkedin text-lg"></i>
           </a>
-          <a href="https://wa.me/message/HEKWNGDE4LGHK1?src=qr" target="_blank" rel="noopener" class="p-2.5 rounded-xl bg-[var(--pill-bg)] text-[var(--text-secondary)] hover:text-emerald-500 transition-colors" title="WhatsApp">
+          <a href="{{ $whatsappUrl }}" target="_blank" rel="noopener" class="p-2.5 rounded-xl bg-[var(--pill-bg)] text-[var(--text-secondary)] hover:text-emerald-500 transition-colors" title="WhatsApp">
             <i class="bi bi-whatsapp text-lg"></i>
           </a>
-          <a href="mailto:kerollossami@gmail.com" class="p-2.5 rounded-xl bg-[var(--pill-bg)] text-[var(--text-secondary)] hover:text-sky-500 transition-colors" title="Email">
+          <a href="mailto:{{ $contactEmail }}" class="p-2.5 rounded-xl bg-[var(--pill-bg)] text-[var(--text-secondary)] hover:text-sky-500 transition-colors" title="Email">
             <i class="bi bi-envelope-at text-lg"></i>
           </a>
-          <a href="https://github.com/kirollossami" target="_blank" rel="noopener" class="p-2.5 rounded-xl bg-[var(--pill-bg)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors" title="GitHub">
+          <a href="{{ $githubUrl }}" target="_blank" rel="noopener" class="p-2.5 rounded-xl bg-[var(--pill-bg)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors" title="GitHub">
             <i class="bi bi-github text-lg"></i>
           </a>
         </div>
@@ -832,17 +849,19 @@
         
         <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
           <!-- Live Status Badge -->
-          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-mono text-xs tracking-wide shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Available for Backend &amp; High-Impact Engineering Roles</span>
-          </div>
+          @if($isAvailable)
+            <div class="availability-badge inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-mono text-xs tracking-wide shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>{{ $s('availability_text', 'Available for Backend & High-Impact Engineering Roles') }}</span>
+            </div>
+          @endif
 
           <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-[var(--text-primary)] leading-[1.15]">
-            Building <span class="bg-gradient-to-r from-blue-600 via-sky-500 to-blue-500 dark:from-sky-400 dark:via-blue-400 dark:to-cyan-300 bg-clip-text text-transparent">High-Performance</span> Backend Architecture &amp; Scalable Web Solutions
+            {{ $s('hero_title_prefix', 'Building ') }}<span class="bg-gradient-to-r from-blue-600 via-sky-500 to-blue-500 dark:from-sky-400 dark:via-blue-400 dark:to-cyan-300 bg-clip-text text-transparent">{{ $s('hero_title_highlight', 'High-Performance') }}</span>{{ $s('hero_title_suffix', ' Backend Architecture & Scalable Web Solutions') }}
           </h1>
 
           <p class="text-[var(--text-secondary)] text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
-            Full-Stack Developer &amp; Backend Engineer specializing in <strong>C# .NET Core</strong>, <strong>Laravel</strong>, <strong>Clean Architecture</strong>, and <strong>High-Throughput Database Systems</strong>. Architecting rock-solid RESTful APIs, sub-50ms query pipelines, and resilient enterprise software.
+            {!! $s('hero_description') !!}
           </p>
 
           <!-- Dual CTAs -->
@@ -852,31 +871,23 @@
               <i class="bi bi-arrow-right"></i>
             </a>
 
-            <a href="{{ route('download.resume') }}" class="btn-cyber-outline group w-full sm:w-auto justify-center" download="Kirollos_Samy_Resume.pdf">
+            <a href="{{ route('download.resume') }}" class="btn-cyber-outline group w-full sm:w-auto justify-center" download>
               <i class="bi bi-cloud-arrow-down-fill text-sky-500 group-hover:translate-y-0.5 transition-transform text-lg"></i>
               <span>Download Resume</span>
             </a>
 
-            <button onclick="navigator.clipboard.writeText('kerollossami@gmail.com'); alert('Copied kerollossami@gmail.com to clipboard!');" class="btn-cyber-outline !px-4 w-full sm:w-auto justify-center" title="Copy Email">
+            <button onclick="navigator.clipboard.writeText('{{ $contactEmail }}'); alert('Copied {{ $contactEmail }} to clipboard!');" class="btn-cyber-outline !px-4 w-full sm:w-auto justify-center" title="Copy Email">
               <i class="bi bi-clipboard-check"></i>
-              <span>kerollossami@gmail.com</span>
+              <span>{{ $contactEmail }}</span>
             </button>
           </div>
 
           <!-- Quick Tech Stack Badges -->
           <div class="pt-6 border-t border-[var(--border-subtle)] flex flex-wrap items-center justify-center lg:justify-start gap-2 font-mono text-xs text-[var(--text-secondary)]">
             <span class="text-[var(--text-muted)] mr-2 uppercase tracking-wider text-[11px]">Core Stack:</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-sky-500 font-semibold">.NET Core / C#</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-blue-500 font-semibold">ASP.NET Core Web API</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-rose-500 font-semibold">Laravel</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-emerald-500 font-semibold">SQL Server</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-amber-500 font-semibold">Redis</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-sky-500 font-semibold">Paymob &amp; Fawaterak</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-indigo-500 font-semibold">Hostinger VPS</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-orange-500 font-semibold">cPanel</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-teal-500 font-semibold">CI/CD</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-emerald-500 font-semibold">Testing</span>
-            <span class="px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] text-blue-500 font-semibold">Deployment</span>
+            @foreach($techStacks as $stack)
+              <span class="tech-pill px-2.5 py-1 rounded bg-[var(--pill-bg)] border border-[var(--border-subtle)] {{ $stack->textColorClass() }} font-semibold">{{ $stack->name }}</span>
+            @endforeach
           </div>
         </div>
 
@@ -886,7 +897,7 @@
             <!-- Subtle Ambient Spotlight Behind Avatar -->
             <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(37,99,235,0.22),transparent_70%)] pointer-events-none"></div>
 
-            <img src="{{ asset('assets/img/profile/KirollosSamy.png') }}" alt="Kirollos Samy Ishaq - Full-Stack Developer &amp; Backend Engineer" class="w-full h-full object-cover object-center relative z-10 filter brightness-[1.02] contrast-[1.04] group-hover:scale-105 transition-transform duration-700">
+            <img id="heroPortraitImg" src="{{ $heroImageUrl }}" alt="{{ $brandFullName }}" class="profile-portrait w-full h-full object-cover object-center relative z-10 filter brightness-[1.02] contrast-[1.04] group-hover:scale-105 transition-transform duration-700">
           </div>
         </div>
 
@@ -899,90 +910,37 @@
     <section id="architecture" class="py-20 border-t border-white/5">
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
         <span class="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-mono text-xs uppercase tracking-widest">
-          Core Pillars
+          {{ $s('architecture_badge', 'Core Pillars') }}
         </span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Backend Architecture & System Competencies
+          {{ $s('architecture_title', 'Backend Architecture & System Competencies') }}
         </h2>
         <p class="text-slate-400 text-base">
-          Engineering principles built on fault isolation, transactional safety, and scalable web API patterns.
+          {{ $s('architecture_subtitle') }}
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-        <!-- Pillar 1: Clean Architecture -->
-        <div class="glass-card p-6 flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="w-12 h-12 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 flex items-center justify-center text-xl shadow-lg shadow-indigo-500/20">
-              <i class="bi bi-diagram-2"></i>
+        @foreach($pillars as $pillar)
+          <div class="glass-card p-6 flex flex-col justify-between">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-xl border {{ $pillar->iconWrapperClasses() }} flex items-center justify-center text-xl shadow-lg">
+                <i class="bi {{ $pillar->icon }}"></i>
+              </div>
+              <h3 class="text-lg font-bold text-white">{{ $pillar->title }}</h3>
+              <p class="text-slate-300 text-xs leading-relaxed">
+                {{ $pillar->description }}
+              </p>
             </div>
-            <h3 class="text-lg font-bold text-white">Clean Architecture & SOLID</h3>
-            <p class="text-slate-300 text-xs leading-relaxed">
-              Domain-Driven design, Onion Architecture, and N-Tier separation with CQRS patterns and Dependency Injection.
-            </p>
+            @if(!empty($pillar->bullets))
+              <ul class="mt-4 pt-4 border-t border-white/10 space-y-1.5 font-mono text-[11px] text-slate-300">
+                @foreach($pillar->bullets as $bullet)
+                  <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> {{ $bullet }}</li>
+                @endforeach
+              </ul>
+            @endif
           </div>
-          <ul class="mt-4 pt-4 border-t border-white/10 space-y-1.5 font-mono text-[11px] text-slate-300">
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> Domain / Application / Infra Isolation</li>
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> Repository & Unit of Work</li>
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> FluentValidation & DTO Mappings</li>
-          </ul>
-        </div>
-
-        <!-- Pillar 2: API Systems & Integrations -->
-        <div class="glass-card p-6 flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="w-12 h-12 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-xl shadow-lg shadow-cyan-500/20">
-              <i class="bi bi-arrow-left-right"></i>
-            </div>
-            <h3 class="text-lg font-bold text-white">API Security & Payments</h3>
-            <p class="text-slate-300 text-xs leading-relaxed">
-              RESTful APIs with JWT authentication, role policies, and payment integrations (Fawaterak, Paymob, Tap).
-            </p>
-          </div>
-          <ul class="mt-4 pt-4 border-t border-white/10 space-y-1.5 font-mono text-[11px] text-slate-300">
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> Verified Payment Webhooks</li>
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> JWT & Token Rotation</li>
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> OpenAPI & Swagger UI</li>
-          </ul>
-        </div>
-
-        <!-- Pillar 3: Database & Caching -->
-        <div class="glass-card p-6 flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-xl shadow-lg shadow-emerald-500/20">
-              <i class="bi bi-database-gear"></i>
-            </div>
-            <h3 class="text-lg font-bold text-white">Database & Redis Cache</h3>
-            <p class="text-slate-300 text-xs leading-relaxed">
-              SQL Server & MySQL optimization, recursive queries, index execution plans, and sub-5ms Redis caching.
-            </p>
-          </div>
-          <ul class="mt-4 pt-4 border-t border-white/10 space-y-1.5 font-mono text-[11px] text-slate-300">
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> Stored Procedures & Triggers</li>
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> Redis In-Memory Caching</li>
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> Query Execution Profiling</li>
-          </ul>
-        </div>
-
-        <!-- Pillar 4: DevOps, Testing & Deployment -->
-        <div class="glass-card p-6 flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="w-12 h-12 rounded-xl bg-purple-500/15 border border-purple-500/30 text-purple-400 flex items-center justify-center text-xl shadow-lg shadow-purple-500/20">
-              <i class="bi bi-cloud-check"></i>
-            </div>
-            <h3 class="text-lg font-bold text-white">DevOps, Testing & VPS</h3>
-            <p class="text-slate-300 text-xs leading-relaxed">
-              Hostinger VPS configuration, cPanel hosting, automated CI/CD pipelines, unit/integration testing, and zero-downtime deployment.
-            </p>
-          </div>
-          <ul class="mt-4 pt-4 border-t border-white/10 space-y-1.5 font-mono text-[11px] text-slate-300">
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> Hostinger VPS & cPanel</li>
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> Automated CI/CD & Deployment</li>
-            <li class="flex items-center gap-1.5"><i class="bi bi-check2 text-cyan-400"></i> Unit & Integration Testing</li>
-          </ul>
-        </div>
-
+        @endforeach
       </div>
     </section>
 
@@ -992,13 +950,13 @@
     <section id="projects" class="py-20 border-t border-white/5">
       <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
         <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs uppercase tracking-widest">
-          Portfolio &amp; Architecture
+          {{ $s('projects_badge', 'Portfolio & Architecture') }}
         </span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Featured Production-Grade Projects
+          {{ $s('projects_title', 'Featured Production-Grade Projects') }}
         </h2>
         <p class="text-slate-400 text-base">
-          Proven software systems handling tenancy booking, examination engines, payment-integrated ecommerce, and enterprise portals.
+          {{ $s('projects_subtitle') }}
         </p>
       </div>
 
@@ -1011,17 +969,13 @@
           </span>
           <div class="flex flex-wrap gap-2" id="frameworkFilterButtons">
             <button type="button" data-filter-type="framework" data-filter-value="all" class="project-filter-btn active-filter px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
-              All Frameworks (7)
+              All Frameworks ({{ $projects->count() }})
             </button>
-            <button type="button" data-filter-type="framework" data-filter-value="dotnet" class="project-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
-              ASP.NET Core / C# (3)
-            </button>
-            <button type="button" data-filter-type="framework" data-filter-value="laravel" class="project-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
-              Laravel / PHP (3)
-            </button>
-            <button type="button" data-filter-type="framework" data-filter-value="nodejs" class="project-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
-              Node.js (1)
-            </button>
+            @foreach($frameworkFilters as $key => $info)
+              <button type="button" data-filter-type="framework" data-filter-value="{{ $key }}" class="project-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
+                {{ $info['label'] }} ({{ $info['count'] }})
+              </button>
+            @endforeach
           </div>
         </div>
 
@@ -1032,27 +986,20 @@
           </span>
           <div class="flex flex-wrap gap-2" id="archFilterButtons">
             <button type="button" data-filter-type="arch" data-filter-value="all" class="project-filter-btn active-filter px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
-              All Architectures (7)
+              All Architectures ({{ $projects->count() }})
             </button>
-            <button type="button" data-filter-type="arch" data-filter-value="clean" class="project-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
-              Clean Architecture (2)
-            </button>
-            <button type="button" data-filter-type="arch" data-filter-value="ntier" class="project-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
-              N-Tier Architecture (1)
-            </button>
-            <button type="button" data-filter-type="arch" data-filter-value="microservices" class="project-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
-              RESTful APIs &amp; Microservices (2)
-            </button>
-            <button type="button" data-filter-type="arch" data-filter-value="mvc" class="project-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
-              MVC &amp; Modular Monolith (3)
-            </button>
+            @foreach($archFilters as $key => $info)
+              <button type="button" data-filter-type="arch" data-filter-value="{{ $key }}" class="project-filter-btn px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all">
+                {{ $info['label'] }} ({{ $info['count'] }})
+              </button>
+            @endforeach
           </div>
         </div>
 
         <!-- Filter Status Counter & Reset -->
         <div class="flex items-center justify-between pt-3 border-t border-white/5 text-xs font-mono text-slate-400">
           <div>
-            Showing <span id="projectCountDisplay" class="text-cyan-400 font-bold">4</span> of <span id="projectTotalDisplay" class="text-white font-bold">7</span> projects
+            Showing <span id="projectCountDisplay" class="text-cyan-400 font-bold">{{ min(4, $projects->count()) }}</span> of <span id="projectTotalDisplay" class="text-white font-bold">{{ $projects->count() }}</span> projects
             <span id="activeFilterBadge" class="hidden ml-2 px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300"></span>
           </div>
           <button id="btnResetFilters" type="button" onclick="window.resetProjectFilters()" class="hidden text-slate-400 hover:text-white transition-colors items-center gap-1">
@@ -1100,199 +1047,50 @@
     <section id="credentials" class="py-20 border-t border-white/5">
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
         <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs uppercase tracking-widest">
-          Verified Badges
+          {{ $s('credentials_badge', 'Verified Badges') }}
         </span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Certifications &amp; Engineering Milestones
+          {{ $s('credentials_title', 'Certifications & Engineering Milestones') }}
         </h2>
         <p class="text-slate-400 text-base">
-          Officially verified technical credentials in advanced SQL, full-stack .NET, PHP/Laravel, and distributed DevOps workflows. Click any certificate to inspect full credentials.
+          {{ $s('credentials_subtitle') }}
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- Cert 1: SQL Advanced -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-cyan-400/40 transition-all">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <!-- Clickable Image Thumbnail to View Modal -->
-              <button type="button" onclick="openCertificateModal('cert_sql_advanced')" class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 p-1.5 hover:border-cyan-400 hover:scale-105 transition-all text-left" title="Click to View Full Certificate">
-                <img src="{{ asset('assets/img/AdvancedSQL.png') }}" alt="HackerRank SQL Advanced" class="w-full h-full object-contain">
-              </button>
-              <span class="px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold">GOLD MEDAL</span>
+        @foreach($certificates as $cert)
+          @php $certTheme = $cert->themeClasses(); @endphp
+          <div class="glass-card p-7 flex flex-col justify-between group {{ $certTheme['hover_border'] }} transition-all">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <button type="button" onclick="openCertificateModal('{{ $cert->slug }}')" class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 p-1.5 {{ $certTheme['thumb_hover'] }} hover:scale-105 transition-all text-left" title="Click to View Full Certificate">
+                  <img src="{{ $cert->image_url }}" alt="{{ $cert->title }}" class="w-full h-full object-contain">
+                </button>
+                <span class="px-2.5 py-0.5 rounded border {{ $certTheme['badge'] }} font-mono text-[11px] font-bold">{{ $cert->badge_text }}</span>
+              </div>
+              <div>
+                <span class="font-mono text-xs text-cyan-400 uppercase tracking-wider">{{ $cert->issuer }}</span>
+                <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">{{ $cert->title }}</h3>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                {{ $cert->description }}
+              </p>
             </div>
-            <div>
-              <span class="font-mono text-xs text-cyan-400 uppercase tracking-wider">HackerRank Verified</span>
-              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">SQL (Advanced) Certification</h3>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Demonstrated mastery of recursive queries, window aggregations (`DENSE_RANK()`, `ROW_NUMBER()`), and deep query plan optimizations across large-scale datasets.
-            </p>
-          </div>
-          <div class="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-            <span class="font-mono text-xs text-slate-500">Dec 2025</span>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="openCertificateModal('cert_sql_advanced')" class="btn-cyber-primary !py-1.5 !px-3 !text-xs flex items-center gap-1.5" title="View Certificate Image">
-                <i class="bi bi-eye-fill"></i> View Image
-              </button>
-              <a href="{{ route('download.AdvancedSQLcertificate') }}" class="btn-cyber-outline !py-1.5 !px-3 !text-xs" download title="Download Verified PDF">
-                <i class="bi bi-download"></i> PDF
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cert 2: DEPI Diploma -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-indigo-400/40 transition-all">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <button type="button" onclick="openCertificateModal('cert_depi')" class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 p-1.5 hover:border-indigo-400 hover:scale-105 transition-all text-left" title="Click to View Full Certificate">
-                <img src="{{ asset('assets/img/Kirollos Samy Ishaq - Depi.png') }}" alt="DEPI Diploma" class="w-full h-full object-contain">
-              </button>
-              <span class="px-2.5 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-mono text-[11px] font-bold">MCIT TRACK</span>
-            </div>
-            <div>
-              <span class="font-mono text-xs text-cyan-400 uppercase tracking-wider">DEPI — Digital Egypt Pioneers</span>
-              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Full Stack .NET Web Development</h3>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              200-Hour intensive track covering C#, ASP.NET Core Web API, Entity Framework Core, SQL Server, N-Tier Architecture, and modern frontend development.
-            </p>
-          </div>
-          <div class="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-            <span class="font-mono text-xs text-slate-500">Class 2026</span>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="openCertificateModal('cert_depi')" class="btn-cyber-primary !py-1.5 !px-3 !text-xs flex items-center gap-1.5" title="View Certificate Image">
-                <i class="bi bi-eye-fill"></i> View Image
-              </button>
-              <a href="{{ route('download.DEPICertificateDownload') }}" class="btn-cyber-outline !py-1.5 !px-3 !text-xs" download title="Download Verified PDF">
-                <i class="bi bi-download"></i> PDF
-              </a>
+            <div class="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+              <span class="font-mono text-xs text-slate-500">{{ $cert->issued_date }}</span>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="openCertificateModal('{{ $cert->slug }}')" class="btn-cyber-primary !py-1.5 !px-3 !text-xs flex items-center gap-1.5" title="View Certificate Image">
+                  <i class="bi bi-eye-fill"></i> View Image
+                </button>
+                @if($cert->pdf_path)
+                  <a href="{{ $cert->download_url }}" class="btn-cyber-outline !py-1.5 !px-3 !text-xs" download title="Download Verified PDF">
+                    <i class="bi bi-download"></i> PDF
+                  </a>
+                @endif
+              </div>
             </div>
           </div>
-        </div>
-
-        <!-- Cert 3: NTI Diploma -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-cyan-400/40 transition-all">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <button type="button" onclick="openCertificateModal('cert_nti')" class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 p-1.5 hover:border-cyan-400 hover:scale-105 transition-all text-left" title="Click to View Full Certificate">
-                <img src="{{ asset('assets/img/Kirollos Samy Ishaq Tawfik.png') }}" alt="NTI Diploma" class="w-full h-full object-contain">
-              </button>
-              <span class="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold">MINISTRY DIPLOMA</span>
-            </div>
-            <div>
-              <span class="font-mono text-xs text-cyan-400 uppercase tracking-wider">NTI Institute Egypt</span>
-              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Full Stack PHP &amp; Laravel</h3>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              120-Hour intensive curriculum in native PHP engineering, Laravel framework, MySQL optimization, and professional freelance consulting.
-            </p>
-          </div>
-          <div class="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-            <span class="font-mono text-xs text-slate-500">Class 2025</span>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="openCertificateModal('cert_nti')" class="btn-cyber-primary !py-1.5 !px-3 !text-xs flex items-center gap-1.5" title="View Certificate Image">
-                <i class="bi bi-eye-fill"></i> View Image
-              </button>
-              <a href="{{ route('download.certificate') }}" class="btn-cyber-outline !py-1.5 !px-3 !text-xs" download title="Download Verified PDF">
-                <i class="bi bi-download"></i> PDF
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cert 4: SQL Intermediate -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-purple-400/40 transition-all">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <button type="button" onclick="openCertificateModal('cert_sql_intermediate')" class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 p-1.5 hover:border-purple-400 hover:scale-105 transition-all text-left" title="Click to View Full Certificate">
-                <img src="{{ asset('assets/img/IntermediateSQL.png') }}" alt="HackerRank SQL Intermediate" class="w-full h-full object-contain">
-              </button>
-              <span class="px-2.5 py-0.5 rounded bg-purple-500/10 border border-purple-500/30 text-purple-400 font-mono text-[11px] font-bold">SPECIALIST</span>
-            </div>
-            <div>
-              <span class="font-mono text-xs text-cyan-400 uppercase tracking-wider">HackerRank Verified</span>
-              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">SQL (Intermediate) Certification</h3>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Advanced multi-table joins, subqueries, grouping set rollups, indexing strategies, and relational schema integrity across SQL servers.
-            </p>
-          </div>
-          <div class="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-            <span class="font-mono text-xs text-slate-500">Nov 2025</span>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="openCertificateModal('cert_sql_intermediate')" class="btn-cyber-primary !py-1.5 !px-3 !text-xs flex items-center gap-1.5" title="View Certificate Image">
-                <i class="bi bi-eye-fill"></i> View Image
-              </button>
-              <a href="{{ route('download.IntermediateSQLcertificate') }}" class="btn-cyber-outline !py-1.5 !px-3 !text-xs" download title="Download Verified PDF">
-                <i class="bi bi-download"></i> PDF
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cert 5: SQL Basic -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-blue-400/40 transition-all">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <button type="button" onclick="openCertificateModal('cert_sql_basic')" class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 p-1.5 hover:border-blue-400 hover:scale-105 transition-all text-left" title="Click to View Full Certificate">
-                <img src="{{ asset('assets/img/BasicSQL.png') }}" alt="HackerRank SQL Basic" class="w-full h-full object-contain">
-              </button>
-              <span class="px-2.5 py-0.5 rounded bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono text-[11px] font-bold">FOUNDATION</span>
-            </div>
-            <div>
-              <span class="font-mono text-xs text-cyan-400 uppercase tracking-wider">HackerRank Verified</span>
-              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">SQL (Basic) Certification</h3>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Relational algebra fundamentals, data filtering predicates, aggregate functions, and normalized DDL/DML transactions.
-            </p>
-          </div>
-          <div class="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-            <span class="font-mono text-xs text-slate-500">Oct 2025</span>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="openCertificateModal('cert_sql_basic')" class="btn-cyber-primary !py-1.5 !px-3 !text-xs flex items-center gap-1.5" title="View Certificate Image">
-                <i class="bi bi-eye-fill"></i> View Image
-              </button>
-              <a href="{{ route('download.BasicSQLcertificate') }}" class="btn-cyber-outline !py-1.5 !px-3 !text-xs" download title="Download Verified PDF">
-                <i class="bi bi-download"></i> PDF
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Cert 6: Git & GitHub -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-amber-400/40 transition-all">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <button type="button" onclick="openCertificateModal('cert_github')" class="w-14 h-14 rounded-xl bg-white/5 border border-white/10 p-1.5 hover:border-amber-400 hover:scale-105 transition-all text-left" title="Click to View Full Certificate">
-                <img src="{{ asset('assets/img/GitHubCertificate.png') }}" alt="ElMadrasah Git & GitHub" class="w-full h-full object-contain">
-              </button>
-              <span class="px-2.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-[11px] font-bold">DEVOPS &amp; VCS</span>
-            </div>
-            <div>
-              <span class="font-mono text-xs text-cyan-400 uppercase tracking-wider">ElMadrasah Academy</span>
-              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Git &amp; GitHub Professional</h3>
-            </div>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Distributed version control, branching models (GitFlow), interactive rebase, pull request review cycles, and merge conflict resolution.
-            </p>
-          </div>
-          <div class="mt-6 pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-            <span class="font-mono text-xs text-slate-500">Sep 2025</span>
-            <div class="flex items-center gap-2">
-              <button type="button" onclick="openCertificateModal('cert_github')" class="btn-cyber-primary !py-1.5 !px-3 !text-xs flex items-center gap-1.5" title="View Certificate Image">
-                <i class="bi bi-eye-fill"></i> View Image
-              </button>
-              <a href="{{ route('download.GitHubcertificate') }}" class="btn-cyber-outline !py-1.5 !px-3 !text-xs" download title="Download Verified PDF">
-                <i class="bi bi-download"></i> PDF
-              </a>
-            </div>
-          </div>
-        </div>
-
+        @endforeach
       </div>
     </section>
 
@@ -1302,173 +1100,53 @@
     <section id="testimonials" class="py-20 border-t border-white/5">
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
         <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs uppercase tracking-widest">
-          Verified Social Proof
+          {{ $s('testimonials_badge', 'Verified Social Proof') }}
         </span>
         <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Testimonials &amp; Mentorship Endorsements
+          {{ $s('testimonials_title', 'Testimonials & Mentorship Endorsements') }}
         </h2>
         <p class="text-slate-400 text-base">
-          Direct feedback and recommendations from industry mentors and certified engineering instructors at NTI (National Telecommunication Institute) and DEPI (Digital Egypt Pioneers Initiative).
+          {{ $s('testimonials_subtitle') }}
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- Testimonial 1: Eng. Islam Ramadan (NTI) -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-cyan-400/40 transition-all duration-300">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center text-xl shadow-lg shadow-cyan-500/10">
-                <i class="bi bi-quote"></i>
-              </span>
-              <span class="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold">NTI INSTRUCTOR</span>
-            </div>
-            
-            <p class="text-white text-base font-medium leading-relaxed italic" style="direction: rtl; text-align: right;">
-              "جهد محترم يحترم , عاش جدا يا هندسة , Keep going 💪💪"
-            </p>
-          </div>
-
-          <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-              <img src="{{ asset('assets/img/testimonials/eng_islam_ramadan.jpeg') }}" alt="Eng. Islam Ramadan" class="w-11 h-11 rounded-full object-cover border border-cyan-400/40 shadow-sm">
-              <div>
-                <h4 class="text-sm font-bold text-white leading-tight">Eng. Islam Ramadan</h4>
-                <p class="text-[11px] font-mono text-cyan-300">Technical Instructor at NTI</p>
-                <p class="text-[10px] text-slate-400">Full Stack PHP &amp; Laravel</p>
+        @foreach($testimonials as $testimonial)
+          @php $tTheme = $testimonial->themeClasses(); @endphp
+          <div class="glass-card p-7 flex flex-col justify-between group {{ $tTheme['hover_border'] }} transition-all duration-300">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="w-10 h-10 rounded-xl {{ $tTheme['icon_box'] }} flex items-center justify-center text-xl shadow-lg">
+                  <i class="bi bi-quote"></i>
+                </span>
+                <span class="px-2.5 py-0.5 rounded border {{ $tTheme['badge'] }} font-mono text-[11px] font-bold">{{ $testimonial->badge_text }}</span>
               </div>
+              
+              <p class="text-white text-base font-medium leading-relaxed italic" @if($testimonial->is_rtl) style="direction: rtl; text-align: right;" @endif>
+                "{{ $testimonial->quote }}"
+              </p>
             </div>
 
-            <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7367531327102844928?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7367531327102844928%2C7367886165582012416%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287367886165582012416%2Curn%3Ali%3AugcPost%3A7367531327102844928%29" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 hover:border-cyan-400 text-slate-400 hover:text-cyan-400 flex items-center justify-center transition-colors flex-shrink-0" title="Verify Recommendation on LinkedIn">
-              <i class="bi bi-linkedin"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Testimonial 2: Eng. Islam Ramadan (NTI - 2nd) -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-cyan-400/40 transition-all duration-300">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center text-xl shadow-lg shadow-cyan-500/10">
-                <i class="bi bi-quote"></i>
-              </span>
-              <span class="px-2.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold">TOP STUDENT</span>
-            </div>
-            
-            <p class="text-white text-base font-medium leading-relaxed italic">
-              "Greeeeeet work eng kirolos One of best students Keep going 💪"
-            </p>
-          </div>
-
-          <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-              <img src="{{ asset('assets/img/testimonials/eng_islam_ramadan.jpeg') }}" alt="Eng. Islam Ramadan" class="w-11 h-11 rounded-full object-cover border border-cyan-400/40 shadow-sm">
-              <div>
-                <h4 class="text-sm font-bold text-white leading-tight">Eng. Islam Ramadan</h4>
-                <p class="text-[11px] font-mono text-cyan-300">Technical Instructor at NTI</p>
-                <p class="text-[10px] text-slate-400">Full Stack PHP &amp; Laravel</p>
+            <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                <img src="{{ $testimonial->author_image_url }}" alt="{{ $testimonial->author_name }}" class="w-11 h-11 rounded-full object-cover border {{ $tTheme['avatar_border'] }} shadow-sm">
+                <div>
+                  <h4 class="text-sm font-bold text-white leading-tight">{{ $testimonial->author_name }}</h4>
+                  <p class="text-[11px] font-mono {{ $tTheme['role_text'] }}">{{ $testimonial->author_role }}</p>
+                  @if($testimonial->author_subtitle)
+                    <p class="text-[10px] text-slate-400">{{ $testimonial->author_subtitle }}</p>
+                  @endif
+                </div>
               </div>
+
+              @if($testimonial->linkedin_url)
+                <a href="{{ $testimonial->linkedin_url }}" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 {{ $tTheme['link_hover'] }} text-slate-400 flex items-center justify-center transition-colors flex-shrink-0" title="Verify Recommendation on LinkedIn">
+                  <i class="bi bi-linkedin"></i>
+                </a>
+              @endif
             </div>
-
-            <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7369440555149262848?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7369440555149262848%2C7370007198694813697%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287370007198694813697%2Curn%3Ali%3AugcPost%3A7369440555149262848%29" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 hover:border-cyan-400 text-slate-400 hover:text-cyan-400 flex items-center justify-center transition-colors flex-shrink-0" title="Verify Recommendation on LinkedIn">
-              <i class="bi bi-linkedin"></i>
-            </a>
           </div>
-        </div>
-
-        <!-- Testimonial 3: Eng. Abdelrahman Shaaban (DEPI) -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-indigo-400/40 transition-all duration-300">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-xl shadow-lg shadow-indigo-500/10">
-                <i class="bi bi-quote"></i>
-              </span>
-              <span class="px-2.5 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-mono text-[11px] font-bold">DEPI .NET LEAD</span>
-            </div>
-            
-            <p class="text-white text-base font-medium leading-relaxed italic">
-              "Proud of your progress wishing you all the best"
-            </p>
-          </div>
-
-          <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-              <img src="{{ asset('assets/img/testimonials/Eng_Abdelrahman.jpg') }}" alt="Eng. Abdelrahman Shaaban" class="w-11 h-11 rounded-full object-cover border border-indigo-400/40 shadow-sm">
-              <div>
-                <h4 class="text-sm font-bold text-white leading-tight">Eng. Abdelrahman Shaaban</h4>
-                <p class="text-[11px] font-mono text-indigo-300">Technical Instructor at DEPI</p>
-                <p class="text-[10px] text-slate-400">Full Stack .NET Development</p>
-              </div>
-            </div>
-
-            <a href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7409554845323587584?commentUrn=urn%3Ali%3Acomment%3A%28ugcPost%3A7409554845323587584%2C7409806894380535808%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287409806894380535808%2Curn%3Ali%3AugcPost%3A7409554845323587584%29" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 hover:border-indigo-400 text-slate-400 hover:text-indigo-400 flex items-center justify-center transition-colors flex-shrink-0" title="Verify Recommendation on LinkedIn">
-              <i class="bi bi-linkedin"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Testimonial 4: Eng. Hossam Ashraf (DEPI) -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-emerald-400/40 transition-all duration-300">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xl shadow-lg shadow-emerald-500/10">
-                <i class="bi bi-quote"></i>
-              </span>
-              <span class="px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold">DEPI MENTOR</span>
-            </div>
-            
-            <p class="text-white text-base font-medium leading-relaxed italic" style="direction: rtl; text-align: right;">
-              "عاااش يا هندسه فخور جدا بيك ربنا يوفقك في اللي جي ❤️"
-            </p>
-          </div>
-
-          <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-              <img src="{{ asset('assets/img/testimonials/Eng_HossamAshraf.jpg') }}" alt="Eng. Hossam Ashraf" class="w-11 h-11 rounded-full object-cover border border-emerald-400/40 shadow-sm">
-              <div>
-                <h4 class="text-sm font-bold text-white leading-tight">Eng. Hossam Ashraf</h4>
-                <p class="text-[11px] font-mono text-emerald-300">Soft Skills Instructor at DEPI</p>
-                <p class="text-[10px] text-slate-400">Professional Leadership</p>
-              </div>
-            </div>
-
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7437545935284482048?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7437545935284482048%2C7437826334766051328%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287437826334766051328%2Curn%3Ali%3Aactivity%3A7437545935284482048%29" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 hover:border-emerald-400 text-slate-400 hover:text-emerald-400 flex items-center justify-center transition-colors flex-shrink-0" title="Verify Recommendation on LinkedIn">
-              <i class="bi bi-linkedin"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Testimonial 5: Eng. Hossam Ashraf (DEPI Graduation) -->
-        <div class="glass-card p-7 flex flex-col justify-between group hover:border-emerald-400/40 transition-all duration-300 md:col-span-2 lg:col-span-1">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xl shadow-lg shadow-emerald-500/10">
-                <i class="bi bi-quote"></i>
-              </span>
-              <span class="px-2.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold">DEPI GRADUATION</span>
-            </div>
-            
-            <p class="text-white text-base font-medium leading-relaxed italic" style="direction: rtl; text-align: right;">
-              "الف مبروك يا هندسة مبروووك التخرج وربنا يوفقك ف اللي جي ❤️❤️"
-            </p>
-          </div>
-
-          <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3">
-              <img src="{{ asset('assets/img/testimonials/Eng_HossamAshraf.jpg') }}" alt="Eng. Hossam Ashraf" class="w-11 h-11 rounded-full object-cover border border-emerald-400/40 shadow-sm">
-              <div>
-                <h4 class="text-sm font-bold text-white leading-tight">Eng. Hossam Ashraf</h4>
-                <p class="text-[11px] font-mono text-emerald-300">Soft Skills Instructor at DEPI</p>
-                <p class="text-[10px] text-slate-400">Professional Leadership</p>
-              </div>
-            </div>
-
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7449447854357565440?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7449447854357565440%2C7449458538038431744%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287449458538038431744%2Curn%3Ali%3Aactivity%3A7449447854357565440%29" target="_blank" rel="noopener" class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 hover:border-emerald-400 text-slate-400 hover:text-emerald-400 flex items-center justify-center transition-colors flex-shrink-0" title="Verify Recommendation on LinkedIn">
-              <i class="bi bi-linkedin"></i>
-            </a>
-          </div>
-        </div>
-
+        @endforeach
       </div>
     </section>
 
@@ -1481,41 +1159,41 @@
         <!-- Contact Details -->
         <div class="lg:col-span-5 space-y-6">
           <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs uppercase tracking-widest">
-            Initiate Collaboration
+            {{ $s('contact_badge', 'Initiate Collaboration') }}
           </span>
-          <h2 class="text-3xl font-extrabold text-white tracking-tight">Let's Build Something Exceptional</h2>
+          <h2 class="text-3xl font-extrabold text-white tracking-tight">{{ $s('contact_title', "Let's Build Something Exceptional") }}</h2>
           <p class="text-slate-300 text-base leading-relaxed">
-            Available for Backend Developer & Engineering roles, architectural consultations, and full-stack enterprise projects.
+            {{ $s('contact_subtitle') }}
           </p>
 
           <div class="space-y-4 pt-4">
-            <a href="mailto:kerollossami@gmail.com" class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400 transition-colors">
+            <a href="mailto:{{ $contactEmail }}" class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400 transition-colors">
               <div class="w-11 h-11 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl">
                 <i class="bi bi-envelope-at-fill"></i>
               </div>
               <div>
                 <p class="text-xs font-mono text-slate-400">Direct Email</p>
-                <p class="text-sm font-semibold text-white">kerollossami@gmail.com</p>
+                <p class="text-sm font-semibold text-white">{{ $contactEmail }}</p>
               </div>
             </a>
 
-            <a href="https://wa.me/message/HEKWNGDE4LGHK1?src=qr" target="_blank" rel="noopener" class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400 transition-colors">
+            <a href="{{ $whatsappUrl }}" target="_blank" rel="noopener" class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400 transition-colors">
               <div class="w-11 h-11 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
                 <i class="bi bi-whatsapp"></i>
               </div>
               <div>
                 <p class="text-xs font-mono text-slate-400">WhatsApp Direct</p>
-                <p class="text-sm font-semibold text-white">+20 10 340 37540 / +20 12 891 98945</p>
+                <p class="text-sm font-semibold text-white">{{ $s('whatsapp_display', '+20 10 340 37540 / +20 12 891 98945') }}</p>
               </div>
             </a>
 
-            <a href="https://www.linkedin.com/in/kirollossamy" target="_blank" rel="noopener" class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-indigo-400 transition-colors">
+            <a href="{{ $linkedinUrl }}" target="_blank" rel="noopener" class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-indigo-400 transition-colors">
               <div class="w-11 h-11 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl">
                 <i class="bi bi-linkedin"></i>
               </div>
               <div>
                 <p class="text-xs font-mono text-slate-400">LinkedIn Profile</p>
-                <p class="text-sm font-semibold text-white">linkedin.com/in/kirollossamy</p>
+                <p class="text-sm font-semibold text-white">{{ $s('linkedin_display', 'linkedin.com/in/kirollossamy') }}</p>
               </div>
             </a>
           </div>
@@ -1523,8 +1201,8 @@
 
         <!-- Contact Form -->
         <div class="lg:col-span-7 glass-card p-8 sm:p-10">
-          <h3 class="text-2xl font-bold text-white mb-2">Send a Secure Message</h3>
-          <p class="text-slate-400 text-sm mb-6">Delivered directly to Kirollos Samy's inbox.</p>
+          <h3 class="text-2xl font-bold text-white mb-2">{{ $s('contact_form_title', 'Send a Secure Message') }}</h3>
+          <p class="text-slate-400 text-sm mb-6">{{ $s('contact_form_subtitle') }}</p>
 
           @if(session('success'))
             <div class="p-4 mb-6 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm flex items-center gap-2">
@@ -1559,7 +1237,7 @@
             <!-- Direct Delivery Notice -->
             <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 flex items-center gap-2.5 text-xs font-mono text-emerald-300">
               <i class="bi bi-envelope-check-fill text-emerald-400 text-lg flex-shrink-0"></i>
-              <span>Direct Transmission: Messages deliver instantly to Kirollos Samy's inbox with zero verification codes required.</span>
+              <span>{{ $s('contact_notice') }}</span>
             </div>
 
             <!-- Inline Form Status -->
@@ -1695,28 +1373,33 @@
       <!-- Custom Copyright & Authorship -->
       <div class="space-y-1 text-center md:text-left">
         <p class="text-sm font-medium text-slate-200">
-          Developed with Excellence by <a href="https://www.linkedin.com/in/kirollossamy" target="_blank" rel="noopener" class="text-cyan-400 font-bold hover:underline">Kirollos Samy Ishaq</a>
+          Developed with Excellence by <a href="{{ $linkedinUrl }}" target="_blank" rel="noopener" class="text-cyan-400 font-bold hover:underline">{{ $s('footer_credit_name', $brandFullName) }}</a>
         </p>
         <p class="text-xs font-mono text-slate-500">
-          © <span id="currentYear"></span> Kirollos Samy Ishaq Tawfik. 100% Original Intellectual Property.
+          © <span id="currentYear"></span> {{ $s('footer_copyright', 'Kirollos Samy Ishaq Tawfik. 100% Original Intellectual Property.') }}
         </p>
       </div>
 
       <!-- Direct Verified Social Badges -->
-      <div class="flex items-center gap-3">
-        <a href="https://www.linkedin.com/in/kirollossamy" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:text-white hover:bg-indigo-500/20 text-xs font-mono flex items-center gap-1.5 transition-colors">
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="{{ $linkedinUrl }}" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 hover:text-white hover:bg-indigo-500/20 text-xs font-mono flex items-center gap-1.5 transition-colors">
           <i class="bi bi-linkedin text-sm"></i>
           <span>LinkedIn</span>
         </a>
 
-        <a href="https://github.com/kirollossami" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 text-xs font-mono flex items-center gap-1.5 transition-colors">
+        <a href="{{ $githubUrl }}" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 text-xs font-mono flex items-center gap-1.5 transition-colors">
           <i class="bi bi-github text-sm"></i>
           <span>GitHub</span>
         </a>
 
-        <a href="mailto:kerollossami@gmail.com" class="px-3.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:text-white hover:bg-cyan-500/20 text-xs font-mono flex items-center gap-1.5 transition-colors">
+        <a href="mailto:{{ $contactEmail }}" class="px-3.5 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:text-white hover:bg-cyan-500/20 text-xs font-mono flex items-center gap-1.5 transition-colors">
           <i class="bi bi-envelope text-sm"></i>
           <span>Email</span>
+        </a>
+
+        <a href="{{ route('admin.dashboard') }}" class="px-3.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 hover:text-white hover:bg-emerald-500/20 text-xs font-mono flex items-center gap-1.5 transition-colors" title="Admin Dashboard">
+          <i class="bi bi-speedometer2 text-sm"></i>
+          <span>Dashboard</span>
         </a>
       </div>
 
@@ -1726,6 +1409,7 @@
   <!-- =========================================================================
        AI COMPANION WIDGET ("KiroBot")
        ========================================================================= -->
+  @if(($s('kirobot_enabled', '1')) === '1')
   <div id="kiroBotWidget" class="kirobot-container">
     
     <!-- Dynamic Speech Bubble -->
@@ -1748,7 +1432,7 @@
       </div>
 
       <p id="kiroBotSpeechText" class="text-slate-200 text-xs leading-relaxed min-h-[44px]">
-        Hello! I'm KiroBot, your AI Architecture Guide. Voice is active 🔊! Click on ANY project, skill badge, architecture pillar, certificate, or text across the site, and I will explain its architecture and speak it aloud!
+        {{ $s('kirobot_greeting') }}
       </p>
 
       <!-- Quick Action Pills -->
@@ -1758,7 +1442,7 @@
           Explain Architecture
         </button>
         <button onclick="window.kiroBotSpeak('hire')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-mono text-indigo-300">
-          Why Hire Kirollos?
+          Why Hire {{ $brandName }}?
         </button>
         <button onclick="window.kiroBotSpeak('stack')" class="px-2 py-0.5 rounded bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-mono text-emerald-300">
           Summarize Skills
@@ -1792,6 +1476,7 @@
     </button>
 
   </div>
+  @endif
 
   <!-- =========================================================================
        VANILLA JAVASCRIPT LOGIC (KiroBot, Text Selection, Scroll Radar)
@@ -2186,14 +1871,7 @@
         }
       };
 
-      const sectionExplanations = {
-        'hero': "Welcome! You are viewing Kirollos Samy's command deck. Notice the active availability badge and sub-50ms API latency benchmark target.",
-        'architecture': "Exploring the 4 Pillars: Clean Architecture with SOLID, secure REST APIs with Fawaterak & Paymob, database tuning with Redis, and Hostinger VPS / CI/CD deployment.",
-        'projects': "Reviewing Featured Projects: Check out UniStay's N-Tier architecture, the Examination Engine's stored procedures, and MedFlow AI's Redis caching layer.",
-        'credentials': "Inspecting Verified Credentials: Kirollos earned HackerRank SQL (Advanced), DEPI 200h .NET Diploma, and NTI Web Development certifications.",
-        'testimonials': "Inspecting Verified Endorsements: 5 high-impact recommendations from technical instructors at NTI and DEPI praising Kirollos's backend engineering proficiency and top-student status.",
-        'contact': "Ready to collaborate? Transmit a secure brief through this form or reach out directly on WhatsApp or LinkedIn!"
-      };
+      const sectionExplanations = @json($sectionExplanations);
 
       let currentSection = '';
       const observer = new IntersectionObserver((entries) => {
@@ -2210,52 +1888,7 @@
 
       document.querySelectorAll('section[id]').forEach((sec) => observer.observe(sec));
 
-      const knowledgeBase = {
-        'clean architecture': "Clean Architecture organizes software into concentric layers: Core Domain at the center, followed by Application use-cases with CQRS handlers, Infrastructure repositories, and API Presentation, ensuring zero vendor lock-in and 100% testability.",
-        'solid': "SOLID Principles: Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion. Kirollos applies SOLID to eliminate code fragility and guarantee maintainability.",
-        'cqrs': "Command Query Responsibility Segregation (CQRS): Segregates write mutations (Commands) from read queries (Queries), optimizing database throughput and scaling data pipelines independently.",
-        'n-tier': "N-Tier Architecture: Rigid multi-layer separation isolating Presentation (Angular/Blade), Business Logic Layer (BLL), Data Access Layer (DAL), and SQL Server database storage.",
-        'jwt': "JSON Web Tokens: Stateless, cryptographically signed authentication with HMAC-SHA256, short-lived access tokens, and secure refresh token rotation stored in HttpOnly cookies.",
-        'redis': "Redis In-Memory Cache: Kirollos achieves sub-5ms data access by caching volatile doctor availability schedules, student room inventory, and session tokens.",
-        'fawaterak': "Fawaterak Payment Gateway: Automated multi-provider invoice generation, checkout redirects, and cryptographically verified webhook transaction reconciliation.",
-        'paymob': "Paymob Payment Gateway: Card tokenization, checkout iframes, and cryptographically verified HMAC webhook signatures with idempotent transaction ledgers.",
-        'hostinger': "Hostinger Linux VPS: Configured with SSH key hardening, UFW firewall security, systemd background worker daemons, and automated backup schedules.",
-        'vps': "Linux Virtual Private Server (VPS): Complete server administration including Nginx reverse proxies, SSL/TLS certificates, supervisor daemons, and zero-downtime releases.",
-        'cpanel': "cPanel Hosting Automation: DNS zone file configurations, automated SSL cert issuance, scheduled cron jobs, and database administration.",
-        'ci/cd': "CI/CD Automation: Continuous Integration and Continuous Deployment pipelines running automated linter checks, unit tests, and production deployments on Git commits.",
-        'testing': "Automated Testing: Comprehensive unit, integration, and API contract test suites using xUnit (.NET) and PHPUnit (Laravel) to eliminate regressions.",
-        'deployment': "Zero-Downtime Deployment: Automated production code deployment pipelines, atomic database migrations, and environment secret encryption.",
-        'contact': "Direct Contact: Reach Kirollos Samy directly via email (kerollossami@gmail.com) or WhatsApp (+201201977114).",
-        'stored procedures': "Stored Procedures: Compiled SQL Server database logic ensuring zero network overhead, sub-millisecond execution, and cheat-proof exam grading calculations.",
-        'hackerrank': "HackerRank Verified Gold Medal: Achieved top accreditation confirming advanced proficiency in recursive CTEs, window functions, and execution plan optimization.",
-        'depi': "DEPI (Digital Egypt Pioneers Initiative): 200-hour Ministry of Communications track specializing in enterprise C#, ASP.NET Core, and modern web engineering.",
-        'nti': "NTI (National Telecommunication Institute): Intensive Ministry of Communications diploma certifying Full-Stack PHP, Laravel, and MySQL database administration.",
-        '.net': ".NET Core & C#: Kirollos's primary high-performance backend ecosystem, delivering sub-50ms API throughput and Clean Architecture standards.",
-        'c#': "C# is an enterprise object-oriented language. Kirollos utilizes modern C# language features, async/await concurrency, and deterministic resource management.",
-        'asp.net': "ASP.NET Core Web API: Built with modular middleware pipelines, JWT role authorization, FluentValidation filters, and Swagger OpenAPI schemas.",
-        'ef core': "Entity Framework Core: Object-Relational Mapper (ORM) configured with fluent API modeling, shadow properties, split queries, and optimized database migrations.",
-        'laravel': "Laravel Framework: Kirollos utilizes Eloquent ORM, Service Providers, queued event listeners, Blade UI, and database migrations.",
-        'php': "PHP & Native PHP: Deep mastery of the core PHP runtime (both OOP and Procedural), raw PDO database connections, and session security.",
-        'node': "Node.js & Express: Non-blocking asynchronous event-loop architecture handling concurrent hospitality booking queries and dynamic seasonal room pricing.",
-        'sql server': "Microsoft SQL Server: Advanced relational schema design, clustered/non-clustered indexing, execution plan tuning, and ACID transactions.",
-        'mysql': "MySQL: Relational database administration, schema normalization, multi-table joins, and transaction safeguards engineered across Laravel applications.",
-        'postgresql': "PostgreSQL: Advanced open-source relational database utilizing JSONB indexing, connection pooling, and complex transactional consistency.",
-        'docker': "Docker Containerization: Lightweight, reproducible containers encapsulating application runtimes, database instances, and caching services for consistent environments.",
-        'angular': "Angular Frontend: Modern TypeScript framework utilizing reactive forms, RxJS observables, and modular component architecture.",
-        'blade': "Laravel Blade: High-performance templating engine rendering dynamic views with component slots, directive caches, and minimal runtime overhead.",
-        'github': "Git & GitHub Workflow: Professional distributed version control, GitFlow branching models, interactive rebase, and code review lifecycles.",
-        'resume': "Kirollos Samy's Resume: Detailed official engineering resume highlighting production projects, verified certifications, and backend system architecture metrics.",
-        'email': "Direct Inquiries: Delivered instantly and directly to Kirollos Samy's personal inbox (kerollossami@gmail.com).",
-        'whatsapp': "WhatsApp Direct: Instant direct communications channel with Kirollos Samy (+20 10 340 37540) for engineering opportunities.",
-        'linkedin': "LinkedIn Profile: Connect with Kirollos Samy on LinkedIn to view verified endorsements, professional connections, and engineering updates.",
-        'unistay': "UniStay Platform: Enterprise student housing platform built on N-Tier architecture, integrating Paymob escrow payments and Redis availability caching.",
-        'examination': "Examination Engine: Automated testing and assessment platform powered by compiled SQL Server stored procedures and real-time fraud detection.",
-        'medflow': "MedFlow AI: Enterprise clinical management system featuring automated appointment scheduling, doctor shift management, and encrypted patient records.",
-        'taskflow': "TaskFlow Pro: Collaborative workflow and Kanban board application implementing real-time team notifications and role-based permissions.",
-        'quickcart': "QuickCart: High-concurrency e-commerce engine with inventory locking, Fawaterak payment processing, and automated order fulfillment.",
-        'latency': "Sub-50ms API Latency: Architectural design benchmark achieved through index tuning, Redis caching, non-blocking asynchronous I/O, and payload minimization.",
-        'availability': "Immediate Availability: Kirollos Samy is actively available for full-time engineering roles, backend systems development, or contract assignments."
-      };
+      const knowledgeBase = @json($knowledgeBase);
 
       // =========================================================================
       // REQUIREMENT 3: CLICK-TO-EXPLAIN ANYTHING ON THE SITE
@@ -2282,7 +1915,7 @@
 
         // 3. Contact & Direct Communication Actions
         if (el.closest('a[download*="Resume"], [onclick*="Resume"]')) return { topic: 'RESUME DOWNLOAD', text: knowledgeBase['resume'] };
-        if (el.closest('button[onclick*="kerollossami@gmail.com"], a[href^="mailto:"]')) return { topic: 'DIRECT EMAIL', text: knowledgeBase['email'] };
+        if (el.closest('button[onclick*="navigator.clipboard.writeText"], a[href^="mailto:"]')) return { topic: 'DIRECT EMAIL', text: knowledgeBase['email'] };
         if (el.closest('a[href*="wa.me"]')) return { topic: 'WHATSAPP DIRECT', text: knowledgeBase['whatsapp'] };
         if (el.closest('a[href*="linkedin.com"]')) return { topic: 'LINKEDIN', text: knowledgeBase['linkedin'] };
         if (el.closest('a[href*="github.com"]')) return { topic: 'GITHUB', text: knowledgeBase['github'] };
@@ -2549,56 +2182,7 @@
       // =========================================================================
       // 4. CERTIFICATES LIGHTBOX VIEWER
       // =========================================================================
-      const certificatesData = {
-        'cert_sql_advanced': {
-          title: 'SQL (Advanced) Certification',
-          issuer: 'HackerRank Verified Accreditation',
-          badge: 'GOLD MEDALIST',
-          badgeClass: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
-          image: "{{ asset('assets/img/AdvancedSQL.png') }}",
-          pdfUrl: "{{ route('download.AdvancedSQLcertificate') }}"
-        },
-        'cert_depi': {
-          title: 'Full Stack .NET Web Development Diploma',
-          issuer: 'DEPI — Digital Egypt Pioneers (MCIT Track)',
-          badge: 'MCIT HONORS TRACK',
-          badgeClass: 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400',
-          image: "{{ asset('assets/img/Kirollos Samy Ishaq - Depi.png') }}",
-          pdfUrl: "{{ route('download.DEPICertificateDownload') }}"
-        },
-        'cert_nti': {
-          title: 'Full Stack PHP & Laravel Development Diploma',
-          issuer: 'National Telecommunication Institute (NTI Egypt)',
-          badge: 'MINISTRY DIPLOMA',
-          badgeClass: 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400',
-          image: "{{ asset('assets/img/Kirollos Samy Ishaq Tawfik.png') }}",
-          pdfUrl: "{{ route('download.certificate') }}"
-        },
-        'cert_sql_intermediate': {
-          title: 'SQL (Intermediate) Certification',
-          issuer: 'HackerRank Verified Accreditation',
-          badge: 'VERIFIED SPECIALIST',
-          badgeClass: 'bg-purple-500/10 border-purple-500/30 text-purple-400',
-          image: "{{ asset('assets/img/IntermediateSQL.png') }}",
-          pdfUrl: "{{ route('download.IntermediateSQLcertificate') }}"
-        },
-        'cert_sql_basic': {
-          title: 'SQL (Basic) Certification',
-          issuer: 'HackerRank Verified Accreditation',
-          badge: 'CERTIFIED FOUNDATION',
-          badgeClass: 'bg-blue-500/10 border-blue-500/30 text-blue-400',
-          image: "{{ asset('assets/img/BasicSQL.png') }}",
-          pdfUrl: "{{ route('download.BasicSQLcertificate') }}"
-        },
-        'cert_github': {
-          title: 'Git & GitHub Professional Workflow',
-          issuer: 'ElMadrasah Academy',
-          badge: 'DEVOPS & VCS WORKFLOW',
-          badgeClass: 'bg-amber-500/10 border-amber-500/30 text-amber-400',
-          image: "{{ asset('assets/img/GitHubCertificate.png') }}",
-          pdfUrl: "{{ route('download.GitHubcertificate') }}"
-        }
-      };
+      const certificatesData = @json($certificatesPayload);
 
       const certModal = document.getElementById('certificateLightboxModal');
       const certImg = document.getElementById('certLightboxImage');
@@ -2641,169 +2225,7 @@
       // =========================================================================
       // 5. PROJECTS DATASET, DUAL-FILTERING & PAGINATION ENGINE
       // =========================================================================
-      const projectsData = [
-        {
-          id: 'unistay',
-          title: 'UniStay — Student Housing Booking Platform',
-          framework: 'dotnet',
-          frameworkLabel: 'ASP.NET Core Web API',
-          arch: 'ntier',
-          archLabel: 'N-Tier Architecture',
-          image: "{{ asset('assets/img/projects/unistay.png') }}",
-          badge: '🟢 Production Deployed',
-          badgeColor: 'text-cyan-400 bg-black/80 border-white/15',
-          techTags: ['ASP.NET Core Web API', 'Angular', 'N-Tier', 'SQL Server', 'JWT Auth'],
-          shortDesc: 'Full-stack accommodation booking system built with ASP.NET Core Web API, Angular frontend, Entity Framework Core, and SQL Server. Implemented atomic room reservations, JWT role authentication, and Swagger API documentation.',
-          longDesc: 'Engineered a scalable multi-campus student housing platform using ASP.NET Core Web API, Angular, Entity Framework Core, and SQL Server. Solved real-time room inventory concurrency issues with ACID database transactions, preventing double-bookings. Built role-based access control (Student, Landlord, Admin) and automated email confirmation workflows.',
-          highlights: [
-            'Atomic room reservation pipeline preventing race-condition double bookings',
-            'JWT token authentication with refresh token rotation and role authorization policies',
-            'Entity Framework Core Code-First migrations with Fluent API schema configurations',
-            'Interactive Swagger/OpenAPI documentation and Angular frontend client'
-          ],
-          demoUrl: 'https://lnkd.in/p/ennnGR6c',
-          demoLabel: 'View LinkedIn Showcase',
-          githubUrl: 'https://github.com/kirollossami'
-        },
-        {
-          id: 'examination',
-          title: 'Automated Examination & Assessment Engine',
-          framework: 'dotnet',
-          frameworkLabel: 'C# .NET / SQL Server',
-          arch: 'clean',
-          archLabel: 'Clean Architecture',
-          image: "{{ asset('assets/img/projects/examination.jpg') }}",
-          badge: '⚡ High-Concurrency DB Engine',
-          badgeColor: 'text-emerald-400 bg-black/80 border-white/15',
-          techTags: ['SQL Server SPs', 'C# .NET Engine', 'ACID Transactions', 'Audit Logging'],
-          shortDesc: 'Computerized examination and scoring system engineered with optimized SQL Server Stored Procedures, Views, and Transactions, paired with a C# assessment execution core for deterministic question pools and instant grade evaluations.',
-          longDesc: 'High-throughput assessment engine capable of generating deterministic randomized exams across complex question banks. Heavy business rules and scoring algorithms are compiled directly inside SQL Server Stored Procedures and indexed Views for zero-latency question retrieval, with ACID transaction safeguards against exam submission timeouts.',
-          highlights: [
-            'Complex SQL Server Stored Procedures with execution plan tuning and zero table scans',
-            'C# assessment core with deterministic randomization algorithms for cheat prevention',
-            'Automated real-time grading calculation with immediate student score telemetry',
-            'Auditing triggers logging every submission attempt and system interaction'
-          ],
-          demoUrl: 'https://github.com/kirollossami',
-          demoLabel: 'View SQL & C# Architecture',
-          githubUrl: 'https://github.com/kirollossami'
-        },
-        {
-          id: 'medflow',
-          title: 'MedFlow AI — Clinical Workflow & Healthcare Platform',
-          framework: 'dotnet',
-          frameworkLabel: 'ASP.NET Core & Laravel',
-          arch: 'microservices',
-          archLabel: 'RESTful APIs & Microservices',
-          image: "{{ asset('assets/img/projects/medflow.jpg') }}",
-          badge: '🏥 Clinical Workflow API',
-          badgeColor: 'text-cyan-400 bg-black/80 border-white/15',
-          techTags: ['.NET Core / Laravel', 'RESTful APIs', 'Redis Caching', 'Sub-50ms Latency'],
-          shortDesc: 'Healthcare backend managing patient triage queues, physician availability, and encrypted health records. Features Redis caching for real-time doctor schedules, automated background notifications, and role-based ACL security.',
-          longDesc: 'Mission-critical healthcare backend engineered with RESTful APIs, Redis in-memory caching for sub-5ms doctor schedule queries, and asynchronous background worker queues. Strictly enforces patient privacy compliance with AES-256 field encryption and granular role-based ACLs.',
-          highlights: [
-            'Sub-50ms API response SLA achieved via Redis in-memory cache distribution',
-            'Role-based ACLs isolating Doctor, Patient, Triage Nurse, and Hospital Admin operations',
-            'Encrypted EHR (Electronic Health Record) vault with cryptographically verified access logs',
-            'Asynchronous job scheduler dispatching SMS & email appointment reminders'
-          ],
-          demoUrl: 'https://github.com/kirollossami',
-          demoLabel: 'View Architecture Specs',
-          githubUrl: 'https://github.com/kirollossami'
-        },
-        {
-          id: 'rawkemya',
-          title: 'Raw Kemya — B2B Chemical Distribution & Payment Engine',
-          framework: 'laravel',
-          frameworkLabel: 'Laravel (PHP)',
-          arch: 'mvc',
-          archLabel: 'Modular Monolith',
-          image: "{{ asset('assets/img/projects/raw_kemya.jpg') }}",
-          badge: '💳 Dual Payment Gateway',
-          badgeColor: 'text-cyan-400 bg-black/80 border-white/15',
-          techTags: ['Laravel', 'Paymob & Fawaterak', 'State Machine', 'Nginx VPS'],
-          shortDesc: 'Wholesale chemical ordering backend. Features dual payment gateway integration (Paymob and Fawaterak) with cryptographically verified webhooks, dynamic inventory stock reservation, and automated PDF invoice generation.',
-          longDesc: 'Enterprise chemical distribution system handling wholesale bulk procurement. Integrated both Paymob and Fawaterak payment providers with HMAC cryptographically validated webhooks, dynamic inventory stock reservation with expiration timers, and automated PDF invoice generation.',
-          highlights: [
-            'Dual payment gateway failover system (Paymob & Fawaterak) with verified webhook HMACs',
-            'Inventory stock reservation lock during checkout preventing overselling volatile chemical lots',
-            'Automated transactional PDF invoices dispatched via queued mailers',
-            'Production deployed on Nginx Linux VPS with automated SSL and database replication'
-          ],
-          demoUrl: 'https://github.com/kirollossami',
-          demoLabel: 'View Payment Workflow',
-          githubUrl: 'https://github.com/kirollossami'
-        },
-        {
-          id: 'hotelbooking',
-          title: 'Hotel Booking Management Platform',
-          framework: 'nodejs',
-          frameworkLabel: 'Node.js & Express',
-          arch: 'microservices',
-          archLabel: 'RESTful APIs & Microservices',
-          image: "{{ asset('assets/img/projects/Hotel Booking Managment.png') }}",
-          badge: '🏨 Hospitality Architecture',
-          badgeColor: 'text-yellow-400 bg-black/80 border-white/15',
-          techTags: ['Node.js', 'Express', 'JWT Authentication', 'REST APIs', 'MongoDB/SQL'],
-          shortDesc: 'Comprehensive hospitality booking backend handling guest reservations, room availability state machines, dynamic seasonal pricing calculation, and automated check-in/check-out ledger.',
-          longDesc: 'High-performance Node.js & Express RESTful API backend managing reservation lifecycles, dynamic seasonal room pricing models, guest check-in/check-out ledger, and automated payment receipts.',
-          highlights: [
-            'Non-blocking asynchronous Node.js event loop processing concurrent reservation queries',
-            'Modular routing architecture with express middleware for JWT authorization',
-            'Comprehensive room categorization and dynamic seasonal pricing calculation engine',
-            'Robust error-handling middleware with centralized logging and HTTP status formatting'
-          ],
-          demoUrl: 'https://www.linkedin.com/posts/kirollossamy_codvedajourney-codvedaexperience-futurewithcodveda-activity-7389320280520683522-FStA?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFeMbnkBo3Qlhw5z8VmxjWD0wV_ZAib3PF0',
-          demoLabel: 'View LinkedIn Showcase',
-          githubUrl: 'https://github.com/kirollossami'
-        },
-        {
-          id: 'educationsystem',
-          title: 'Training Company Education System',
-          framework: 'laravel',
-          frameworkLabel: 'Laravel (PHP)',
-          arch: 'mvc',
-          archLabel: 'MVC Architecture',
-          image: "{{ asset('assets/img/projects/Education_System.png') }}",
-          badge: '🎓 Educational ERP',
-          badgeColor: 'text-indigo-400 bg-black/80 border-white/15',
-          techTags: ['Laravel Framework', 'Eloquent ORM', 'Blade UI', 'MySQL', 'Role ACL'],
-          shortDesc: 'Educational management portal built with Laravel Framework for course tracking, student enrollment pipelines, instructor assignments, quiz grading, and progress analytics.',
-          longDesc: 'Multi-tenant learning portal engineered with Laravel, Eloquent ORM, and MySQL. Features course syllabus tracking, student enrollment workflows, instructor assignment grading, and PDF certificate generation.',
-          highlights: [
-            'Eloquent ORM relational schema handling students, instructors, courses, and submissions',
-            'Blade view templating paired with responsive UI and interactive progress charts',
-            'Role-based access control protecting administrative grading portals and student resources',
-            'Automated student completion certificates generated dynamically upon course graduation'
-          ],
-          demoUrl: 'https://lnkd.in/p/eN9pdeHj',
-          demoLabel: 'View LinkedIn Showcase',
-          githubUrl: 'https://github.com/kirollossami'
-        },
-        {
-          id: 'dashboardphp',
-          title: 'Enterprise Admin Dashboard & CRM',
-          framework: 'laravel',
-          frameworkLabel: 'Native PHP',
-          arch: 'mvc',
-          archLabel: 'Pure Native PHP & MVC',
-          image: "{{ asset('assets/img/projects/Dashboard Design Using Native PHP.png') }}",
-          badge: '📊 High-Efficiency CRM',
-          badgeColor: 'text-cyan-400 bg-black/80 border-white/15',
-          techTags: ['Native PHP', 'MySQL Database', 'Session Security', 'Zero-Dependency'],
-          shortDesc: 'Lightweight, zero-overhead administrative control center and CRM engineered with pure Native PHP, robust session security, complex SQL joins, and dynamic reporting charts.',
-          longDesc: 'Custom administrative portal built from scratch using pure Native PHP (OOP & Procedural) without bulky external frameworks. Features sub-10ms page rendering, secure session management, customer order analytics, and dynamic MySQL reporting.',
-          highlights: [
-            'Pure Native PHP engineering demonstrating deep mastery of the core runtime and PDO',
-            'Custom routing and MVC separation implemented without third-party dependencies',
-            'Complex multi-table SQL queries generating real-time sales and inventory metrics',
-            'Strict XSS sanitation, CSRF token validation, and SQL injection prevention via prepared statements'
-          ],
-          demoUrl: 'https://www.linkedin.com/posts/kirollossamy_nti-summertraining-webdevelopment-activity-7367533742602539008-rJTX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFeMbnkBo3Qlhw5z8VmxjWD0wV_ZAib3PF0',
-          demoLabel: 'View LinkedIn Showcase',
-          githubUrl: 'https://github.com/kirollossami'
-        }
-      ];
+      const projectsData = @json($projectsPayload);
 
       // Filtering & Pagination State
       let selectedFramework = 'all';

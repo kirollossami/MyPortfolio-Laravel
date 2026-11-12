@@ -51,6 +51,9 @@ return [
             'url' => env('DATABASE_URL'),
             'database' => (function () {
                 $db = env('DB_DATABASE');
+                if ($db === ':memory:') {
+                    return ':memory:';
+                }
                 if (!$db || $db === 'laravel' || $db === 'forge' || str_ends_with($db, 'database.sqlite')) {
                     $path = database_path('database.sqlite');
                 } elseif (str_starts_with($db, '/') || (strlen($db) > 2 && $db[1] === ':')) {

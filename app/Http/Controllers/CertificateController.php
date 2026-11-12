@@ -2,85 +2,76 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Certificate;
+use Illuminate\Support\Str;
 
 class CertificateController extends Controller
 {
-    public function certificatedownload(){
-        $certificate_file = public_path('assets/pdf/certificate.pdf');
+    public function downloadBySlug(string $slug)
+    {
+        $certificate = Certificate::where('slug', $slug)->firstOrFail();
 
-        if(!file_exists($certificate_file)){
-            abort(404, 'file not found!');
+        return $this->servePdf($certificate->pdf_path, Str::slug($certificate->title, '_') . '.pdf');
+    }
+
+    protected function servePdf(?string $relativePath, string $downloadName)
+    {
+        if (!$relativePath) {
+            abort(404, 'Certificate PDF not configured.');
         }
 
-        return response()->download($certificate_file, 'certificate.pdf', [
-            'Content-Type' => 'application/octet-stream',
-            'Cache-Control' => 'no-cache, must-revalidate'
+        if (Str::startsWith($relativePath, ['http://', 'https://'])) {
+            return redirect()->away($relativePath);
+        }
+
+        $file = public_path(ltrim($relativePath, '/'));
+        if (!is_file($file)) {
+            abort(404, 'File not found!');
+        }
+
+        return response()->download($file, $downloadName, [
+            'Content-Type' => 'application/pdf',
+            'Cache-Control' => 'no-cache, must-revalidate',
         ]);
     }
 
-    public function BasicSQLcertificatedownload(){
-        $certificate_file = public_path('assets/pdf/sql_basic_certificate.pdf');
-
-        if(!file_exists($certificate_file)){
-            abort(404, 'file not found!');
+    protected function downloadLegacy(string $slug, string $fallbackPath, string $downloadName)
+    {
+        $cert = Certificate::where('slug', $slug)->first();
+        if ($cert && $cert->pdf_path) {
+            return $this->servePdf($cert->pdf_path, $downloadName);
         }
 
-        return response()->download($certificate_file, 'sql_basic_certificate.pdf', [
-            'Content-Type' => 'application/octet-stream',
-            'Cache-Control' => 'no-cache, must-revalidate'
-        ]);
+        return $this->servePdf($fallbackPath, $downloadName);
     }
 
-    public function IntermediateSQLcertificatedownload(){
-        $certificate_file = public_path('assets/pdf/sql_intermediate_certificate.pdf');
-
-        if(!file_exists($certificate_file)){
-            abort(404, 'file not found!');
-        }
-
-        return response()->download($certificate_file, 'sql_intermediate_certificate.pdf', [
-            'Content-Type' => 'application/octet-stream',
-            'Cache-Control' => 'no-cache, must-revalidate'
-        ]);
+    public function certificatedownload()
+    {
+        return $this->downloadLegacy('cert_nti', 'assets/pdf/certificate.pdf', 'certificate.pdf');
     }
 
-    public function AdvancedSQLcertificatedownload(){
-        $certificate_file = public_path('assets/pdf/sql_advanced_certificate.pdf');
-
-        if(!file_exists($certificate_file)){
-            abort(404, 'file not found!');
-        }
-
-        return response()->download($certificate_file, 'sql_advanced_certificate.pdf', [
-            'Content-Type' => 'application/octet-stream',
-            'Cache-Control' => 'no-cache, must-revalidate'
-        ]);
+    public function BasicSQLcertificatedownload()
+    {
+        return $this->downloadLegacy('cert_sql_basic', 'assets/pdf/sql_basic_certificate.pdf', 'sql_basic_certificate.pdf');
     }
 
-    public function GitHubCertificateDownload(){
-        $certificate_file = public_path('assets/pdf/Git&GitHub_Certificate.pdf');
-
-        if(!file_exists($certificate_file)){
-            abort(404, 'file not found!');
-        }
-
-        return response()->download($certificate_file, 'Git&GitHub_Certificate.pdf', [
-            'Content-Type' => 'application/octet-stream',
-            'Cache-Control' => 'no-cache, must-revalidate'
-        ]);
+    public function IntermediateSQLcertificatedownload()
+    {
+        return $this->downloadLegacy('cert_sql_intermediate', 'assets/pdf/sql_intermediate_certificate.pdf', 'sql_intermediate_certificate.pdf');
     }
 
-    public function DEPICertificateDownload(){
-        $certificate_file = public_path('assets/pdf/Kirollos Samy Ishaq Tawfik - DEPI.pdf');
+    public function AdvancedSQLcertificatedownload()
+    {
+        return $this->downloadLegacy('cert_sql_advanced', 'assets/pdf/sql_advanced_certificate.pdf', 'sql_advanced_certificate.pdf');
+    }
 
-        if(!file_exists($certificate_file)){
-            abort(404, 'file not found!');
-        }
+    public function GitHubCertificateDownload()
+    {
+        return $this->downloadLegacy('cert_github', 'assets/pdf/Git&GitHub_Certificate.pdf', 'Git&GitHub_Certificate.pdf');
+    }
 
-        return response()->download($certificate_file, 'Kirollos Samy Ishaq Tawfik - DEPI.pdf', [
-            'Content-Type' => 'application/octet-stream',
-            'Cache-Control' => 'no-cache, must-revalidate'
-        ]);
+    public function DEPICertificateDownload()
+    {
+        return $this->downloadLegacy('cert_depi', 'assets/pdf/Kirollos Samy Ishaq Tawfik - DEPI.pdf', 'Kirollos Samy Ishaq Tawfik - DEPI.pdf');
     }
 }
