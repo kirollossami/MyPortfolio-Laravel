@@ -33,9 +33,16 @@
           <p class="text-xs text-slate-400 line-clamp-2">{{ $project->short_description }}</p>
         </div>
       </div>
-      <div class="px-5 py-3.5 border-t border-white/10 flex items-center justify-between">
-        <span class="font-mono text-[11px] text-slate-500">{{ $project->slug }}</span>
-        <div class="flex items-center gap-2">
+      <div class="px-5 py-3.5 border-t border-white/10 flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="font-mono text-[11px] text-slate-500 truncate">{{ $project->slug }}</span>
+          @if($project->live_url)
+            <a href="{{ $project->live_url }}" target="_blank" rel="noopener" class="px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-mono text-[10px] hover:bg-emerald-500/25 inline-flex items-center gap-1 flex-shrink-0">
+              <i class="bi bi-globe2"></i> Live
+            </a>
+          @endif
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
           <a href="{{ route('admin.projects.edit', $project) }}" class="btn-secondary !py-1.5 !px-3 !text-xs">Edit</a>
           <form action="{{ route('admin.projects.destroy', $project) }}" method="POST" onsubmit="return confirm('Delete this project?');">
             @csrf

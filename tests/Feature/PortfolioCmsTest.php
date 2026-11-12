@@ -203,7 +203,7 @@ class PortfolioCmsTest extends TestCase
         $this->assertCount(2, $pillar->bullets);
         $this->delete(route('admin.pillars.destroy', $pillar))->assertRedirect(route('admin.pillars.index'));
 
-        // 4. Project CRUD
+        // 4. Project CRUD (including optional live_url)
         $this->post(route('admin.projects.store'), [
             'title' => 'FinLedger API',
             'framework' => 'laravel',
@@ -215,9 +215,35 @@ class PortfolioCmsTest extends TestCase
             'short_description' => 'Double-entry ledger API.',
             'long_description' => 'Detailed double-entry ledger architecture.',
             'highlights_text' => "ACID Safety\nZero Drift",
+            'live_url' => 'https://finledger.example.com',
             'is_active' => '1',
         ])->assertRedirect(route('admin.projects.index'));
         $project = Project::where('title', 'FinLedger API')->firstOrFail();
+        $this->assertSame('https://finledger.example.com', $project->live_url);
+
+        $this->put(route('admin.projects.update', $project), [
+            'title' => 'FinLedger API',
+            'framework' => 'laravel',
+            'framework_label' => 'Laravel 11',
+            'architecture' => 'clean',
+            'architecture_label' => 'Clean Architecture',
+            'badge_text' => 'Verified',
+            'tech_tags_text' => 'Laravel, Redis, PostgreSQL',
+            'short_description' => 'Double-entry ledger API.',
+            'long_description' => 'Detailed double-entry ledger architecture.',
+            'highlights_text' => "ACID Safety\nZero Drift",
+            'live_url' => 'https://live.finledger.example.com',
+            'is_active' => '1',
+        ])->assertRedirect(route('admin.projects.index'));
+        $this->assertSame('https://live.finledger.example.com', $project->fresh()->live_url);
+        $this->get(route('home'))
+            ->assertSee('live.finledger.example.com')
+            ->assertViewHas('projectsPayload', function ($payload) {
+                return collect($payload)->contains(
+                    fn ($item) => ($item['liveUrl'] ?? null) === 'https://live.finledger.example.com'
+                );
+            });
+
         $this->delete(route('admin.projects.destroy', $project))->assertRedirect(route('admin.projects.index'));
 
         // 5. Certificate CRUD

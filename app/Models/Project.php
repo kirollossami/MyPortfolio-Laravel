@@ -24,6 +24,7 @@ class Project extends Model
         'highlights',
         'demo_url',
         'demo_label',
+        'live_url',
         'github_url',
         'sort_order',
         'is_active',
@@ -81,9 +82,10 @@ class Project extends Model
             'shortDesc' => $this->short_description,
             'longDesc' => $this->long_description,
             'highlights' => $this->highlights ?? [],
-            'demoUrl' => $this->demo_url ?: '#',
+            'demoUrl' => $this->demo_url ?: '',
             'demoLabel' => $this->demo_label ?: 'View Showcase / Demo',
-            'githubUrl' => $this->github_url ?: '#',
+            'liveUrl' => $this->live_url ?: '',
+            'githubUrl' => $this->github_url ?: '',
         ];
     }
 }

@@ -82,18 +82,22 @@
       <textarea name="highlights_text" rows="4" class="form-input">{{ old('highlights_text', implode("\n", $project->highlights ?? [])) }}</textarea>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <label class="form-label">Demo / Showcase URL</label>
-        <input type="url" name="demo_url" value="{{ old('demo_url', $project->demo_url) }}" class="form-input">
-      </div>
-      <div>
-        <label class="form-label">Demo Button Label</label>
-        <input type="text" name="demo_label" value="{{ old('demo_label', $project->demo_label) }}" class="form-input">
+        <label class="form-label">Live Website / App URL</label>
+        <input type="url" name="live_url" value="{{ old('live_url', $project->live_url) }}" class="form-input" placeholder="https://your-live-project.com">
       </div>
       <div>
         <label class="form-label">GitHub Repository URL</label>
-        <input type="url" name="github_url" value="{{ old('github_url', $project->github_url) }}" class="form-input">
+        <input type="url" name="github_url" value="{{ old('github_url', $project->github_url) }}" class="form-input" placeholder="https://github.com/username/repo">
+      </div>
+      <div>
+        <label class="form-label">Demo / Showcase URL</label>
+        <input type="url" name="demo_url" value="{{ old('demo_url', $project->demo_url) }}" class="form-input" placeholder="https://...">
+      </div>
+      <div>
+        <label class="form-label">Demo Button Label</label>
+        <input type="text" name="demo_label" value="{{ old('demo_label', $project->demo_label) }}" class="form-input" placeholder="View Showcase / Demo">
       </div>
     </div>
 

@@ -1348,13 +1348,17 @@
             Close Viewer
           </button>
           
-          <div class="flex items-center gap-3 w-full sm:w-auto">
+          <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
             <a id="modalProjectGithubLink" href="#" target="_blank" rel="noopener" class="btn-cyber-outline !py-2.5 !px-4 !text-xs flex-1 sm:flex-initial justify-center items-center gap-1.5">
               <i class="bi bi-github text-sm"></i> Source Code
             </a>
-            <a id="modalProjectDemoLink" href="#" target="_blank" rel="noopener" class="btn-cyber-primary !py-2.5 !px-4 !text-xs flex-1 sm:flex-initial justify-center items-center gap-1.5">
+            <a id="modalProjectDemoLink" href="#" target="_blank" rel="noopener" class="btn-cyber-outline !py-2.5 !px-4 !text-xs flex-1 sm:flex-initial justify-center items-center gap-1.5 !border-cyan-400/40 !text-cyan-300 hover:!bg-cyan-500/10">
               <span>View Showcase / Demo</span>
               <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+            <a id="modalProjectLiveLink" href="#" target="_blank" rel="noopener" class="hidden btn-cyber-primary !py-2.5 !px-4 !text-xs flex-1 sm:flex-initial justify-center items-center gap-1.5">
+              <i class="bi bi-globe2 text-sm"></i>
+              <span>Visit Live Site</span>
             </a>
           </div>
         </div>
@@ -2340,15 +2344,27 @@
                     <span>View Project Details</span>
                   </button>
 
-                  <div class="flex items-center justify-between text-xs font-mono">
-                    <a href="${p.demoUrl}" target="_blank" rel="noopener" class="text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1.5 hover:underline">
-                      <span>${p.demoLabel}</span>
-                      <i class="bi bi-box-arrow-up-right"></i>
-                    </a>
-                    <a href="${p.githubUrl}" target="_blank" rel="noopener" class="text-slate-400 hover:text-white transition-colors flex items-center gap-1" title="View Source on GitHub">
-                      <i class="bi bi-github text-lg"></i>
-                      <span>GitHub</span>
-                    </a>
+                  <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+                    <div class="flex flex-wrap items-center gap-3">
+                      ${p.liveUrl ? `
+                        <a href="${p.liveUrl}" target="_blank" rel="noopener" class="text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center gap-1.5 hover:underline">
+                          <i class="bi bi-globe2"></i>
+                          <span>Live Site</span>
+                        </a>
+                      ` : ''}
+                      ${p.demoUrl ? `
+                        <a href="${p.demoUrl}" target="_blank" rel="noopener" class="text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1.5 hover:underline">
+                          <span>${p.demoLabel}</span>
+                          <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                      ` : ''}
+                    </div>
+                    ${p.githubUrl ? `
+                      <a href="${p.githubUrl}" target="_blank" rel="noopener" class="text-slate-400 hover:text-white transition-colors flex items-center gap-1 ml-auto" title="View Source on GitHub">
+                        <i class="bi bi-github text-lg"></i>
+                        <span>GitHub</span>
+                      </a>
+                    ` : ''}
                   </div>
                 </div>
               </div>
@@ -2463,6 +2479,7 @@
       const modalProjectHighlights = document.getElementById('modalProjectHighlights');
       const modalProjectGithubLink = document.getElementById('modalProjectGithubLink');
       const modalProjectDemoLink = document.getElementById('modalProjectDemoLink');
+      const modalProjectLiveLink = document.getElementById('modalProjectLiveLink');
 
       window.openProjectModal = function(projectId) {
         const p = projectsData.find(item => item.id === projectId);
@@ -2484,9 +2501,24 @@
           </li>`
         ).join('');
 
-        modalProjectGithubLink.href = p.githubUrl;
-        modalProjectDemoLink.href = p.demoUrl;
-        modalProjectDemoLink.querySelector('span').textContent = p.demoLabel;
+        if (modalProjectGithubLink) {
+          modalProjectGithubLink.href = p.githubUrl || '#';
+          modalProjectGithubLink.classList.toggle('hidden', !p.githubUrl);
+          modalProjectGithubLink.classList.toggle('inline-flex', Boolean(p.githubUrl));
+        }
+
+        if (modalProjectDemoLink) {
+          modalProjectDemoLink.href = p.demoUrl || '#';
+          modalProjectDemoLink.querySelector('span').textContent = p.demoLabel;
+          modalProjectDemoLink.classList.toggle('hidden', !p.demoUrl);
+          modalProjectDemoLink.classList.toggle('inline-flex', Boolean(p.demoUrl));
+        }
+
+        if (modalProjectLiveLink) {
+          modalProjectLiveLink.href = p.liveUrl || '#';
+          modalProjectLiveLink.classList.toggle('hidden', !p.liveUrl);
+          modalProjectLiveLink.classList.toggle('inline-flex', Boolean(p.liveUrl));
+        }
 
         projectModal.classList.remove('opacity-0', 'pointer-events-none');
         const dialog = projectModal.firstElementChild;
