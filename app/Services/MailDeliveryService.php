@@ -60,4 +60,56 @@ class MailDeliveryService
             return ['delivered' => false, 'method' => null, 'error' => $smtpEx->getMessage()];
         }
     }
+
+    /**
+     * Send Admin Password Reset OTP via Laravel Mail with Resend HTTPS fallback.
+     *
+     * @param string $email
+     * @param string $otp
+     * @param string $name
+     * @return array [bool 'delivered', string|null 'method', string|null 'error']
+     */
+    public static function sendPasswordResetOtp(string $email, string $otp, string $name = 'Administrator'): array
+    {
+        // 1. Try standard Laravel Mail (honors Mail::fake in tests and configured SMTP/mailpit)
+        try {
+            Mail::to($email)->send(new \App\Mail\AdminPasswordResetOtpMail($otp, $name));
+            Log::info("Admin password reset OTP sent via Mail to: {$email}");
+            return ['delivered' => true, 'method' => 'mail', 'error' => null];
+        } catch (\Throwable $mailEx) {
+            Log::warning("Standard Mail dispatch failed for OTP to {$email}: " . $mailEx->getMessage());
+
+            // 2. Fallback to Resend HTTPS API if API key is present
+            $resendApiKey = env('RESEND_API_KEY');
+            if (!empty($resendApiKey)) {
+                try {
+                    $fromAddress = env('RESEND_FROM_ADDRESS') ?: 'onboarding@resend.dev';
+                    $fromName = 'Portfolio Security (' . config('app.name', 'Portfolio CMS') . ')';
+
+                    $response = Http::withToken($resendApiKey)
+                        ->timeout(10)
+                        ->post('https://api.resend.com/emails', [
+                            'from' => "{$fromName} <{$fromAddress}>",
+                            'to' => [$email],
+                            'subject' => "Your Admin Verification Code: {$otp} — Portfolio CMS",
+                            'html' => view('emails.admin_password_reset_otp', ['otp' => $otp, 'name' => $name])->render(),
+                            'text' => view('emails.admin_password_reset_otp_text', ['otp' => $otp, 'name' => $name])->render(),
+                        ]);
+
+                    if ($response->successful()) {
+                        Log::info("Resend HTTPS API delivered reset OTP to: {$email}");
+                        return ['delivered' => true, 'method' => 'resend_https', 'error' => null];
+                    }
+
+                    Log::warning("Resend HTTPS returned error for OTP: " . $response->body());
+                } catch (\Throwable $resendEx) {
+                    Log::warning("Resend HTTPS fallback failed for OTP: " . $resendEx->getMessage());
+                }
+            }
+
+            // Always log the OTP so developers/admins can see it in storage/logs/laravel.log
+            Log::info("EMERGENCY / LOCAL OTP for {$email}: {$otp}");
+            return ['delivered' => false, 'method' => null, 'error' => $mailEx->getMessage()];
+        }
+    }
 }

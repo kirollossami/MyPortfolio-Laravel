@@ -38,7 +38,12 @@
       </div>
 
       <div>
-        <label class="block text-xs font-mono uppercase text-slate-400 mb-1.5">Password</label>
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="block text-xs font-mono uppercase text-slate-400">Password</label>
+          <a href="{{ route('admin.password.request') }}" class="text-xs font-mono text-sky-400 hover:text-sky-300 transition-colors">
+            Forgot password?
+          </a>
+        </div>
         <input type="password" name="password" required class="w-full px-4 py-2.5 rounded-xl bg-[#090d16] border border-white/15 text-white text-sm focus:outline-none focus:border-sky-400" placeholder="••••••••">
       </div>
 

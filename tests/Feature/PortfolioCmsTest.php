@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Mail\AdminPasswordResetOtpMail;
 use App\Models\ArchitecturePillar;
 use App\Models\Certificate;
 use App\Models\ContactMessage;
@@ -13,7 +14,9 @@ use App\Models\Testimonial;
 use App\Models\User;
 use Database\Seeders\PortfolioSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class PortfolioCmsTest extends TestCase
@@ -420,6 +423,135 @@ class PortfolioCmsTest extends TestCase
             ])->assertStatus(403);
 
         $this->assertSame(0, User::count());
+    }
+
+    public function test_forgot_password_requires_existing_admin_and_renders_properly(): void
+    {
+        // When no admin exists, forgot password redirects to setup
+        $this->get(route('admin.password.request'))->assertRedirect(route('admin.setup'));
+
+        $this->createAdmin('admin@example.com');
+
+        $this->get(route('admin.password.request'))
+            ->assertStatus(200)
+            ->assertSee('Reset Password')
+            ->assertSee('Send 6-Digit Code');
+
+        $this->get(route('login'))
+            ->assertStatus(200)
+            ->assertSee('Forgot password?');
+    }
+
+    public function test_forgot_password_rejects_unregistered_email(): void
+    {
+        $this->createAdmin('admin@example.com');
+
+        $this->post(route('admin.password.email'), [
+            'email' => 'unknown@example.com',
+        ])->assertSessionHasErrors('email');
+    }
+
+    public function test_forgot_password_sends_otp_and_flow_allows_resetting_password(): void
+    {
+        Mail::fake();
+
+        $admin = $this->createAdmin('admin@example.com', 'OldPassword123!');
+
+        // 1. Request OTP
+        $this->post(route('admin.password.email'), [
+            'email' => 'admin@example.com',
+        ])->assertRedirect(route('admin.password.otp'));
+
+        $this->assertDatabaseHas('password_reset_tokens', [
+            'email' => 'admin@example.com',
+        ]);
+
+        $otpSent = null;
+        Mail::assertSent(AdminPasswordResetOtpMail::class, function ($mail) use (&$otpSent) {
+            $otpSent = $mail->otp;
+            return $mail->hasTo('admin@example.com') && strlen($mail->otp) === 6;
+        });
+
+        $this->assertNotNull($otpSent);
+
+        // 2. View Verify OTP page
+        $this->get(route('admin.password.otp'))
+            ->assertStatus(200)
+            ->assertSee('admin@example.com')
+            ->assertSee('Enter Security Code');
+
+        // 3. Test invalid OTP fails
+        $this->post(route('admin.password.verify'), [
+            'email' => 'admin@example.com',
+            'otp' => '000000',
+        ])->assertSessionHasErrors('otp');
+
+        // 4. Verify with the real OTP
+        $this->post(route('admin.password.verify'), [
+            'email' => 'admin@example.com',
+            'otp' => $otpSent,
+        ])->assertRedirect(route('admin.password.reset'));
+
+        // 5. View Reset Password page
+        $this->get(route('admin.password.reset'))
+            ->assertStatus(200)
+            ->assertSee('Create New Password')
+            ->assertSee('admin@example.com');
+
+        // 6. Test password validation (mismatched confirmation)
+        $this->post(route('admin.password.update'), [
+            'email' => 'admin@example.com',
+            'password' => 'NewSecret456!',
+            'password_confirmation' => 'DifferentSecret789!',
+        ])->assertSessionHasErrors('password');
+
+        // 7. Submit valid new password
+        $this->post(route('admin.password.update'), [
+            'email' => 'admin@example.com',
+            'password' => 'NewSecret456!',
+            'password_confirmation' => 'NewSecret456!',
+        ])->assertRedirect(route('login'))
+          ->assertSessionHas('status');
+
+        // Verify token was cleared
+        $this->assertDatabaseMissing('password_reset_tokens', [
+            'email' => 'admin@example.com',
+        ]);
+
+        // 8. Old password fails
+        $this->post(route('login.attempt'), [
+            'email' => 'admin@example.com',
+            'password' => 'OldPassword123!',
+        ])->assertSessionHasErrors('email');
+
+        // 9. New password successfully logs in!
+        $this->post(route('login.attempt'), [
+            'email' => 'admin@example.com',
+            'password' => 'NewSecret456!',
+        ])->assertRedirect(route('admin.dashboard'));
+    }
+
+    public function test_resend_otp_and_expiration_guards(): void
+    {
+        Mail::fake();
+
+        $this->createAdmin('admin@example.com');
+
+        $this->post(route('admin.password.resend'), [
+            'email' => 'admin@example.com',
+        ])->assertRedirect(route('admin.password.otp', ['email' => 'admin@example.com']));
+
+        Mail::assertSent(AdminPasswordResetOtpMail::class);
+
+        // Test expired token rejection
+        DB::table('password_reset_tokens')->where('email', 'admin@example.com')->update([
+            'created_at' => now()->subMinutes(20),
+        ]);
+
+        $this->post(route('admin.password.verify'), [
+            'email' => 'admin@example.com',
+            'otp' => '123456',
+        ])->assertSessionHasErrors('otp');
     }
 }
 

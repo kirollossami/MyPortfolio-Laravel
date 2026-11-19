@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CertificateController as AdminCertificateController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\KirobotEntryController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
@@ -62,6 +63,15 @@ Route::prefix('admin')->group(function () {
         Route::post('/setup', [SetupController::class, 'store'])->name('admin.setup.store');
         Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
+
+        // Admin Password Reset via Email OTP
+        Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
+        Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetOtp'])->name('admin.password.email');
+        Route::get('/verify-otp', [ForgotPasswordController::class, 'showVerifyOtpForm'])->name('admin.password.otp');
+        Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('admin.password.verify');
+        Route::post('/resend-otp', [ForgotPasswordController::class, 'resendOtp'])->name('admin.password.resend');
+        Route::get('/reset-password', [ForgotPasswordController::class, 'showResetForm'])->name('admin.password.reset');
+        Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('admin.password.update');
     });
 
     Route::middleware('auth')->name('admin.')->group(function () {
